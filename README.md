@@ -1,6 +1,12 @@
 # ElectronicTopTagger_CMS
 Code to implement electronic top tagger (arXiv: 1909.11041) in CMSSW
 
+cmsrel CMSSW_10_5_0
+
+cd CMSSW_10_5_0/src 
+
+copy "CMSSW_10_5_0/src/L5_Cor" directory here
+
 To compile the C++ code (EDAnalyzer), go to 
 
 CMSSW_10_5_0/src/L5_Cor/Data/plugins
