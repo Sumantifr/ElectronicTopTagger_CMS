@@ -1,0 +1,6 @@
+pluginL5_CorDataAuto.so Data CMS%EDM%Framework%Module
+pluginL5_CorDataAuto.so Data CMS%EDM%Framework%ParameterSet%Description
+pluginL5_CorDataAuto.so Leptop CMS%EDM%Framework%Module
+pluginL5_CorDataAuto.so Leptop CMS%EDM%Framework%ParameterSet%Description
+pluginL5_CorMCAuto.so MC CMS%EDM%Framework%Module
+pluginL5_CorMCAuto.so MC CMS%EDM%Framework%ParameterSet%Description

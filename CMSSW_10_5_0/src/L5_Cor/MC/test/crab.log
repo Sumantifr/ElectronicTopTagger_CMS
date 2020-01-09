@@ -1,0 +1,855 @@
+DEBUG 2019-11-12 13:49:38.382 UTC: 	 Running on: Linux lxplus764.cern.ch 3.10.0-1062.1.2.el7.x86_64 #1 SMP Mon Sep 30 14:19:46 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-12 13:49:38.399 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-12 13:49:38.399 UTC: 	 Executing command: 'submit'
+DEBUG 2019-11-12 13:49:38.399 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+DEBUG 2019-11-12 13:49:38.409 UTC: 	 Checking credentials
+DEBUG 2019-11-12 13:49:38.409 UTC: 	 Found proxy file /tmp/x509up_u81649
+DEBUG 2019-11-12 13:49:38.409 UTC: 	 Getting proxy life time left
+DEBUG 2019-11-12 13:49:39.215 UTC: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u81649 -timeleft
+ output : 677429
+
+ error: 
+ retcode : 0
+DEBUG 2019-11-12 13:49:39.923 UTC: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u81649 -actimeleft
+ output : 677429
+
+ error: 
+ retcode : 0
+DEBUG 2019-11-12 13:49:39.924 UTC: 	 Proxy valid for 188:10:29 hours
+INFO 2019-11-12 13:49:39.924 UTC: 	 Will use CRAB configuration file crabConfig_MC_JERCL5_DYJets_1J.py
+DEBUG 2019-11-12 13:49:39.924 UTC: 	 Loading CRAB configuration file.
+DEBUG 2019-11-12 13:49:42.718 UTC: 	 Will use CRAB Analysis plugin (i.e. will run an analysis job type).
+ERROR 2019-11-12 13:49:42.719 UTC: 	 Working area '/afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_DYJetsToLL_LowMass_Autumn18_JECV19_ext1v2/crab_crab_L5JERC_DYJetsToLL_LowMass_Autumn18_JECV19_ext1v2' already exists 
+Please change the requestName in the config file
+ERROR 2019-11-12 13:49:42.719 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/submit.py", line 34, in __init__
+    SubCommand.__init__(self, logger, cmdargs, disable_interspersed_args=True)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 323, in __init__
+    getattr(self.configuration.General, 'requestName', None))
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/ClientUtilities.py", line 413, in createWorkArea
+    raise ConfigException("Working area '%s' already exists \nPlease change the requestName in the config file" % fullpath)
+ConfigException: Working area '/afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_DYJetsToLL_LowMass_Autumn18_JECV19_ext1v2/crab_crab_L5JERC_DYJetsToLL_LowMass_Autumn18_JECV19_ext1v2' already exists 
+Please change the requestName in the config file
+DEBUG 2019-11-12 13:49:43.080 UTC: 	 Running on: Linux lxplus764.cern.ch 3.10.0-1062.1.2.el7.x86_64 #1 SMP Mon Sep 30 14:19:46 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-12 13:49:43.097 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-12 13:49:43.097 UTC: 	 Executing command: 'submit'
+DEBUG 2019-11-12 13:49:43.097 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+DEBUG 2019-11-12 13:49:43.106 UTC: 	 Checking credentials
+DEBUG 2019-11-12 13:49:43.106 UTC: 	 Found proxy file /tmp/x509up_u81649
+DEBUG 2019-11-12 13:49:43.106 UTC: 	 Getting proxy life time left
+DEBUG 2019-11-12 13:49:43.815 UTC: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u81649 -timeleft
+ output : 677425
+
+ error: 
+ retcode : 0
+DEBUG 2019-11-12 13:49:44.624 UTC: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u81649 -actimeleft
+ output : 677424
+
+ error: 
+ retcode : 0
+DEBUG 2019-11-12 13:49:44.624 UTC: 	 Proxy lifetime 677425 secs is different from voms extension lifetime 677424 secs for proxy: /tmp/x509up_u81649
+DEBUG 2019-11-12 13:49:44.625 UTC: 	 Proxy valid for 188:10:24 hours
+INFO 2019-11-12 13:49:44.625 UTC: 	 Will use CRAB configuration file crabConfig_MC_JERCL5_DYJets_2J.py
+DEBUG 2019-11-12 13:49:44.625 UTC: 	 Loading CRAB configuration file.
+DEBUG 2019-11-12 13:49:47.295 UTC: 	 Will use CRAB Analysis plugin (i.e. will run an analysis job type).
+ERROR 2019-11-12 13:49:47.295 UTC: 	 Working area '/afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_DYJetsToLL_LowMass_Autumn18_JECV19_ext1v2/crab_crab_L5JERC_DYJetsToLL_LowMass_Autumn18_JECV19_ext1v2' already exists 
+Please change the requestName in the config file
+ERROR 2019-11-12 13:49:47.295 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/submit.py", line 34, in __init__
+    SubCommand.__init__(self, logger, cmdargs, disable_interspersed_args=True)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 323, in __init__
+    getattr(self.configuration.General, 'requestName', None))
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/ClientUtilities.py", line 413, in createWorkArea
+    raise ConfigException("Working area '%s' already exists \nPlease change the requestName in the config file" % fullpath)
+ConfigException: Working area '/afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_DYJetsToLL_LowMass_Autumn18_JECV19_ext1v2/crab_crab_L5JERC_DYJetsToLL_LowMass_Autumn18_JECV19_ext1v2' already exists 
+Please change the requestName in the config file
+DEBUG 2019-11-12 18:07:25.521 UTC: 	 Running on: Linux lxplus764.cern.ch 3.10.0-1062.1.2.el7.x86_64 #1 SMP Mon Sep 30 14:19:46 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-12 18:07:25.548 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-12 18:07:25.548 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-12 18:07:25.551 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-12 18:07:25.604 UTC: 	 Cannot find .requestcache file in CRAB project directory /afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_DYJetsToLL_LowMass_Autumn18_JECV19_ext1v2
+ERROR 2019-11-12 18:07:25.605 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 598, in validateOptions
+    self.loadLocalCache()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 460, in loadLocalCache
+    raise ex
+CachefileNotFoundException: Cannot find .requestcache file in CRAB project directory /afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_DYJetsToLL_LowMass_Autumn18_JECV19_ext1v2
+DEBUG 2019-11-13 07:53:07.732 UTC: 	 Running on: Linux lxplus755.cern.ch 3.10.0-1062.1.1.el7.x86_64 #1 SMP Fri Sep 13 22:55:44 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-13 07:53:07.746 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-13 07:53:07.746 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-13 07:53:07.747 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-13 07:53:07.748 UTC: 	 Error: crab_L5JERC_TTBar_Had_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Had_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-13 07:53:07.748 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 594, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_TTBar_Had_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Had_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-13 07:53:12.236 UTC: 	 Running on: Linux lxplus755.cern.ch 3.10.0-1062.1.1.el7.x86_64 #1 SMP Fri Sep 13 22:55:44 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-13 07:53:12.251 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-13 07:53:12.251 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-13 07:53:12.251 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-13 07:53:12.252 UTC: 	 Error: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-13 07:53:12.252 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 594, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-13 07:53:12.589 UTC: 	 Running on: Linux lxplus755.cern.ch 3.10.0-1062.1.1.el7.x86_64 #1 SMP Fri Sep 13 22:55:44 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-13 07:53:12.602 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-13 07:53:12.603 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-13 07:53:12.603 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-13 07:53:12.604 UTC: 	 Error: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-13 07:53:12.604 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 594, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-13 08:18:00.787 UTC: 	 Running on: Linux lxplus755.cern.ch 3.10.0-1062.1.1.el7.x86_64 #1 SMP Fri Sep 13 22:55:44 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-13 08:18:00.802 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-13 08:18:00.802 UTC: 	 Executing command: 'resubmit'
+DEBUG 2019-11-13 08:18:00.803 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-13 08:18:00.803 UTC: 	 Error: crab_L5JERC_TTBar_Had_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Had_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-13 08:18:00.804 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/resubmit.py", line 28, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 594, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_TTBar_Had_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Had_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-13 08:18:09.698 UTC: 	 Running on: Linux lxplus755.cern.ch 3.10.0-1062.1.1.el7.x86_64 #1 SMP Fri Sep 13 22:55:44 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-13 08:18:09.713 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-13 08:18:09.713 UTC: 	 Executing command: 'resubmit'
+DEBUG 2019-11-13 08:18:09.713 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-13 08:18:09.714 UTC: 	 Error: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-13 08:18:09.715 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/resubmit.py", line 28, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 594, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-13 08:18:10.041 UTC: 	 Running on: Linux lxplus755.cern.ch 3.10.0-1062.1.1.el7.x86_64 #1 SMP Fri Sep 13 22:55:44 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-13 08:18:10.058 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-13 08:18:10.059 UTC: 	 Executing command: 'resubmit'
+DEBUG 2019-11-13 08:18:10.059 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-13 08:18:10.060 UTC: 	 Error: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-13 08:18:10.060 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/resubmit.py", line 28, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 594, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-13 13:10:37.576 UTC: 	 Running on: Linux lxplus755.cern.ch 3.10.0-1062.1.1.el7.x86_64 #1 SMP Fri Sep 13 22:55:44 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-13 13:10:37.592 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-13 13:10:37.593 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-13 13:10:37.593 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-13 13:10:37.594 UTC: 	 Error: crab_L5JERC_TTBar_Had_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Had_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-13 13:10:37.594 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 594, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_TTBar_Had_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Had_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-13 13:10:42.930 UTC: 	 Running on: Linux lxplus755.cern.ch 3.10.0-1062.1.1.el7.x86_64 #1 SMP Fri Sep 13 22:55:44 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-13 13:10:42.979 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-13 13:10:42.980 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-13 13:10:42.980 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-13 13:10:42.981 UTC: 	 Error: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-13 13:10:42.981 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 594, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-13 13:10:43.494 UTC: 	 Running on: Linux lxplus755.cern.ch 3.10.0-1062.1.1.el7.x86_64 #1 SMP Fri Sep 13 22:55:44 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-13 13:10:43.513 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-13 13:10:43.513 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-13 13:10:43.513 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-13 13:10:43.514 UTC: 	 Error: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-13 13:10:43.514 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 594, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-15 08:43:14.138 UTC: 	 Running on: Linux lxplus779.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-15 08:43:14.151 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-15 08:43:14.152 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-15 08:43:14.152 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-15 08:43:14.153 UTC: 	 Error: crab_L5JERC_TTBar_Had_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Had_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-15 08:43:14.153 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 594, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_TTBar_Had_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Had_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-15 08:43:19.074 UTC: 	 Running on: Linux lxplus779.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-15 08:43:19.088 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-15 08:43:19.088 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-15 08:43:19.089 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-15 08:43:19.090 UTC: 	 Error: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-15 08:43:19.090 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 594, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-15 08:43:19.388 UTC: 	 Running on: Linux lxplus779.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-15 08:43:19.403 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-15 08:43:19.404 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-15 08:43:19.404 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-15 08:43:19.405 UTC: 	 Error: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-15 08:43:19.405 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 594, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-15 08:47:54.751 UTC: 	 Running on: Linux lxplus779.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-15 08:47:54.767 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-15 08:47:54.768 UTC: 	 Executing command: 'resubmit'
+DEBUG 2019-11-15 08:47:54.768 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-15 08:47:54.769 UTC: 	 Error: crab_L5JERC_TTBar_Had_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Had_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-15 08:47:54.769 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/resubmit.py", line 28, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 594, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_TTBar_Had_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Had_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-15 08:48:03.335 UTC: 	 Running on: Linux lxplus779.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-15 08:48:03.349 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-15 08:48:03.349 UTC: 	 Executing command: 'resubmit'
+DEBUG 2019-11-15 08:48:03.350 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-15 08:48:03.351 UTC: 	 Error: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-15 08:48:03.351 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/resubmit.py", line 28, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 594, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-15 08:48:03.667 UTC: 	 Running on: Linux lxplus779.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-15 08:48:03.680 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-15 08:48:03.681 UTC: 	 Executing command: 'resubmit'
+DEBUG 2019-11-15 08:48:03.681 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-15 08:48:03.682 UTC: 	 Error: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-15 08:48:03.682 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/resubmit.py", line 28, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 276, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 594, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-17 06:49:24.652 UTC: 	 Running on: Linux lxplus779.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-17 06:49:24.665 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-17 06:49:24.665 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-17 06:49:24.665 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-17 06:49:24.666 UTC: 	 Error: crab_L5JERC_TTBar_Had_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Had_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-17 06:49:24.666 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 595, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_TTBar_Had_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Had_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-17 06:49:29.805 UTC: 	 Running on: Linux lxplus779.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-17 06:49:29.817 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-17 06:49:29.818 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-17 06:49:29.818 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-17 06:49:29.818 UTC: 	 Error: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-17 06:49:29.819 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 595, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-17 06:49:30.100 UTC: 	 Running on: Linux lxplus779.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-17 06:49:30.111 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-17 06:49:30.112 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-17 06:49:30.112 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-17 06:49:30.112 UTC: 	 Error: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-17 06:49:30.113 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 595, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-17 08:17:54.331 UTC: 	 Running on: Linux lxplus779.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-17 08:17:54.349 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-17 08:17:54.349 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-17 08:17:54.349 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-17 08:17:54.422 UTC: 	 Cannot find .requestcache file in CRAB project directory /afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_ST_s_channel_Autumn18_JECV19
+ERROR 2019-11-17 08:17:54.422 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 599, in validateOptions
+    self.loadLocalCache()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 461, in loadLocalCache
+    raise ex
+CachefileNotFoundException: Cannot find .requestcache file in CRAB project directory /afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_ST_s_channel_Autumn18_JECV19
+DEBUG 2019-11-17 08:20:04.239 UTC: 	 Running on: Linux lxplus779.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-17 08:20:04.255 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-17 08:20:04.256 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-17 08:20:04.256 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-17 08:20:04.257 UTC: 	 Cannot find .requestcache file in CRAB project directory /afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_ST_s_channel_Autumn18_JECV19
+ERROR 2019-11-17 08:20:04.257 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 599, in validateOptions
+    self.loadLocalCache()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 461, in loadLocalCache
+    raise ex
+CachefileNotFoundException: Cannot find .requestcache file in CRAB project directory /afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_ST_s_channel_Autumn18_JECV19
+DEBUG 2019-11-17 08:28:24.541 UTC: 	 Running on: Linux lxplus779.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-17 08:28:24.554 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-17 08:28:24.554 UTC: 	 Executing command: 'resubmit'
+DEBUG 2019-11-17 08:28:24.554 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-17 08:28:24.555 UTC: 	 Error: crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-17 08:28:24.556 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/resubmit.py", line 28, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 595, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-17 08:28:32.099 UTC: 	 Running on: Linux lxplus779.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-17 08:28:32.112 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-17 08:28:32.112 UTC: 	 Executing command: 'resubmit'
+DEBUG 2019-11-17 08:28:32.112 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-17 08:28:32.113 UTC: 	 Error: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-17 08:28:32.113 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/resubmit.py", line 28, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 595, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-17 08:28:32.375 UTC: 	 Running on: Linux lxplus779.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-17 08:28:32.387 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-17 08:28:32.387 UTC: 	 Executing command: 'resubmit'
+DEBUG 2019-11-17 08:28:32.388 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-17 08:28:32.388 UTC: 	 Error: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-17 08:28:32.388 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/resubmit.py", line 28, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 595, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-18 08:46:05.423 UTC: 	 Running on: Linux lxplus726.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-18 08:46:05.449 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-18 08:46:05.450 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-18 08:46:05.450 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-18 08:46:05.451 UTC: 	 Error: crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-18 08:46:05.451 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 595, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-18 08:46:13.714 UTC: 	 Running on: Linux lxplus726.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-18 08:46:13.729 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-18 08:46:13.730 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-18 08:46:13.730 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-18 08:46:13.731 UTC: 	 Error: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-18 08:46:13.731 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 595, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/crab_crab_L5JERC_ST_t-channel_top_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-18 08:46:14.616 UTC: 	 Running on: Linux lxplus726.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-18 08:46:14.684 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-18 08:46:14.684 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-18 08:46:14.684 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-18 08:46:14.686 UTC: 	 Error: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-18 08:46:14.686 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 595, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-18 08:52:00.357 UTC: 	 Running on: Linux lxplus726.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-18 08:52:00.382 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-18 08:52:00.383 UTC: 	 Executing command: 'resubmit'
+DEBUG 2019-11-18 08:52:00.383 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-18 08:52:00.384 UTC: 	 Error: crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-18 08:52:00.384 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/resubmit.py", line 28, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 595, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-18 08:52:15.075 UTC: 	 Running on: Linux lxplus726.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-18 08:52:15.096 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-18 08:52:15.096 UTC: 	 Executing command: 'resubmit'
+DEBUG 2019-11-18 08:52:15.097 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-18 08:52:15.098 UTC: 	 Error: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-18 08:52:15.098 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/resubmit.py", line 28, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 595, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-22 05:45:24.857 UTC: 	 Running on: Linux lxplus714.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-22 05:45:24.872 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-22 05:45:24.873 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-22 05:45:24.873 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-22 05:45:24.874 UTC: 	 Error: crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-22 05:45:24.874 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 595, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-22 05:45:30.008 UTC: 	 Running on: Linux lxplus714.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-22 05:45:30.022 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-22 05:45:30.023 UTC: 	 Executing command: 'status'
+DEBUG 2019-11-22 05:45:30.023 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-22 05:45:30.024 UTC: 	 Error: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-22 05:45:30.024 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 595, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-22 05:47:49.934 UTC: 	 Running on: Linux lxplus714.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-22 05:47:49.947 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-22 05:47:49.948 UTC: 	 Executing command: 'resubmit'
+DEBUG 2019-11-22 05:47:49.948 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-22 05:47:49.949 UTC: 	 Error: crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-22 05:47:49.949 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/resubmit.py", line 28, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 595, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/crab_crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-11-22 05:47:58.936 UTC: 	 Running on: Linux lxplus714.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-11-22 05:47:58.951 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-11-22 05:47:58.952 UTC: 	 Executing command: 'resubmit'
+DEBUG 2019-11-22 05:47:58.952 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-11-22 05:47:58.953 UTC: 	 Error: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+ERROR 2019-11-22 05:47:58.953 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/resubmit.py", line 28, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 595, in validateOptions
+    raise ConfigurationException(msg)
+ConfigurationException: [91mError[0m: crab_L5JERC_ST_s-channel_Autumn18_JECV19/crab_crab_L5JERC_ST_s-channel__Autumn18_JECV19/ is not a valid CRAB project directory.
+DEBUG 2019-12-13 07:20:50.590 UTC: 	 Running on: Linux lxplus779.cern.ch 3.10.0-1062.4.1.el7.x86_64 #1 SMP Fri Oct 18 17:15:30 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-12-13 07:20:50.621 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-12-13 07:20:50.621 UTC: 	 Executing command: 'status'
+DEBUG 2019-12-13 07:20:50.621 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-12-13 07:20:50.622 UTC: 	 Cannot find .requestcache file in CRAB project directory /afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19
+ERROR 2019-12-13 07:20:50.622 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 599, in validateOptions
+    self.loadLocalCache()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 461, in loadLocalCache
+    raise ex
+CachefileNotFoundException: Cannot find .requestcache file in CRAB project directory /afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_TTBar_Hadronic_Autumn18_JECV19
+DEBUG 2019-12-30 15:09:35.066 UTC: 	 Running on: Linux lxplus700.cern.ch 3.10.0-1062.7.1.el7.x86_64 #1 SMP Mon Dec 2 17:33:29 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-12-30 15:09:35.092 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-12-30 15:09:35.093 UTC: 	 Executing command: 'status'
+DEBUG 2019-12-30 15:09:35.095 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-12-30 15:09:35.098 UTC: 	 Cannot find .requestcache file in CRAB project directory /afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_ZprimetoTTBar_M2500_W25_Autumn18_JECV19
+ERROR 2019-12-30 15:09:35.099 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 599, in validateOptions
+    self.loadLocalCache()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 461, in loadLocalCache
+    raise ex
+CachefileNotFoundException: Cannot find .requestcache file in CRAB project directory /afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_ZprimetoTTBar_M2500_W25_Autumn18_JECV19
+DEBUG 2019-12-31 12:38:32.859 UTC: 	 Running on: Linux lxplus725.cern.ch 3.10.0-1062.7.1.el7.x86_64 #1 SMP Mon Dec 2 17:33:29 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2019-12-31 12:38:32.954 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2019-12-31 12:38:32.954 UTC: 	 Executing command: 'status'
+DEBUG 2019-12-31 12:38:32.955 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+ERROR 2019-12-31 12:38:32.988 UTC: 	 Cannot find .requestcache file in CRAB project directory /afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_ZprimetoTTBar_M2500_W25_Autumn18_JECV19
+ERROR 2019-12-31 12:38:32.988 UTC: 	 Caught exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 160, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/bin/crab", line 145, in __call__
+    self.cmd = sub_cmd(self.logger, args[1:])
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/status.py", line 40, in __init__
+    SubCommand.__init__(self, logger, cmdargs)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 277, in __init__
+    SubCommand.validateOptions(self)
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 599, in validateOptions
+    self.loadLocalCache()
+  File "/cvmfs/cms.cern.ch/crab3/slc6_amd64_gcc493/cms/crabclient/3.3.1911.patch1/lib/python2.7/site-packages/CRABClient/Commands/SubCommand.py", line 461, in loadLocalCache
+    raise ex
+CachefileNotFoundException: Cannot find .requestcache file in CRAB project directory /afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab_L5JERC_ZprimetoTTBar_M2500_W25_Autumn18_JECV19
+DEBUG 2020-01-09 08:56:01.363 UTC: 	 Running on: Linux lxplus700.cern.ch 3.10.0-1062.7.1.el7.x86_64 #1 SMP Mon Dec 2 17:33:29 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux - CentOS Linux 7 (Core)
+DEBUG 2020-01-09 08:56:01.391 UTC: 	 OpenSSl version: OpenSSL 1.0.2h  3 May 2016
+DEBUG 2020-01-09 08:56:01.392 UTC: 	 Executing command: 'checkwrite'
+DEBUG 2020-01-09 08:56:01.393 UTC: 	 Found CRAB cache file /afs/cern.ch/user/c/chatterj/.crab3
+DEBUG 2020-01-09 08:56:01.431 UTC: 	 Checking credentials
+DEBUG 2020-01-09 08:56:01.432 UTC: 	 Found proxy file /tmp/x509up_u81649
+DEBUG 2020-01-09 08:56:01.432 UTC: 	 Getting proxy life time left
+DEBUG 2020-01-09 08:56:02.240 UTC: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u81649 -timeleft
+ output : 35552
+
+ error: 
+ retcode : 0
+DEBUG 2020-01-09 08:56:02.850 UTC: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u81649 -actimeleft
+ output : 
+ error: No VOMS attributes found!
+
+ retcode : 1
+DEBUG 2020-01-09 08:56:02.850 UTC: 	 Proxy lifetime 35552 secs is different from voms extension lifetime 0 secs for proxy: /tmp/x509up_u81649
+DEBUG 2020-01-09 08:56:02.850 UTC: 	 Proxy valid for 00:00:00 hours
+DEBUG 2020-01-09 08:56:02.850 UTC: 	 Creating new proxy for 24:00 hours with VO group '' and VO role 'NULL'.
+DEBUG 2020-01-09 08:56:08.671 UTC: 	 Executing : 
+ command : voms-proxy-init -voms cms:/cms -valid 24:00 -rfc
+ output : None
+ error: None
+ retcode : 0
+DEBUG 2020-01-09 08:56:09.377 UTC: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u81649 -timeleft
+ output : 86398
+
+ error: 
+ retcode : 0
+DEBUG 2020-01-09 08:56:10.083 UTC: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u81649 -actimeleft
+ output : 86398
+
+ error: 
+ retcode : 0
+DEBUG 2020-01-09 08:56:10.788 UTC: 	 Executing : 
+ command : env X509_USER_PROXY=/tmp/x509up_u81649 voms-proxy-info -fqan
+ output : /cms/Role=NULL/Capability=NULL
+
+ error: 
+ retcode : 0
+DEBUG 2020-01-09 08:56:10.788 UTC: 	 Proxy created.
+DEBUG 2020-01-09 08:56:10.900 UTC: 	 Executing : 
+ command : openssl x509 -in ~/.globus/usercert.pem -subject -noout
+ output : subject= /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=chatterj/CN=773962/CN=Suman Chatterjee
+
+ error: 
+ retcode : 0
+DEBUG 2020-01-09 08:56:10.900 UTC: 	 Checking credentials
+DEBUG 2020-01-09 08:56:10.901 UTC: 	 Found proxy file /tmp/x509up_u81649
+DEBUG 2020-01-09 08:56:10.901 UTC: 	 Getting proxy life time left
+DEBUG 2020-01-09 08:56:11.612 UTC: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u81649 -timeleft
+ output : 86396
+
+ error: 
+ retcode : 0
+DEBUG 2020-01-09 08:56:12.318 UTC: 	 Executing : 
+ command : voms-proxy-info -file /tmp/x509up_u81649 -actimeleft
+ output : 86395
+
+ error: 
+ retcode : 0
+DEBUG 2020-01-09 08:56:12.318 UTC: 	 Proxy lifetime 86396 secs is different from voms extension lifetime 86395 secs for proxy: /tmp/x509up_u81649
+DEBUG 2020-01-09 08:56:12.318 UTC: 	 Proxy valid for 23:59:55 hours
+DEBUG 2020-01-09 08:56:13.024 UTC: 	 Executing : 
+ command : env X509_USER_PROXY=/tmp/x509up_u81649 voms-proxy-info -fqan
+ output : /cms/Role=NULL/Capability=NULL
+
+ error: 
+ retcode : 0
+DEBUG 2020-01-09 08:56:13.025 UTC: 	 Command use: checkwrite
+DEBUG 2020-01-09 08:56:13.025 UTC: 	 Options use: ['--site=T2_IN_TIFR']
+DEBUG 2020-01-09 08:56:13.025 UTC: 	 Instance is None
+DEBUG 2020-01-09 08:56:13.025 UTC: 	 Server base url is None
+INFO 2020-01-09 08:56:13.027 UTC: 	 Will check write permission in the default location /store/user/<username>
+INFO 2020-01-09 08:56:13.028 UTC: 	 Retrieving DN from proxy...
+INFO 2020-01-09 08:56:13.921 UTC: 	 DN is: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=chatterj/CN=773962/CN=Suman Chatterjee
+INFO 2020-01-09 08:56:13.922 UTC: 	 Retrieving username for this DN...
+DEBUG 2020-01-09 08:56:13.922 UTC: 	 Retrieving username from SiteDB...
+DEBUG 2020-01-09 08:56:18.665 UTC: 	 Username is: chatterj
+DEBUG 2020-01-09 08:56:18.665 UTC: 	 Retrieving username from CRIC...
+DEBUG 2020-01-09 08:56:22.073 UTC: 	 Username is: chatterj
+INFO 2020-01-09 08:56:22.073 UTC: 	 username is chatterj
+INFO 2020-01-09 08:56:22.073 UTC: 	 Validating LFN /store/user/chatterj...
+INFO 2020-01-09 08:56:22.073 UTC: 	 LFN /store/user/chatterj is valid.
+INFO 2020-01-09 08:56:22.086 UTC: 	 Will use `gfal-copy`, `gfal-rm` commands for checking write permissions
+INFO 2020-01-09 08:56:22.088 UTC: 	 Will check write permission in /store/user/chatterj on site T2_IN_TIFR
+INFO 2020-01-09 08:56:23.460 UTC: 	 
+Attempting to create (dummy) directory crab3checkwrite_20200109_095622 and copy (dummy) file crab3checkwrite_20200109_095622.tmp to /store/user/chatterj
+
+INFO 2020-01-09 08:56:23.464 UTC: 	 Executing command: which scram >/dev/null 2>&1 && eval `scram unsetenv -sh`; gfal-copy -p -v -t 180 file:///afs/cern.ch/work/c/chatterj/private/JERC_Task_SL7/CMSSW_10_5_0/src/L5_Cor/MC/test/crab3checkwrite_20200109_095622.tmp 'srm://se01.indiacms.res.in:8446/srm/managerv2?SFN=/dpm/indiacms.res.in/home/cms/store/user/chatterj/crab3checkwrite_20200109_095622/crab3checkwrite_20200109_095622.tmp'
+INFO 2020-01-09 08:56:23.465 UTC: 	 Please wait...
+INFO 2020-01-09 08:56:44.590 UTC: 	 
+Successfully created directory crab3checkwrite_20200109_095622 and copied file crab3checkwrite_20200109_095622.tmp to /store/user/chatterj
+INFO 2020-01-09 08:56:44.591 UTC: 	 
+Attempting to delete file srm://se01.indiacms.res.in:8446/srm/managerv2?SFN=/dpm/indiacms.res.in/home/cms/store/user/chatterj/crab3checkwrite_20200109_095622/crab3checkwrite_20200109_095622.tmp
+
+INFO 2020-01-09 08:56:44.591 UTC: 	 Executing command: which scram >/dev/null 2>&1 && eval `scram unsetenv -sh`; gfal-rm -v -t 180 'srm://se01.indiacms.res.in:8446/srm/managerv2?SFN=/dpm/indiacms.res.in/home/cms/store/user/chatterj/crab3checkwrite_20200109_095622/crab3checkwrite_20200109_095622.tmp'
+INFO 2020-01-09 08:56:44.591 UTC: 	 Please wait...
+INFO 2020-01-09 08:56:46.578 UTC: 	 
+Successfully deleted file srm://se01.indiacms.res.in:8446/srm/managerv2?SFN=/dpm/indiacms.res.in/home/cms/store/user/chatterj/crab3checkwrite_20200109_095622/crab3checkwrite_20200109_095622.tmp
+INFO 2020-01-09 08:56:46.578 UTC: 	 
+Attempting to delete directory srm://se01.indiacms.res.in:8446/srm/managerv2?SFN=/dpm/indiacms.res.in/home/cms/store/user/chatterj/crab3checkwrite_20200109_095622/
+
+INFO 2020-01-09 08:56:46.578 UTC: 	 Executing command: which scram >/dev/null 2>&1 && eval `scram unsetenv -sh`; gfal-rm -r -v -t 180 'srm://se01.indiacms.res.in:8446/srm/managerv2?SFN=/dpm/indiacms.res.in/home/cms/store/user/chatterj/crab3checkwrite_20200109_095622/'
+INFO 2020-01-09 08:56:46.578 UTC: 	 Please wait...
+INFO 2020-01-09 08:56:48.838 UTC: 	 
+Successfully deleted directory srm://se01.indiacms.res.in:8446/srm/managerv2?SFN=/dpm/indiacms.res.in/home/cms/store/user/chatterj/crab3checkwrite_20200109_095622/
+INFO 2020-01-09 08:56:48.881 UTC: 	 
+Checkwrite Result:
+INFO 2020-01-09 08:56:48.882 UTC: 	 Success: Able to write in /store/user/chatterj on site T2_IN_TIFR

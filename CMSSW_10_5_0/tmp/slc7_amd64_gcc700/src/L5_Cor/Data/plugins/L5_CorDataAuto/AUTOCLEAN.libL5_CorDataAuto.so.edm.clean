@@ -1,0 +1,2 @@
+01:/usr/bin/rm -f lib/slc7_amd64_gcc700/pluginL5_CorDataAuto.so lib/slc7_amd64_gcc700/L5_CorDataAuto.edmplugin
+90:edmPluginRefresh lib/slc7_amd64_gcc700
