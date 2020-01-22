@@ -1,8 +1,8 @@
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 config = config()
 
-config.General.requestName = 'crab_L5JERC_ST_s_channel_Autumn18_JECV19'
-config.General.workArea = 'crab_L5JERC_ST_s_channel_Autumn18_JECV19'
+config.General.requestName = 'crab_L5JERC_ST_s_channel_tlep_Autumn18_JECV19'
+config.General.workArea = 'crab_L5JERC_ST_s_channel_tlep_Autumn18_JECV19'
 config.General.transferOutputs = True
 config.General.transferLogs = True
 config.JobType.pluginName = 'Analysis'
