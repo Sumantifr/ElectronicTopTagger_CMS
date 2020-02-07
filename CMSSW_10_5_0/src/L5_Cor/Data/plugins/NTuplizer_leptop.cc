@@ -2165,15 +2165,28 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
 	 ngenparticles = 0;
 	
 	iEvent.getByToken(tok_genparticles_,genparticles);
-	
 	if(genparticles.isValid()){
+//		cout<<"# of gen particles "<<genparticles->size()<<endl;
 		for(unsigned ig=0; ig<(genparticles->size()); ig++){
-		
-		    if(((*genparticles)[ig].status()<0)||((*genparticles)[ig].status()<=20)||((*genparticles)[ig].status()>=25)) continue;
+/*
+			if( (abs((*genparticles)[ig].pdgId())>=1 && abs((*genparticles)[ig].pdgId())<=6 ) || (abs((*genparticles)[ig].pdgId())>=11 && abs((*genparticles)[ig].pdgId())<=16 )){
+			cout<<"PID "<<(*genparticles)[ig].pdgId()<<" status "<<(*genparticles)[ig].status()<<" from hardprocessfinalstate "<<(*genparticles)[ig].fromHardProcessFinalState()<<" promptfinalstate "<<(*genparticles)[ig].isPromptFinalState()<<endl;
+		}
+*/
+/*		    if((abs(((*genparticles)[ig].status())==23) || (*genparticles)[ig].status()==1) && ((*genparticles)[ig].isHardProcess()==1)){
+			cout<<"PID "<<(*genparticles)[ig].pdgId()<<" monId "<<((*genparticles)[ig].mother())->pdgId()<<" status "<<(*genparticles)[ig].status()<<endl;
+			}
+		    if(abs((*genparticles)[ig].status())==22 && ((*genparticles)[ig].isHardProcess()==1)){
+			cout<<"PID "<<(*genparticles)[ig].pdgId()<<" daughters "<<(*genparticles)[ig].numberOfDaughters()<<endl;
+			}
+*/	
+		    if(!(((*genparticles)[ig].status()==1)||((*genparticles)[ig].status()==22)||((*genparticles)[ig].status()==23))) continue;
 		    if(!((*genparticles)[ig].isHardProcess())) continue;
 		    
 		    if(!((abs((*genparticles)[ig].pdgId())>=1&&abs((*genparticles)[ig].pdgId())<=6)||(abs((*genparticles)[ig].pdgId())>=11&&abs((*genparticles)[ig].pdgId())<=16)||(abs((*genparticles)[ig].pdgId())==24))) continue;
 		    
+		    cout<<"PID "<<(*genparticles)[ig].pdgId()<<" monId "<<((*genparticles)[ig].mother())->pdgId()<<" status "<<(*genparticles)[ig].status()<<endl;
+
 		    const Candidate * mom = (*genparticles)[ig].mother();
 
 		    genpartstatus[ngenparticles] = (*genparticles)[ig].status();
