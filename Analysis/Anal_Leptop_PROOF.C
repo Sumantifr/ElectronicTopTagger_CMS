@@ -27,7 +27,7 @@
 #include <TH2.h>
 #include <TStyle.h>
 
-//#define TRAINING
+#define TRAINING
 
 void Anal_Leptop_PROOF::Begin(TTree * /*tree*/)
 {
@@ -507,74 +507,77 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   Tout6->Branch("DiLeptt",&DiLeptt,"DiLeptt/O");
   Tout6->Branch("SemiLeptt",&SemiLeptt,"SemiLeptt/O");
   Tout6->Branch("Hadtt",&Hadtt,"Hadtt/O");
+  Tout6->Branch("nleptop",&nleptop,"nleptop/I");
+  Tout6->Branch("PFMET",&PFMET,"PFMET/F");
   
-  Tout6->Branch("npfjetAK8",&npfjetAK8, "npfjetAK8/I"); 
-  Tout6->Branch("selpfjetAK8pt",selpfjetAK8pt,"selpfjetAK8pt[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8y",selpfjetAK8y,"selpfjetAK8y[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8phi",selpfjetAK8phi,"selpfjetAK8phi[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8mass",selpfjetAK8mass,"selpfjetAK8mass[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8btag_CMVA",selpfjetAK8btag_CMVA,"selpfjetAK8btag_CMVA[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8btag_CSV",selpfjetAK8btag_CSV,"selpfjetAK8btag_CSV[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8btag_DeepCSV",selpfjetAK8btag_DeepCSV,"selpfjetAK8btag_DeepCSV[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8matchAK4deepb",selpfjetAK8matchAK4deepb,"selpfjetAK8matchAK4deepb[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8DeepTag_TvsQCD",selpfjetAK8DeepTag_TvsQCD,"selpfjetAK8DeepTag_TvsQCD[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8DeepTag_WvsQCD",selpfjetAK8DeepTag_WvsQCD,"selpfjetAK8DeepTag_WvsQCD[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8DeepTag_ZvsQCD",selpfjetAK8DeepTag_ZvsQCD,"selpfjetAK8DeepTag_ZvsQCD[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8CHF",selpfjetAK8CHF,"selpfjetAK8CHF[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8NHF",selpfjetAK8NHF,"selpfjetAK8NHF[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8CEMF",selpfjetAK8CEMF,"selpfjetAK8CEMF[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8NEMF",selpfjetAK8NEMF,"selpfjetAK8NEMF[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8MUF",selpfjetAK8MUF,"selpfjetAK8MUF[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8HOF",selpfjetAK8HOF,"selpfjetAK8HOF[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8HadF",selpfjetAK8HadF,"selpfjetAK8HadF[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8NHadF",selpfjetAK8NHadF,"selpfjetAK8NHadF[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8EmF",selpfjetAK8EmF,"selpfjetAK8EmF[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8neuemfrac",selpfjetAK8neuemfrac,"selpfjetAK8neuemfrac[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8neunhadfrac",selpfjetAK8neunhadfrac,"selpfjetAK8neunhadfrac[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8CHM",selpfjetAK8CHM,"selpfjetAK8CHM[npfjetAK8]/I");
-  Tout6->Branch("selpfjetAK8NHM",selpfjetAK8NHM,"selpfjetAK8NHM[npfjetAK8]/I");
-  Tout6->Branch("selpfjetAK8CEMM",selpfjetAK8CEMM,"selpfjetAK8CEMM[npfjetAK8]/I");
-  Tout6->Branch("selpfjetAK8NEMM",selpfjetAK8NEMM,"selpfjetAK8NEMM[npfjetAK8]/I");
-  Tout6->Branch("selpfjetAK8MUM",selpfjetAK8MUM,"selpfjetAK8MUM[npfjetAK8]/I");
-  Tout6->Branch("selpfjetAK8Neucons",selpfjetAK8Neucons,"selpfjetAK8Neucons[npfjetAK8]/I");
-  Tout6->Branch("selpfjetAK8Chcons",selpfjetAK8Chcons,"selpfjetAK8Chcons[npfjetAK8]/I");
+  Tout6->Branch("npfjetAK8_all",&npfjetAK8_all, "npfjetAK8_all/I"); 
+  Tout6->Branch("selpfjetAK8pt",selpfjetAK8pt,"selpfjetAK8pt[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8y",selpfjetAK8y,"selpfjetAK8y[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8phi",selpfjetAK8phi,"selpfjetAK8phi[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8mass",selpfjetAK8mass,"selpfjetAK8mass[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8btag_CMVA",selpfjetAK8btag_CMVA,"selpfjetAK8btag_CMVA[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8btag_CSV",selpfjetAK8btag_CSV,"selpfjetAK8btag_CSV[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8btag_DeepCSV",selpfjetAK8btag_DeepCSV,"selpfjetAK8btag_DeepCSV[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8matchAK4deepb",selpfjetAK8matchAK4deepb,"selpfjetAK8matchAK4deepb[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8DeepTag_TvsQCD",selpfjetAK8DeepTag_TvsQCD,"selpfjetAK8DeepTag_TvsQCD[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8DeepTag_WvsQCD",selpfjetAK8DeepTag_WvsQCD,"selpfjetAK8DeepTag_WvsQCD[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8DeepTag_ZvsQCD",selpfjetAK8DeepTag_ZvsQCD,"selpfjetAK8DeepTag_ZvsQCD[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8CHF",selpfjetAK8CHF,"selpfjetAK8CHF[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8NHF",selpfjetAK8NHF,"selpfjetAK8NHF[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8CEMF",selpfjetAK8CEMF,"selpfjetAK8CEMF[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8NEMF",selpfjetAK8NEMF,"selpfjetAK8NEMF[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8MUF",selpfjetAK8MUF,"selpfjetAK8MUF[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8HOF",selpfjetAK8HOF,"selpfjetAK8HOF[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8HadF",selpfjetAK8HadF,"selpfjetAK8HadF[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8NHadF",selpfjetAK8NHadF,"selpfjetAK8NHadF[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8EmF",selpfjetAK8EmF,"selpfjetAK8EmF[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8neuemfrac",selpfjetAK8neuemfrac,"selpfjetAK8neuemfrac[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8neunhadfrac",selpfjetAK8neunhadfrac,"selpfjetAK8neunhadfrac[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8CHM",selpfjetAK8CHM,"selpfjetAK8CHM[npfjetAK8_all]/I");
+  Tout6->Branch("selpfjetAK8NHM",selpfjetAK8NHM,"selpfjetAK8NHM[npfjetAK8_all]/I");
+  Tout6->Branch("selpfjetAK8CEMM",selpfjetAK8CEMM,"selpfjetAK8CEMM[npfjetAK8_all]/I");
+  Tout6->Branch("selpfjetAK8NEMM",selpfjetAK8NEMM,"selpfjetAK8NEMM[npfjetAK8_all]/I");
+  Tout6->Branch("selpfjetAK8MUM",selpfjetAK8MUM,"selpfjetAK8MUM[npfjetAK8_all]/I");
+  Tout6->Branch("selpfjetAK8EEM",selpfjetAK8EEM,"selpfjetAK8EEM[npfjetAK8_all]/I");
+  Tout6->Branch("selpfjetAK8Neucons",selpfjetAK8Neucons,"selpfjetAK8Neucons[npfjetAK8_all]/I");
+  Tout6->Branch("selpfjetAK8Chcons",selpfjetAK8Chcons,"selpfjetAK8Chcons[npfjetAK8_all]/I");
   
-  Tout6->Branch("selpfjetAK8chrad",selpfjetAK8chrad,"selpfjetAK8chrad[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8pTD",selpfjetAK8pTD,"selpfjetAK8pTD[npfjetAK8]/F");
+  Tout6->Branch("selpfjetAK8chrad",selpfjetAK8chrad,"selpfjetAK8chrad[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8pTD",selpfjetAK8pTD,"selpfjetAK8pTD[npfjetAK8_all]/F");
   
-  Tout6->Branch("selpfjetAK8sdmass",selpfjetAK8sdmass,"selpfjetAK8sdmass[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8tau21",selpfjetAK8tau21,"selpfjetAK8tau21[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8tau32",selpfjetAK8tau32,"selpfjetAK8tau32[npfjetAK8]/F");
+  Tout6->Branch("selpfjetAK8sdmass",selpfjetAK8sdmass,"selpfjetAK8sdmass[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8tau21",selpfjetAK8tau21,"selpfjetAK8tau21[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8tau32",selpfjetAK8tau32,"selpfjetAK8tau32[npfjetAK8_all]/F");
   
-  Tout6->Branch("selpfjetAK8sub1mass",selpfjetAK8sub1mass,"selpfjetAK8sub1mass[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8sub1btag",selpfjetAK8sub1btag,"selpfjetAK8sub1btag[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8sub1hadfrac",selpfjetAK8sub1hadfrac,"selpfjetAK8sub1hadfrac[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8sub1emfrac",selpfjetAK8sub1emfrac,"selpfjetAK8sub1emfrac[npfjetAK8]/F");
+  Tout6->Branch("selpfjetAK8sub1mass",selpfjetAK8sub1mass,"selpfjetAK8sub1mass[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8sub1btag",selpfjetAK8sub1btag,"selpfjetAK8sub1btag[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8sub1hadfrac",selpfjetAK8sub1hadfrac,"selpfjetAK8sub1hadfrac[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8sub1emfrac",selpfjetAK8sub1emfrac,"selpfjetAK8sub1emfrac[npfjetAK8_all]/F");
   
-  Tout6->Branch("selpfjetAK8sub2mass",selpfjetAK8sub2mass,"selpfjetAK8sub2mass[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8sub2btag",selpfjetAK8sub2btag,"selpfjetAK8sub2btag[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8sub2hadfrac",selpfjetAK8sub2hadfrac,"selpfjetAK8sub2hadfrac[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8sub2emfrac",selpfjetAK8sub2emfrac,"selpfjetAK8sub2emfrac[npfjetAK8]/F");
+  Tout6->Branch("selpfjetAK8sub2mass",selpfjetAK8sub2mass,"selpfjetAK8sub2mass[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8sub2btag",selpfjetAK8sub2btag,"selpfjetAK8sub2btag[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8sub2hadfrac",selpfjetAK8sub2hadfrac,"selpfjetAK8sub2hadfrac[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8sub2emfrac",selpfjetAK8sub2emfrac,"selpfjetAK8sub2emfrac[npfjetAK8_all]/F");
   
-  Tout6->Branch("selpfjetAK8subbtag", pfjetAK8subbtag,"selpfjetAK8subbtag[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8subhaddiff",selpfjetAK8subhaddiff,"selpfjetAK8subhaddiff[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8subemdiff",selpfjetAK8subemdiff,"selpfjetAK8subemdiff[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8subptdiff",selpfjetAK8subptdiff,"selpfjetAK8subptdiff[npfjetAK8]/F");
+  Tout6->Branch("selpfjetAK8subbtag", pfjetAK8subbtag,"selpfjetAK8subbtag[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8subhaddiff",selpfjetAK8subhaddiff,"selpfjetAK8subhaddiff[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8subemdiff",selpfjetAK8subemdiff,"selpfjetAK8subemdiff[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8subptdiff",selpfjetAK8subptdiff,"selpfjetAK8subptdiff[npfjetAK8_all]/F");
   
-  Tout6->Branch("selpfjetAK8_bbyW_E", selpfjetAK8_bbyW_E,"selpfjetAK8_bbyW_E[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8_Kfactor", selpfjetAK8_Kfactor,"selpfjetAK8_Kfactor[npfjetAK8]/F");
-  Tout6->Branch("selpfjetAK8_Rnew", selpfjetAK8_Rnew,"selpfjetAK8_Rnew[npfjetAK8]/F");
+  Tout6->Branch("selpfjetAK8_bbyW_E", selpfjetAK8_bbyW_E,"selpfjetAK8_bbyW_E[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8_Kfactor", selpfjetAK8_Kfactor,"selpfjetAK8_Kfactor[npfjetAK8_all]/F");
+  Tout6->Branch("selpfjetAK8_Rnew", selpfjetAK8_Rnew,"selpfjetAK8_Rnew[npfjetAK8_all]/F");
   
-  Tout6->Branch("selpfjetAK8haselectron",selpfjetAK8haselectron,"selpfjetAK8haselectron[npfjetAK8]/O");
-  Tout6->Branch("selpfjetAK8hasmuon",selpfjetAK8hasmuon,"selpfjetAK8hasmuon[npfjetAK8]/O");
-  Tout6->Branch("selpfjetAK8hasqg",selpfjetAK8hasqg,"selpfjetAK8hasqg[npfjetAK8]/O");
-  Tout6->Branch("selpfjetAK8hasb",selpfjetAK8hasb,"selpfjetAK8hasb[npfjetAK8]/O");
-  Tout6->Branch("selpfjetAK8hashadtop",selpfjetAK8hashadtop,"selpfjetAK8hashadtop[npfjetAK8]/O");
-  Tout6->Branch("selpfjetAK8hasleptop",selpfjetAK8hasleptop,"selpfjetAK8hasleptop[npfjetAK8]/O");
-  Tout6->Branch("selpfjetAK8hastop",selpfjetAK8hastop,"selpfjetAK8hastop[npfjetAK8]/O");
+  Tout6->Branch("selpfjetAK8haselectron",selpfjetAK8haselectron,"selpfjetAK8haselectron[npfjetAK8_all]/O");
+  Tout6->Branch("selpfjetAK8hasmuon",selpfjetAK8hasmuon,"selpfjetAK8hasmuon[npfjetAK8_all]/O");
+  Tout6->Branch("selpfjetAK8hasqg",selpfjetAK8hasqg,"selpfjetAK8hasqg[npfjetAK8_all]/O");
+  Tout6->Branch("selpfjetAK8hasb",selpfjetAK8hasb,"selpfjetAK8hasb[npfjetAK8_all]/O");
+  Tout6->Branch("selpfjetAK8hashadtop",selpfjetAK8hashadtop,"selpfjetAK8hashadtop[npfjetAK8_all]/O");
+  Tout6->Branch("selpfjetAK8hasleptop",selpfjetAK8hasleptop,"selpfjetAK8hasleptop[npfjetAK8_all]/O");
+  Tout6->Branch("selpfjetAK8hastop",selpfjetAK8hastop,"selpfjetAK8hastop[npfjetAK8_all]/O");
   
-  Tout6->Branch("selpfjetAK8hashadtop_alldecay",selpfjetAK8hashadtop_alldecay,"selpfjetAK8hashadtop_alldecay[npfjetAK8]/O");
-  Tout6->Branch("selpfjetAK8hasleptop_alldecay",selpfjetAK8hasleptop_alldecay,"selpfjetAK8hasleptop_alldecay[npfjetAK8]/O");
+  Tout6->Branch("selpfjetAK8hashadtop_alldecay",selpfjetAK8hashadtop_alldecay,"selpfjetAK8hashadtop_alldecay[npfjetAK8_all]/O");
+  Tout6->Branch("selpfjetAK8hasleptop_alldecay",selpfjetAK8hasleptop_alldecay,"selpfjetAK8hasleptop_alldecay[npfjetAK8_all]/O");
   
   #endif
   
@@ -690,7 +693,37 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   sprintf(title,"Top p_{T} vs Min(#Delta R(t,j))");
   h2d_pt_dR_hadtop_Jet = new TH2D(name,title,noptbins,ptbins,75,0,1.57);
   h2d_pt_dR_hadtop_Jet->Sumw2();
-   
+  
+  sprintf(name,"Counter_event");
+  hist_event_count = new TH1D(name,title,2,-0.5,1.5);
+  hist_event_count->Sumw2();
+  
+  sprintf(name,"Counter_event_truthtop");
+  hist_event_count_truth = new TH1D(name,title,2,-0.5,1.5);
+  hist_event_count_truth->Sumw2();
+  
+  sprintf(name,"Counter_event_pass_re");
+  hist_event_top_pass = new TH1D(name,title,nre+1,-0.5,101.5);
+  hist_event_top_pass->Sumw2();
+  
+  reader1 = new TMVA::Reader( "BDTG_Re" );
+
+  reader1->AddVariable( "selpfjetAK8NHadF", &in_pfjetAK8NHadF);
+  reader1->AddVariable( "selpfjetAK8neunhadfrac", &in_pfjetAK8neunhadfrac);
+  reader1->AddVariable( "selpfjetAK8subhaddiff", &in_pfjetAK8subhaddiff);
+  reader1->AddVariable( "selpfjetAK8tau21", &in_pfjetAK8tau21);
+  reader1->AddVariable( "selpfjetAK8chrad", &in_pfjetAK8chrad);
+  reader1->AddVariable( "selpfjetAK8sdmass", &in_pfjetAK8sdmass);
+  
+  reader1->BookMVA("BDTG method", weightfile1);
+  
+  reader2 = new TMVA::Reader( "BDTG_Rnu" );
+  
+  reader2->AddVariable( "selpfjetAK8_bbyW_E", &in_pfjetAK8_bbyW_E);
+  reader2->AddVariable( "selpfjetAK8_Kfactor", &in_pfjetAK8_Kfactor);
+  
+  reader2->BookMVA("BDTG method", weightfile2);
+  
 }
 
 Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
@@ -724,6 +757,8 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
    int ngenmu = 0;
    int ngenqg = 0;
    int ngenb = 0;
+   
+   hist_event_count->Fill(1,weight);
    
    TLorentzVector leptop4v[2];
    TLorentzVector leptop4v_daught[3][2];
@@ -854,7 +889,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
    if(nleptop>0){
    
    for(int ilep=0; ilep<ndl; ilep++){
-	   if(!((abs(genpartpdg[top_dlp[ilep]])==11 || abs(genpartpdg[top_dlp[ilep]])==13 ) && genpartpair[top_dlp[ilep]]>=0)) continue;
+	   if(!((abs(genpartpdg[top_dlp[ilep]])==11 /*|| abs(genpartpdg[top_dlp[ilep]])==13*/ ) && genpartpair[top_dlp[ilep]]>=0)) continue;
 	
 	   for(int ib=0; ib<ndb; ib++){
 	
@@ -866,8 +901,6 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 				int jpar = genpartpair[top_dlp[ilep]];
 				TLorentzVector q2; q2.SetPtEtaPhiM(genpartpt[jpar],genparteta[jpar],genpartphi[jpar],genpartm[jpar]);
 				leptop4v[ileptop] = (b4+q1+q2);
-//				TString str = TString::Format("entry %lli pdg1 %i pdg2 %i pdg3 %i mom1 %i mom2 %i mom3 %i mass %0.2f\n",entry,genpartpdg[ipar],genpartpdg[jpar],genpartpdg[top_dbp[ib]],genpartmompdg[ipar],genpartmompdg[jpar],genpartmompdg[top_dbp[ib]],leptop4v[ileptop].M());
-//				if(gProofServ) gProofServ->SendAsynMessage(str);
 				leptop4v_daught[0][ileptop] = q1;
 				leptop4v_daught[1][ileptop] = q2;
 				leptop4v_daught[2][ileptop] = b4;
@@ -917,6 +950,9 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
    
 	}
 
+	nleptop = ileptop;
+	nhadtop = ihadtop;
+
 //   str = TString::Format("entry %lli ileptop %i ihadtop %i\n",entry,ileptop,ihadtop);
 //   if(gProofServ) gProofServ->SendAsynMessage(str);
  }//isMC
@@ -927,6 +963,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
    if(nleptop==1 && nhadtop==1) { SemiLeptt = true; }
    if(nleptop==0 && nhadtop==2) { Hadtt = true; }
    
+   if(nleptop>=1) { hist_event_count_truth->Fill(1,weight); }
    
 for(int ilep=0; ilep<nleptop; ilep++){
 	
@@ -1019,6 +1056,7 @@ for(int ihad=0; ihad<nhadtop; ihad++){
 	  pfjetAK8HadF[fjet] = (pfjetAK8NHF[fjet]+pfjetAK8CHF[fjet]);
 	  pfjetAK8NHadF[fjet] = (1.-pfjetAK8HadF[fjet]);
 	  pfjetAK8EmF[fjet] = (pfjetAK8NEMF[fjet]+pfjetAK8CEMF[fjet]);
+	  pfjetAK8EEM[fjet] = pfjetAK8EEM[ijet];
 	  pfjetAK8ncons[fjet] = pfjetAK8Chcons[ijet]+pfjetAK8Chcons[ijet];
 	  pfjetAK8Chcons[fjet] = pfjetAK8Chcons[ijet];
 	  pfjetAK8neuemfrac[fjet] = (pfjetAK8NEMF[fjet]*1./pfjetAK8EmF[fjet]);
@@ -1378,6 +1416,7 @@ if(isMC){
 	hist_npu->Fill(npu_vert,weight);
 }
 
+//PFMET = PFMET;
 
 for(int ijet=0; ijet< npfjetAK8; ijet++){
 	
@@ -1405,6 +1444,7 @@ for(int ijet=0; ijet< npfjetAK8; ijet++){
 	if(isnan(pfjetAK8EmF[ijet])) { pfjetAK8EmF[ijet] = -100; }
 	if(isnan(pfjetAK8neuemfrac[ijet])) { pfjetAK8neuemfrac[ijet] = -100; }
 	if(isnan(pfjetAK8neunhadfrac[ijet])) { pfjetAK8neunhadfrac[ijet] = -100; }
+	if(isnan(pfjetAK8EEM[ijet])) { pfjetAK8EEM[ijet] = -100; }
 	if(isnan(pfjetAK8chrad[ijet])) { pfjetAK8chrad[ijet] = -100; }
 	if(isnan(pfjetAK8pTD[ijet])) { pfjetAK8pTD[ijet] = -100; }
 	if(isnan(pfjetAK8sdmass[ijet])) { pfjetAK8sdmass[ijet] = -100; }
@@ -1437,34 +1477,24 @@ for(int ijet=0; ijet< npfjetAK8; ijet++){
 	if(isnan(pfjetAK8_bpt[ijet])) { pfjetAK8_bpt[ijet] = -100; }
 	if(isnan(pfjetAK8_nupt[ijet])) { pfjetAK8_nupt[ijet] = -100; }
 	
-	std::vector<Float_t> ReVar;
     Float_t Re(-100);
     
-    #ifndef TRAINING
-    
-	ReVar.push_back(pfjetAK8NHadF[ijet]);
-	ReVar.push_back(pfjetAK8neunhadfrac[ijet]);
-	ReVar.push_back(pfjetAK8subhaddiff[ijet]);
-	ReVar.push_back(pfjetAK8tau21[ijet]);
-	ReVar.push_back(pfjetAK8chrad[ijet]);
-	ReVar.push_back(pfjetAK8sdmass[ijet]);
-	Re = AK8_Re_Calc(ReVar);
+	in_pfjetAK8NHadF = pfjetAK8NHadF[ijet];
+	in_pfjetAK8neunhadfrac = pfjetAK8neunhadfrac[ijet];
+	in_pfjetAK8subhaddiff = pfjetAK8subhaddiff[ijet];
+	in_pfjetAK8tau21 = pfjetAK8tau21[ijet];
+	in_pfjetAK8chrad = pfjetAK8chrad[ijet];
+	in_pfjetAK8sdmass = pfjetAK8sdmass[ijet];
 	
-	#endif
-	
+	Re = reader1->EvaluateMVA("BDTG method");
 	pfjetAK8re_tvsb[ijet] = Re;
-
-	std::vector<Float_t> RnuVar;
+	
+	in_pfjetAK8_bbyW_E = pfjetAK8_bbyW_E[ijet];
+	in_pfjetAK8_Kfactor = pfjetAK8_Kfactor[ijet];
+	
     Float_t Rnu(-100);
 	
-	#ifndef TRAINING
-	
-	RnuVar.push_back(pfjetAK8_bbyW_E[ijet]);
-	RnuVar.push_back(pfjetAK8_Kfactor[ijet]);
-	Rnu = AK8_Rnu_Calc(RnuVar);  
-	
-	#endif
-	
+	Rnu = reader2->EvaluateMVA("BDTG method");
     pfjetAK8rnu_tvsb[ijet] = Rnu;
 	
 	bool te_cond = false;
@@ -1807,6 +1837,22 @@ hist_6[46]->Fill(pfjetAK8rnu_tvsb[t_cand],weight);
 h2d_re_rnu_6->Fill(pfjetAK8re_tvsb[t_cand],pfjetAK8rnu_tvsb[t_cand],weight);
 
 Tout->Fill();
+
+double dRmax = -100;
+
+for(int ijet=0; ijet< npfjetAK8; ijet++){
+	if(pfjetAK8re_tvsb[ijet] > dRmax){
+		dRmax = pfjetAK8re_tvsb[ijet];
+		}
+}
+
+if(nleptop>=1) { 
+	for(int ire=0; ire<(nre+1); ire++){
+		if(dRmax >= (-1.+ ire*2/nre)){
+			hist_event_top_pass->Fill(1*(ire+1),weight); 
+		}
+	}
+}
 
 #ifdef TRAINING
 
@@ -2246,6 +2292,7 @@ for(int ijet=0; ijet< npfjetAK8; ijet++){
 	selpfjetAK8NHM[iseljet] = pfjetAK8NHM[ijet];
 	selpfjetAK8CEMM[iseljet] = pfjetAK8CEMM[ijet];
 	selpfjetAK8NEMM[iseljet] =  pfjetAK8NEMM[ijet];
+	selpfjetAK8EEM[iseljet] = pfjetAK8EEM[ijet];
 	selpfjetAK8MUM[iseljet] = pfjetAK8MUM[ijet];
 	selpfjetAK8Neucons[iseljet] = pfjetAK8Neucons[ijet];
 	selpfjetAK8Chcons[iseljet] = pfjetAK8Chcons[ijet] ;
@@ -2285,6 +2332,7 @@ for(int ijet=0; ijet< npfjetAK8; ijet++){
 	if(iseljet>=njetmxAK8) break;
 }
 	npfjetAK8_all = iseljet;
+	
 	Tout6->Fill();	
 
 #endif

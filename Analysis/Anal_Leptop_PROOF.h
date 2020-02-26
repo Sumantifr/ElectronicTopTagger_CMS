@@ -35,6 +35,9 @@
 #include <iostream>
 #include <map>
 #include <string>
+
+#include "TFile.h"
+#include "TTree.h"
 #include "TString.h"
 #include "TSystem.h"
 #include "TROOT.h"
@@ -44,58 +47,12 @@
 #include "TMVA/Reader.h"
 #include "TMVA/MethodCuts.h"
 
+
 using namespace TMVA;
 
 // Header file for the classes stored in the TTree if any.
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
-
-Float_t AK8_Re_Calc(std::vector<Float_t>& Reinput) {
-//  TMVA::Tools::Instance();
-
-  TMVA::Reader *reader1 = new TMVA::Reader( "!Color:!Silent" );
-  
-//  TString test = TString::Format("size %zu Reinput %f  %f %f %f %f %f\n", Reinput.size(), Reinput[0], Reinput[1], Reinput[2], Reinput[3], Reinput[4], Reinput[5]);
-//  if(gProofServ) gProofServ->SendAsynMessage(test);
-
-  reader1->AddVariable( "selpfjetAK8NHadF", &Reinput[0]);
-  reader1->AddVariable( "selpfjetAK8neunhadfrac", &Reinput[1]);
-  reader1->AddVariable( "selpfjetAK8subhaddiff", &Reinput[2]);
-  reader1->AddVariable( "selpfjetAK8tau21", &Reinput[3]);
-  reader1->AddVariable( "selpfjetAK8chrad", &Reinput[4]);
-  reader1->AddVariable( "selpfjetAK8sdmass", &Reinput[5]);
-
-  TString dir = "/home/chatterj/t3store/Leptop/CMSSW_10_5_0/src/BDTG_Weights/";
-  TString weightfile1 = dir + TString("TMVAClassification_BDTG_re.weights.xml");
-  reader1->BookMVA("BDTG method", weightfile1);
-  Float_t BDTG_score;
-  BDTG_score = reader1->EvaluateMVA("BDTG method");
-
-//  TString testb = TString::Format("BDTG_score %f\n", BDTG_score);
-//  if(gProofServ) gProofServ->SendAsynMessage(testb);
-
-  return BDTG_score;
-}
-
-Float_t  AK8_Rnu_Calc(std::vector<Float_t>& Rnuinput) {
-
-  TMVA::Reader *reader2 = new TMVA::Reader( "!Color:!Silent" );
-
-  reader2->AddVariable( "selpfjetAK8_bbyW_E", &Rnuinput[0]);
-  reader2->AddVariable( "selpfjetAK8_Kfactor", &Rnuinput[1]);
-
-  TString dir = "/home/chatterj/t3store/Leptop/CMSSW_10_5_0/src/BDTG_Weights/";
-  TString weightfile2 = dir + TString("TMVAClassification_BDTG_rnu.weights.xml");
-  reader2->BookMVA("BDTG method", weightfile2);
-  Float_t BDTG_score;
-  BDTG_score = reader2->EvaluateMVA("BDTG method");
-
-  //TString testb = TString::Format("BDTG_score %f in .h file\n", BDTG_score);
-  //if(gProofServ) gProofServ->SendAsynMessage(testb);
-
-  return BDTG_score;
-}
-
 
 int getbinid(double val, int nbmx, float* array) {
   if (val<array[0]) return -2;
@@ -817,7 +774,7 @@ public :
  float selpfjetAK8btag_CMVA[njetmxAK8], selpfjetAK8btag_CSV[njetmxAK8], selpfjetAK8btag_DeepCSV[njetmxAK8], selpfjetAK8matchAK4deepb[njetmxAK8];
  float selpfjetAK8DeepTag_TvsQCD[njetmxAK8], selpfjetAK8DeepTag_WvsQCD[njetmxAK8], selpfjetAK8DeepTag_ZvsQCD[njetmxAK8];
  float selpfjetAK8CHF[njetmxAK8], selpfjetAK8NHF[njetmxAK8], selpfjetAK8CEMF[njetmxAK8], selpfjetAK8NEMF[njetmxAK8], selpfjetAK8MUF[njetmxAK8], selpfjetAK8HOF[njetmxAK8], selpfjetAK8HadF[njetmxAK8], selpfjetAK8NHadF[njetmxAK8], selpfjetAK8EmF[njetmxAK8], selpfjetAK8neuemfrac[njetmxAK8], selpfjetAK8neunhadfrac[njetmxAK8];
- int selpfjetAK8CHM[njetmxAK8], selpfjetAK8NHM[njetmxAK8], selpfjetAK8CEMM[njetmxAK8], selpfjetAK8NEMM[njetmxAK8], selpfjetAK8MUM[njetmxAK8], selpfjetAK8Neucons[njetmxAK8], selpfjetAK8Chcons[njetmxAK8];
+ int selpfjetAK8CHM[njetmxAK8], selpfjetAK8NHM[njetmxAK8], selpfjetAK8CEMM[njetmxAK8], selpfjetAK8EEM[njetmxAK8], selpfjetAK8NEMM[njetmxAK8], selpfjetAK8MUM[njetmxAK8], selpfjetAK8Neucons[njetmxAK8], selpfjetAK8Chcons[njetmxAK8];
  float selpfjetAK8chrad[njetmxAK8], selpfjetAK8pTD[njetmxAK8], selpfjetAK8sdmass[njetmxAK8], selpfjetAK8tau21[njetmxAK8], selpfjetAK8tau32[njetmxAK8];
  float selpfjetAK8sub1mass[njetmxAK8], selpfjetAK8sub1btag[njetmxAK8], selpfjetAK8sub1hadfrac[njetmxAK8], selpfjetAK8sub1emfrac[njetmxAK8];
  float selpfjetAK8sub2mass[njetmxAK8], selpfjetAK8sub2btag[njetmxAK8], selpfjetAK8sub2hadfrac[njetmxAK8], selpfjetAK8sub2emfrac[njetmxAK8];
@@ -900,6 +857,8 @@ public :
      507, 548, 592, 638, 686, 737, 790, 846, 905, 967,
      1032, 1101, 1172, 1248, 1327, 1410, 1497, 1588, 1684, 1784, 1890, 2000, 2116, 2238, 2366, 2500, 2640, 2787, 2941, 3103};
   
+  static const int nre = 100;
+  
   TProofOutputFile *OutFile;
   TFile *fileOut;
    
@@ -928,13 +887,34 @@ public :
   TH2D *h2d_pt_dR_hadtop_Jet,	*h2d_pt_dR_leptop_Jet;
   TH2D *h2d_pt_qt_had,	*h2d_pt_qt_lep;
   
+  TH1D *hist_event_count;
+  TH1D *hist_event_count_truth;
+  TH1D *hist_event_top_pass;
+  
   TH2D *h2d_re_rnu_1;
   TH2D *h2d_re_rnu_2;
   TH2D *h2d_re_rnu_3;
   TH2D *h2d_re_rnu_4;
   TH2D *h2d_re_rnu_5;
   TH2D *h2d_re_rnu_6;
+  
+  float in_pfjetAK8NHadF;
+  float in_pfjetAK8neunhadfrac;
+  float in_pfjetAK8subhaddiff;
+  float in_pfjetAK8tau21;
+  float in_pfjetAK8chrad;
+  float in_pfjetAK8sdmass;
+  
+  float in_pfjetAK8_bbyW_E;
+  float in_pfjetAK8_Kfactor;
+  
+  TMVA::Reader *reader1;
+  TMVA::Reader *reader2;
 
+  TString dir = "/home/chatterj/t3store/Leptop/CMSSW_10_5_0/src/BDTG_Weights/";
+  TString weightfile1 = dir + TString("TMVAClassification_BDTG_re.weights.xml");
+  TString weightfile2 = dir + TString("TMVAClassification_BDTG_rnu.weights.xml");
+  
   float ptcut = 400;
 
    Anal_Leptop_PROOF(TTree * /*tree*/ =0) : fChain(0) { }
