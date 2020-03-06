@@ -170,6 +170,7 @@ public :
    Float_t         pfjetAK8btag_DeepCSV[njetmxAK8];
    Float_t         pfjetAK8btag_DeepFlav[njetmxAK8];
    Float_t 		   pfjetAK8matchAK4deepb[njetmxAK8];
+   Float_t 		   pfjetAK8matchAK4deepCSVb[njetmxAK8];
    Float_t         pfjetAK8DeepTag_TvsQCD[njetmxAK8];
    Float_t         pfjetAK8DeepTag_WvsQCD[njetmxAK8];
    Float_t         pfjetAK8DeepTag_ZvsQCD[njetmxAK8];
@@ -449,6 +450,9 @@ public :
    Float_t         elpfiso[njetmx];
    Float_t         elconvdist[njetmx];
    Float_t         elconvdoct[njetmx];
+   Float_t         elrelpT[njetmx];
+   Bool_t		   el2diso[njetmx];
+   Int_t		   elpairj[njetmx];
    Int_t           nphotons;
    Float_t         phoe[njetmx];
    Float_t         phoeta[njetmx];
@@ -771,7 +775,7 @@ public :
    TBranch        *b_phoietaieta;   //!
    
  float selpfjetAK8pt[njetmxAK8], selpfjetAK8y[njetmxAK8], selpfjetAK8phi[njetmxAK8], selpfjetAK8mass[njetmxAK8];
- float selpfjetAK8btag_CMVA[njetmxAK8], selpfjetAK8btag_CSV[njetmxAK8], selpfjetAK8btag_DeepCSV[njetmxAK8], selpfjetAK8matchAK4deepb[njetmxAK8];
+ float selpfjetAK8btag_CMVA[njetmxAK8], selpfjetAK8btag_CSV[njetmxAK8], selpfjetAK8btag_DeepCSV[njetmxAK8], selpfjetAK8matchAK4deepb[njetmxAK8], selpfjetAK8matchAK4deepCSVb[njetmxAK8];
  float selpfjetAK8DeepTag_TvsQCD[njetmxAK8], selpfjetAK8DeepTag_WvsQCD[njetmxAK8], selpfjetAK8DeepTag_ZvsQCD[njetmxAK8];
  float selpfjetAK8CHF[njetmxAK8], selpfjetAK8NHF[njetmxAK8], selpfjetAK8CEMF[njetmxAK8], selpfjetAK8NEMF[njetmxAK8], selpfjetAK8MUF[njetmxAK8], selpfjetAK8HOF[njetmxAK8], selpfjetAK8HadF[njetmxAK8], selpfjetAK8NHadF[njetmxAK8], selpfjetAK8EmF[njetmxAK8], selpfjetAK8neuemfrac[njetmxAK8], selpfjetAK8neunhadfrac[njetmxAK8];
  int selpfjetAK8CHM[njetmxAK8], selpfjetAK8NHM[njetmxAK8], selpfjetAK8CEMM[njetmxAK8], selpfjetAK8EEM[njetmxAK8], selpfjetAK8NEMM[njetmxAK8], selpfjetAK8MUM[njetmxAK8], selpfjetAK8Neucons[njetmxAK8], selpfjetAK8Chcons[njetmxAK8];
@@ -784,6 +788,9 @@ public :
  bool pfjetAK8hashadtop_alldecay[njetmxAK8],pfjetAK8hasleptop_alldecay[njetmxAK8];
  bool selpfjetAK8hashadtop_alldecay[njetmxAK8],selpfjetAK8hasleptop_alldecay[njetmxAK8];
  float selpfjetAK8re_tvsb[njetmxAK8], selpfjetAK8rnu_tvsb[njetmxAK8];
+ 
+ int nselec;
+ float selelrelpT[njetmxAK8], selelnearjdR[njetmxAK8];
  
  int npfjetAK8_thad;
  int npfjetAK8_te;
@@ -859,6 +866,7 @@ public :
   
   static const int nre = 100;
   
+  
   TProofOutputFile *OutFile;
   TFile *fileOut;
    
@@ -869,6 +877,8 @@ public :
   TTree *Tout4 ;
   TTree *Tout5 ;
   TTree *Tout6 ;
+  
+  TTree *Tout_el ;
   
   TH1D *hist_1[nhist];
   TH1D *hist_2[nhist];
@@ -897,6 +907,12 @@ public :
   TH2D *h2d_re_rnu_4;
   TH2D *h2d_re_rnu_5;
   TH2D *h2d_re_rnu_6;
+  
+  TH1D *h_el_2diso;
+  TH1D *h_el_relpt;
+  TH1D *h_closebjet;
+  TH1D *h_closebjet_dRp8;
+  TH1D *hist_nelec;
   
   float in_pfjetAK8NHadF;
   float in_pfjetAK8neunhadfrac;
