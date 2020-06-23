@@ -1034,6 +1034,8 @@ class Anal_Leptop_PROOF : public TSelector {
  int obs_nbins[nobshist] = {25,25,25,25,25,25,25,25,25,20,25,25,20,20};
  
  TH1D *hist_obs[nobshist] ;
+ TH1D *hist_obs_1[nobshist] ;
+ TH1D *hist_obs_2[nobshist] ;
   
   static const int noptbins = 32;
   double ptbins[noptbins+1] = {395, 430, 468,
@@ -1042,6 +1044,7 @@ class Anal_Leptop_PROOF : public TSelector {
   
   float DAK8_topcut = 0.470 ;//1% mistag rate (0.920 // 0.1% mistag) (0.802 // 1% mistag )
   float deep_btag_cut = 0.2770; //medium (0.7264 //tight)
+  float re_cut = 0.5;
   
   static const int nre = 100;
   

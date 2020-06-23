@@ -27,8 +27,8 @@
 #include <TH2.h>
 #include <TStyle.h>
 
-//#define E_MU_TTBar
-#define E_Jets_TTBar
+#define E_MU_TTBar
+//#define E_Jets_TTBar
 
 #define TRAINING
 
@@ -543,6 +543,8 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   Tout5->Branch("selpfjetAK8hasleptop",selpfjetAK8hasleptop,"selpfjetAK8hasleptop[npfjetAK8_b]/O");
   Tout5->Branch("selpfjetAK8hastop",selpfjetAK8hastop,"selpfjetAK8hastop[npfjetAK8_b]/O");
   
+   #endif
+  
   Tout6 = new TTree("inclusive","inclusive");
   Tout6->Branch("event_pt_weight",&event_pt_weight,"event_pt_weight/F");
   Tout6->Branch("weight",&weight,"weight/F");
@@ -630,8 +632,7 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   Tout6->Branch("selpfjetAK8hastop",selpfjetAK8hastop,"selpfjetAK8hastop[npfjetAK8_all]/O");
   Tout6->Branch("selpfjetAK8hashadtop_alldecay",selpfjetAK8hashadtop_alldecay,"selpfjetAK8hashadtop_alldecay[npfjetAK8_all]/O");
   Tout6->Branch("selpfjetAK8hasleptop_alldecay",selpfjetAK8hasleptop_alldecay,"selpfjetAK8hasleptop_alldecay[npfjetAK8_all]/O");
-  
-  #endif
+ 
   
   helinidiso = new TH1D("elinidiso","elinidiso", 4, 0.0, 4.0);
   hreelinidiso = new TH1D("hreelinidiso", "hreelinidiso", 4, 0.0, 4.0);
@@ -676,6 +677,14 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
 	  sprintf(name,"Obs_%s",obsnames[ihist]);
 	  hist_obs[ihist] = new TH1D(name,name,obs_nbins[ihist],obs_low[ihist],obs_up[ihist]);
 	  hist_obs[ihist]->Sumw2();
+	  
+	  sprintf(name,"Obs_%s_pass",obsnames[ihist]);
+	  hist_obs_1[ihist] = new TH1D(name,name,obs_nbins[ihist],obs_low[ihist],obs_up[ihist]);
+	  hist_obs_1[ihist]->Sumw2();
+	  
+	  sprintf(name,"Obs_%s_fail",obsnames[ihist]);
+	  hist_obs_2[ihist] = new TH1D(name,name,obs_nbins[ihist],obs_low[ihist],obs_up[ihist]);
+	  hist_obs_2[ihist]->Sumw2();
 	  
 	  }
   
@@ -1492,6 +1501,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   if(!itrig_pass) return kFALSE;
   
   if(!(nmuons==1)) return kFALSE;
+  if(npfjetAK8<1) return kFALSE;
   
   #endif
   
@@ -2173,6 +2183,11 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 	  }
 		
   #endif
+ /* 
+  #if !defined(E_Jets_TTBar) && !defined(E_MU_TTBar) 
+  if(npfjetAK8>0){ telcand = 0; }
+  #endif
+ */  
   
   // object assignment ends //
 
@@ -2192,6 +2207,42 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 	  hist_obs[11]->Fill(pfjetAK8_Kfactor[telcand],weight);
 	  hist_obs[12]->Fill(pfjetAK8re_tvsb[telcand],weight);
 	  hist_obs[13]->Fill(pfjetAK8rnu_tvsb[telcand],weight);
+	  
+	  if(pfjetAK8re_tvsb[telcand] > re_cut){
+		  
+		  hist_obs_1[0]->Fill(pfjetAK8pt[telcand],weight);
+		  hist_obs_1[1]->Fill(pfjetAK8y[telcand],weight);
+		  hist_obs_1[2]->Fill(pfjetAK8mass[telcand],weight);
+		  hist_obs_1[3]->Fill(pfjetAK8NHadF[telcand],weight);
+		  hist_obs_1[4]->Fill(pfjetAK8neunhadfrac[telcand],weight);
+		  hist_obs_1[5]->Fill(pfjetAK8sdmass[telcand],weight);
+		  hist_obs_1[6]->Fill(pfjetAK8chrad[telcand],weight);
+		  hist_obs_1[7]->Fill(pfjetAK8subhaddiff[telcand],weight);
+		  hist_obs_1[8]->Fill(pfjetAK8tau21[telcand],weight);
+		  hist_obs_1[9]->Fill(pfjetAK8DeepTag_TvsQCD[telcand],weight);
+		  hist_obs_1[10]->Fill(pfjetAK8_bbyW_E[telcand],weight);
+		  hist_obs_1[11]->Fill(pfjetAK8_Kfactor[telcand],weight);
+		  hist_obs_1[12]->Fill(pfjetAK8re_tvsb[telcand],weight);
+		  hist_obs_1[13]->Fill(pfjetAK8rnu_tvsb[telcand],weight);
+		  
+		  }else{
+			  
+			  hist_obs_2[0]->Fill(pfjetAK8pt[telcand],weight);
+			  hist_obs_2[1]->Fill(pfjetAK8y[telcand],weight);
+			  hist_obs_2[2]->Fill(pfjetAK8mass[telcand],weight);
+			  hist_obs_2[3]->Fill(pfjetAK8NHadF[telcand],weight);
+			  hist_obs_2[4]->Fill(pfjetAK8neunhadfrac[telcand],weight);
+			  hist_obs_2[5]->Fill(pfjetAK8sdmass[telcand],weight);
+			  hist_obs_2[6]->Fill(pfjetAK8chrad[telcand],weight);
+			  hist_obs_2[7]->Fill(pfjetAK8subhaddiff[telcand],weight);
+			  hist_obs_2[8]->Fill(pfjetAK8tau21[telcand],weight);
+			  hist_obs_2[9]->Fill(pfjetAK8DeepTag_TvsQCD[telcand],weight);
+			  hist_obs_2[10]->Fill(pfjetAK8_bbyW_E[telcand],weight);
+			  hist_obs_2[11]->Fill(pfjetAK8_Kfactor[telcand],weight);
+			  hist_obs_2[12]->Fill(pfjetAK8re_tvsb[telcand],weight);
+			  hist_obs_2[13]->Fill(pfjetAK8rnu_tvsb[telcand],weight);
+			  
+			  }
 	  
 	  }
   
