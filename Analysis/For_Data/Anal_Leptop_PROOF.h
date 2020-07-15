@@ -114,6 +114,837 @@ if(muonpfiso<0.15) { isoid = true; } //SR
 return isoid;
 }
 
+
+double BTag_SF(int flavor, string syst, double pt){
+
+// scale factors taken from the csv file in : https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation102X (for medium WP)
+
+double x = pt;
+if(x>1000) { x = 1000; }
+
+if(syst ==  "noSyst") {
+	if(abs(flavor)==5||abs(flavor)==4){
+        if (pt >= 20  && pt < 1000) return (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))));
+     }else{
+			if (pt >= 20  && pt < 1000) return 0.949449+0.000516201*x+7.13398e-08*x*x+-3.55644e-10*x*x*x;
+		  }
+}
+
+if(syst ==  "down") {
+	
+	if(abs(flavor)==5){
+		if(pt >= 20  && pt < 30) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.19459584355354309) );
+		if(pt >= 30  && pt < 50) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.04693598672747612) );
+		if(pt >= 50  && pt < 70) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.041476961225271225) );
+		if(pt >= 70  && pt < 100) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.037213429808616638) );
+		if(pt >= 100  && pt < 140) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.033781636506319046) );
+		if(pt >= 140  && pt < 200) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.035268638283014297) );
+		if(pt >= 200  && pt < 300) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.043516248464584351) );
+		if(pt >= 300  && pt < 600) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.10369165241718292) );
+		if(pt >= 600  && pt < 1000) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.29925653338432312) );
+	}
+	if(abs(flavor)==4){
+		if(pt >= 20  && pt < 30) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.064865283668041229) );
+		if(pt >= 30  && pt < 50) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.015645328909158707) );
+		if(pt >= 50  && pt < 70) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.013825654052197933) );
+		if(pt >= 70  && pt < 100) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.012404476292431355) );
+		if(pt >= 100  && pt < 140) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.011260545812547207) );
+		if(pt >= 140  && pt < 200) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.011756212450563908) );
+		if(pt >= 200  && pt < 300) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.01450541615486145) );
+		if(pt >= 300  && pt < 600) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.034563884139060974) );
+		if(pt >= 600  && pt < 1000) return ( 1.0097+((-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18))))))))-0.099752180278301239) );
+	}
+	if(abs(flavor)!=5 && abs(flavor)!=4){
+		if (pt >= 20  && pt < 1000) return ( (1.59373+-0.00113028*x+8.66631e-07*x*x+-1.10505/x)*(1-(0.142253+0.000227323*x+-2.71704e-07*x*x)) );
+	}
+	
+}
+
+if(syst ==  "up") {
+	
+	if(abs(flavor)==5){
+		if(pt >= 20  && pt < 30) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.19459584355354309 );
+		if(pt >= 30  && pt < 50) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.04693598672747612 );
+		if(pt >= 50  && pt < 70) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.041476961225271225 );
+		if(pt >= 70  && pt < 100) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.037213429808616638 );
+		if(pt >= 100  && pt < 140) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.033781636506319046 );
+		if(pt >= 140  && pt < 200) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.035268638283014297 );
+		if(pt >= 200  && pt < 300) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.043516248464584351 );
+		if(pt >= 300  && pt < 600) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.10369165241718292 );
+		if(pt >= 600  && pt < 1000) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.29925653338432312 );
+	}
+	if(abs(flavor)==4){
+		if(pt >= 20  && pt < 30) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.064865283668041229 );
+		if(pt >= 30  && pt < 50) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.015645328909158707 );
+		if(pt >= 50  && pt < 70) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.013825654052197933 );
+		if(pt >= 70  && pt < 100) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.012404476292431355 );
+		if(pt >= 100  && pt < 140) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.011260545812547207 );
+		if(pt >= 140  && pt < 200) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.011756212450563908 );
+		if(pt >= 200  && pt < 300) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.01450541615486145 );
+		if(pt >= 300  && pt < 600) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.034563884139060974 );
+		if(pt >= 600  && pt < 1000) return ( (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))))+0.099752180278301239 );
+	}
+	if(abs(flavor)!=5 && abs(flavor)!=4){
+		if (pt >= 20  && pt < 1000) return ( (1.59373+-0.00113028*x+8.66631e-07*x*x+-1.10505/x)*(1+(0.115686+0.000270835*x+-3.2078e-07*x*x)) );
+	}
+	
+}
+
+return 1.0;
+
+}
+
+double BTag_MCEfficiency_TT(int flavor, double pt, double eta){
+
+if(flavor==5) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.816517 ; 
+		if(pt>=50 && pt<70) return 0.842834 ; 
+		if(pt>=70 && pt<100) return 0.855092 ; 
+		if(pt>=100 && pt<140) return 0.861484 ; 
+		if(pt>=140 && pt<200) return 0.864907 ; 
+		if(pt>=200 && pt<300) return 0.860499 ; 
+		if(pt>=300 && pt<600) return 0.841221 ; 
+		if(pt>=600 && pt<10000) return 0.794771 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.799168 ; 
+		if(pt>=50 && pt<70) return 0.827512 ; 
+		if(pt>=70 && pt<100) return 0.841101 ; 
+		if(pt>=100 && pt<140) return 0.848418 ; 
+		if(pt>=140 && pt<200) return 0.852231 ; 
+		if(pt>=200 && pt<300) return 0.84615 ; 
+		if(pt>=300 && pt<600) return 0.823063 ; 
+		if(pt>=600 && pt<10000) return 0.765142 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.739489 ; 
+		if(pt>=50 && pt<70) return 0.770812 ; 
+		if(pt>=70 && pt<100) return 0.784899 ; 
+		if(pt>=100 && pt<140) return 0.793595 ; 
+		if(pt>=140 && pt<200) return 0.800014 ; 
+		if(pt>=200 && pt<300) return 0.791883 ; 
+		if(pt>=300 && pt<600) return 0.761082 ; 
+		if(pt>=600 && pt<10000) return 0.693082 ; 
+	}
+}
+
+if(flavor==4) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.186714 ; 
+		if(pt>=50 && pt<70) return 0.160875 ; 
+		if(pt>=70 && pt<100) return 0.152947 ; 
+		if(pt>=100 && pt<140) return 0.151804 ; 
+		if(pt>=140 && pt<200) return 0.158477 ; 
+		if(pt>=200 && pt<300) return 0.179461 ; 
+		if(pt>=300 && pt<600) return 0.220294 ; 
+		if(pt>=600 && pt<10000) return 0.238481 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.184478 ; 
+		if(pt>=50 && pt<70) return 0.162409 ; 
+		if(pt>=70 && pt<100) return 0.155749 ; 
+		if(pt>=100 && pt<140) return 0.154941 ; 
+		if(pt>=140 && pt<200) return 0.161089 ; 
+		if(pt>=200 && pt<300) return 0.179591 ; 
+		if(pt>=300 && pt<600) return 0.213557 ; 
+		if(pt>=600 && pt<10000) return 0.225232 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.175049 ; 
+		if(pt>=50 && pt<70) return 0.155982 ; 
+		if(pt>=70 && pt<100) return 0.148945 ; 
+		if(pt>=100 && pt<140) return 0.148611 ; 
+		if(pt>=140 && pt<200) return 0.157628 ; 
+		if(pt>=200 && pt<300) return 0.17258 ; 
+		if(pt>=300 && pt<600) return 0.198044 ; 
+		if(pt>=600 && pt<10000) return 0.213212 ; 
+	}
+}
+
+if(flavor!=5 && flavor!=4) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.016934 ; 
+		if(pt>=50 && pt<70) return 0.00924123 ; 
+		if(pt>=70 && pt<100) return 0.00748564 ; 
+		if(pt>=100 && pt<140) return 0.0069227 ; 
+		if(pt>=140 && pt<200) return 0.00732266 ; 
+		if(pt>=200 && pt<300) return 0.00898066 ; 
+		if(pt>=300 && pt<600) return 0.0149634 ; 
+		if(pt>=600 && pt<10000) return 0.0302075 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.0180451 ; 
+		if(pt>=50 && pt<70) return 0.0102217 ; 
+		if(pt>=70 && pt<100) return 0.00832923 ; 
+		if(pt>=100 && pt<140) return 0.00770286 ; 
+		if(pt>=140 && pt<200) return 0.00802331 ; 
+		if(pt>=200 && pt<300) return 0.00966405 ; 
+		if(pt>=300 && pt<600) return 0.0159261 ; 
+		if(pt>=600 && pt<10000) return 0.0340812 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.0240714 ; 
+		if(pt>=50 && pt<70) return 0.0142675 ; 
+		if(pt>=70 && pt<100) return 0.0119286 ; 
+		if(pt>=100 && pt<140) return 0.0116722 ; 
+		if(pt>=140 && pt<200) return 0.0132621 ; 
+		if(pt>=200 && pt<300) return 0.0177477 ; 
+		if(pt>=300 && pt<600) return 0.0306986 ; 
+		if(pt>=600 && pt<10000) return 0.0619629 ; 
+	}
+}
+
+
+return 1.0;
+
+}
+
+
+double BTag_MCEfficiency_ST(int flavor, double pt, double eta){
+
+if(flavor==5) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.808507 ; 
+		if(pt>=50 && pt<70) return 0.842147 ; 
+		if(pt>=70 && pt<100) return 0.857556 ; 
+		if(pt>=100 && pt<140) return 0.863114 ; 
+		if(pt>=140 && pt<200) return 0.86546 ; 
+		if(pt>=200 && pt<300) return 0.867303 ; 
+		if(pt>=300 && pt<600) return 0.852594 ; 
+		if(pt>=600 && pt<10000) return 0.795692 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.790807 ; 
+		if(pt>=50 && pt<70) return 0.826757 ; 
+		if(pt>=70 && pt<100) return 0.843925 ; 
+		if(pt>=100 && pt<140) return 0.850409 ; 
+		if(pt>=140 && pt<200) return 0.854573 ; 
+		if(pt>=200 && pt<300) return 0.854686 ; 
+		if(pt>=300 && pt<600) return 0.834977 ; 
+		if(pt>=600 && pt<10000) return 0.763769 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.725811 ; 
+		if(pt>=50 && pt<70) return 0.765861 ; 
+		if(pt>=70 && pt<100) return 0.786233 ; 
+		if(pt>=100 && pt<140) return 0.79589 ; 
+		if(pt>=140 && pt<200) return 0.798712 ; 
+		if(pt>=200 && pt<300) return 0.794785 ; 
+		if(pt>=300 && pt<600) return 0.772344 ; 
+		if(pt>=600 && pt<10000) return 0.690087 ; 
+	}
+}
+
+if(flavor==4) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.17957 ; 
+		if(pt>=50 && pt<70) return 0.154237 ; 
+		if(pt>=70 && pt<100) return 0.147169 ; 
+		if(pt>=100 && pt<140) return 0.147091 ; 
+		if(pt>=140 && pt<200) return 0.152557 ; 
+		if(pt>=200 && pt<300) return 0.167154 ; 
+		if(pt>=300 && pt<600) return 0.217309 ; 
+		if(pt>=600 && pt<10000) return 0.236696 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.177132 ; 
+		if(pt>=50 && pt<70) return 0.156133 ; 
+		if(pt>=70 && pt<100) return 0.149773 ; 
+		if(pt>=100 && pt<140) return 0.150236 ; 
+		if(pt>=140 && pt<200) return 0.154026 ; 
+		if(pt>=200 && pt<300) return 0.173306 ; 
+		if(pt>=300 && pt<600) return 0.210182 ; 
+		if(pt>=600 && pt<10000) return 0.245206 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.168265 ; 
+		if(pt>=50 && pt<70) return 0.150387 ; 
+		if(pt>=70 && pt<100) return 0.143042 ; 
+		if(pt>=100 && pt<140) return 0.142441 ; 
+		if(pt>=140 && pt<200) return 0.150273 ; 
+		if(pt>=200 && pt<300) return 0.159623 ; 
+		if(pt>=300 && pt<600) return 0.186812 ; 
+		if(pt>=600 && pt<10000) return 0.245013 ; 
+	}
+}
+
+if(flavor!=5 && flavor!=4) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.0189811 ; 
+		if(pt>=50 && pt<70) return 0.00925074 ; 
+		if(pt>=70 && pt<100) return 0.00743353 ; 
+		if(pt>=100 && pt<140) return 0.00695717 ; 
+		if(pt>=140 && pt<200) return 0.00722728 ; 
+		if(pt>=200 && pt<300) return 0.00901535 ; 
+		if(pt>=300 && pt<600) return 0.0169166 ; 
+		if(pt>=600 && pt<10000) return 0.0329311 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.0200871 ; 
+		if(pt>=50 && pt<70) return 0.0102896 ; 
+		if(pt>=70 && pt<100) return 0.00807831 ; 
+		if(pt>=100 && pt<140) return 0.00764342 ; 
+		if(pt>=140 && pt<200) return 0.00821108 ; 
+		if(pt>=200 && pt<300) return 0.00976979 ; 
+		if(pt>=300 && pt<600) return 0.0159442 ; 
+		if(pt>=600 && pt<10000) return 0.0330585 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.0260421 ; 
+		if(pt>=50 && pt<70) return 0.014171 ; 
+		if(pt>=70 && pt<100) return 0.011781 ; 
+		if(pt>=100 && pt<140) return 0.0119679 ; 
+		if(pt>=140 && pt<200) return 0.0143276 ; 
+		if(pt>=200 && pt<300) return 0.0193145 ; 
+		if(pt>=300 && pt<600) return 0.0306877 ; 
+		if(pt>=600 && pt<10000) return 0.0618204 ; 
+	}
+}
+	
+	
+return 1.0;	
+}
+
+double BTag_MCEfficiency_DIB(int flavor, double pt, double eta){
+
+if(flavor==5) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.804116 ; 
+		if(pt>=50 && pt<70) return 0.833425 ; 
+		if(pt>=70 && pt<100) return 0.845986 ; 
+		if(pt>=100 && pt<140) return 0.85206 ; 
+		if(pt>=140 && pt<200) return 0.853713 ; 
+		if(pt>=200 && pt<300) return 0.85249 ; 
+		if(pt>=300 && pt<600) return 0.8764 ; 
+		if(pt>=600 && pt<10000) return 0.915479 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.785403 ; 
+		if(pt>=50 && pt<70) return 0.821003 ; 
+		if(pt>=70 && pt<100) return 0.831992 ; 
+		if(pt>=100 && pt<140) return 0.839383 ; 
+		if(pt>=140 && pt<200) return 0.838345 ; 
+		if(pt>=200 && pt<300) return 0.835367 ; 
+		if(pt>=300 && pt<600) return 0.849568 ; 
+		if(pt>=600 && pt<10000) return 0.901798 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.716813 ; 
+		if(pt>=50 && pt<70) return 0.756991 ; 
+		if(pt>=70 && pt<100) return 0.772715 ; 
+		if(pt>=100 && pt<140) return 0.781882 ; 
+		if(pt>=140 && pt<200) return 0.791533 ; 
+		if(pt>=200 && pt<300) return 0.790272 ; 
+		if(pt>=300 && pt<600) return 0.793086 ; 
+		if(pt>=600 && pt<10000) return 0.893946 ; 
+	}
+}
+
+if(flavor==4) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.181339 ; 
+		if(pt>=50 && pt<70) return 0.157787 ; 
+		if(pt>=70 && pt<100) return 0.149497 ; 
+		if(pt>=100 && pt<140) return 0.147983 ; 
+		if(pt>=140 && pt<200) return 0.151851 ; 
+		if(pt>=200 && pt<300) return 0.178893 ; 
+		if(pt>=300 && pt<600) return 0.232613 ; 
+		if(pt>=600 && pt<10000) return 0.250121 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.178676 ; 
+		if(pt>=50 && pt<70) return 0.158658 ; 
+		if(pt>=70 && pt<100) return 0.152222 ; 
+		if(pt>=100 && pt<140) return 0.146962 ; 
+		if(pt>=140 && pt<200) return 0.158739 ; 
+		if(pt>=200 && pt<300) return 0.178602 ; 
+		if(pt>=300 && pt<600) return 0.214291 ; 
+		if(pt>=600 && pt<10000) return 0.250597 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.169733 ; 
+		if(pt>=50 && pt<70) return 0.152602 ; 
+		if(pt>=70 && pt<100) return 0.144413 ; 
+		if(pt>=100 && pt<140) return 0.14245 ; 
+		if(pt>=140 && pt<200) return 0.151063 ; 
+		if(pt>=200 && pt<300) return 0.16838 ; 
+		if(pt>=300 && pt<600) return 0.217661 ; 
+		if(pt>=600 && pt<10000) return 0.277058 ; 
+	}
+}
+
+if(flavor!=5 && flavor!=4) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.014781 ; 
+		if(pt>=50 && pt<70) return 0.00782419 ; 
+		if(pt>=70 && pt<100) return 0.00667191 ; 
+		if(pt>=100 && pt<140) return 0.00635735 ; 
+		if(pt>=140 && pt<200) return 0.00633714 ; 
+		if(pt>=200 && pt<300) return 0.00891228 ; 
+		if(pt>=300 && pt<600) return 0.015369 ; 
+		if(pt>=600 && pt<10000) return 0.0337295 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.0157996 ; 
+		if(pt>=50 && pt<70) return 0.00873308 ; 
+		if(pt>=70 && pt<100) return 0.00731909 ; 
+		if(pt>=100 && pt<140) return 0.00710014 ; 
+		if(pt>=140 && pt<200) return 0.00770687 ; 
+		if(pt>=200 && pt<300) return 0.00908425 ; 
+		if(pt>=300 && pt<600) return 0.0164606 ; 
+		if(pt>=600 && pt<10000) return 0.0318129 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.022855 ; 
+		if(pt>=50 && pt<70) return 0.0131073 ; 
+		if(pt>=70 && pt<100) return 0.0110448 ; 
+		if(pt>=100 && pt<140) return 0.0109769 ; 
+		if(pt>=140 && pt<200) return 0.0126815 ; 
+		if(pt>=200 && pt<300) return 0.0165187 ; 
+		if(pt>=300 && pt<600) return 0.0303801 ; 
+		if(pt>=600 && pt<10000) return 0.0459584 ; 
+	}
+}
+
+	
+return 1.0;	
+}
+
+double BTag_MCEfficiency_WJ(int flavor, double pt, double eta){
+
+if(flavor==5) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.773179 ; 
+		if(pt>=50 && pt<70) return 0.802888 ; 
+		if(pt>=70 && pt<100) return 0.811475 ; 
+		if(pt>=100 && pt<140) return 0.810867 ; 
+		if(pt>=140 && pt<200) return 0.815031 ; 
+		if(pt>=200 && pt<300) return 0.817471 ; 
+		if(pt>=300 && pt<600) return 0.817811 ; 
+		if(pt>=600 && pt<10000) return 0.800319 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.755851 ; 
+		if(pt>=50 && pt<70) return 0.782044 ; 
+		if(pt>=70 && pt<100) return 0.791109 ; 
+		if(pt>=100 && pt<140) return 0.791923 ; 
+		if(pt>=140 && pt<200) return 0.793282 ; 
+		if(pt>=200 && pt<300) return 0.799978 ; 
+		if(pt>=300 && pt<600) return 0.793994 ; 
+		if(pt>=600 && pt<10000) return 0.775056 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.700553 ; 
+		if(pt>=50 && pt<70) return 0.73214 ; 
+		if(pt>=70 && pt<100) return 0.734361 ; 
+		if(pt>=100 && pt<140) return 0.732253 ; 
+		if(pt>=140 && pt<200) return 0.73254 ; 
+		if(pt>=200 && pt<300) return 0.732826 ; 
+		if(pt>=300 && pt<600) return 0.723183 ; 
+		if(pt>=600 && pt<10000) return 0.701779 ; 
+	}
+}
+
+if(flavor==4) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.182172 ; 
+		if(pt>=50 && pt<70) return 0.165362 ; 
+		if(pt>=70 && pt<100) return 0.16155 ; 
+		if(pt>=100 && pt<140) return 0.15973 ; 
+		if(pt>=140 && pt<200) return 0.165449 ; 
+		if(pt>=200 && pt<300) return 0.18322 ; 
+		if(pt>=300 && pt<600) return 0.208985 ; 
+		if(pt>=600 && pt<10000) return 0.232441 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.178307 ; 
+		if(pt>=50 && pt<70) return 0.163694 ; 
+		if(pt>=70 && pt<100) return 0.160277 ; 
+		if(pt>=100 && pt<140) return 0.160435 ; 
+		if(pt>=140 && pt<200) return 0.164053 ; 
+		if(pt>=200 && pt<300) return 0.179322 ; 
+		if(pt>=300 && pt<600) return 0.199861 ; 
+		if(pt>=600 && pt<10000) return 0.216861 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.163093 ; 
+		if(pt>=50 && pt<70) return 0.149782 ; 
+		if(pt>=70 && pt<100) return 0.144074 ; 
+		if(pt>=100 && pt<140) return 0.14598 ; 
+		if(pt>=140 && pt<200) return 0.154604 ; 
+		if(pt>=200 && pt<300) return 0.167698 ; 
+		if(pt>=300 && pt<600) return 0.179704 ; 
+		if(pt>=600 && pt<10000) return 0.202716 ; 
+	}
+}
+
+if(flavor!=5 && flavor!=4) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.0211166 ; 
+		if(pt>=50 && pt<70) return 0.0117541 ; 
+		if(pt>=70 && pt<100) return 0.00898972 ; 
+		if(pt>=100 && pt<140) return 0.00772426 ; 
+		if(pt>=140 && pt<200) return 0.0076329 ; 
+		if(pt>=200 && pt<300) return 0.00867429 ; 
+		if(pt>=300 && pt<600) return 0.0138477 ; 
+		if(pt>=600 && pt<10000) return 0.0314047 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.0231075 ; 
+		if(pt>=50 && pt<70) return 0.0133186 ; 
+		if(pt>=70 && pt<100) return 0.0101603 ; 
+		if(pt>=100 && pt<140) return 0.0088122 ; 
+		if(pt>=140 && pt<200) return 0.00866231 ; 
+		if(pt>=200 && pt<300) return 0.00976423 ; 
+		if(pt>=300 && pt<600) return 0.0145544 ; 
+		if(pt>=600 && pt<10000) return 0.0338159 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.0326849 ; 
+		if(pt>=50 && pt<70) return 0.0182817 ; 
+		if(pt>=70 && pt<100) return 0.0140935 ; 
+		if(pt>=100 && pt<140) return 0.0135605 ; 
+		if(pt>=140 && pt<200) return 0.0155933 ; 
+		if(pt>=200 && pt<300) return 0.0189553 ; 
+		if(pt>=300 && pt<600) return 0.028047 ; 
+		if(pt>=600 && pt<10000) return 0.0582431 ; 
+	}
+}
+
+return 1.0;
+
+}
+
+double BTag_MCEfficiency_DY(int flavor, double pt, double eta){
+
+if(flavor==5) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.773204 ; 
+		if(pt>=50 && pt<70) return 0.804343 ; 
+		if(pt>=70 && pt<100) return 0.816013 ; 
+		if(pt>=100 && pt<140) return 0.826033 ; 
+		if(pt>=140 && pt<200) return 0.834742 ; 
+		if(pt>=200 && pt<300) return 0.842605 ; 
+		if(pt>=300 && pt<600) return 0.83394 ; 
+		if(pt>=600 && pt<10000) return 0.80125 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.762663 ; 
+		if(pt>=50 && pt<70) return 0.78978 ; 
+		if(pt>=70 && pt<100) return 0.800517 ; 
+		if(pt>=100 && pt<140) return 0.808844 ; 
+		if(pt>=140 && pt<200) return 0.821501 ; 
+		if(pt>=200 && pt<300) return 0.824157 ; 
+		if(pt>=300 && pt<600) return 0.812596 ; 
+		if(pt>=600 && pt<10000) return 0.76391 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.705352 ; 
+		if(pt>=50 && pt<70) return 0.73545 ; 
+		if(pt>=70 && pt<100) return 0.737149 ; 
+		if(pt>=100 && pt<140) return 0.748329 ; 
+		if(pt>=140 && pt<200) return 0.757617 ; 
+		if(pt>=200 && pt<300) return 0.758913 ; 
+		if(pt>=300 && pt<600) return 0.741301 ; 
+		if(pt>=600 && pt<10000) return 0.69709 ; 
+	}
+}
+
+if(flavor==4) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.180718 ; 
+		if(pt>=50 && pt<70) return 0.165395 ; 
+		if(pt>=70 && pt<100) return 0.161978 ; 
+		if(pt>=100 && pt<140) return 0.162888 ; 
+		if(pt>=140 && pt<200) return 0.169717 ; 
+		if(pt>=200 && pt<300) return 0.188192 ; 
+		if(pt>=300 && pt<600) return 0.21083 ; 
+		if(pt>=600 && pt<10000) return 0.227585 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.176288 ; 
+		if(pt>=50 && pt<70) return 0.160393 ; 
+		if(pt>=70 && pt<100) return 0.158328 ; 
+		if(pt>=100 && pt<140) return 0.161196 ; 
+		if(pt>=140 && pt<200) return 0.168502 ; 
+		if(pt>=200 && pt<300) return 0.182771 ; 
+		if(pt>=300 && pt<600) return 0.199411 ; 
+		if(pt>=600 && pt<10000) return 0.216308 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.160878 ; 
+		if(pt>=50 && pt<70) return 0.144542 ; 
+		if(pt>=70 && pt<100) return 0.139217 ; 
+		if(pt>=100 && pt<140) return 0.142293 ; 
+		if(pt>=140 && pt<200) return 0.15166 ; 
+		if(pt>=200 && pt<300) return 0.164528 ; 
+		if(pt>=300 && pt<600) return 0.178783 ; 
+		if(pt>=600 && pt<10000) return 0.197509 ; 
+	}
+}
+
+if(flavor!=5 && flavor!=4) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.0287349 ; 
+		if(pt>=50 && pt<70) return 0.0156881 ; 
+		if(pt>=70 && pt<100) return 0.0113781 ; 
+		if(pt>=100 && pt<140) return 0.00957575 ; 
+		if(pt>=140 && pt<200) return 0.00916245 ; 
+		if(pt>=200 && pt<300) return 0.0103327 ; 
+		if(pt>=300 && pt<600) return 0.0169311 ; 
+		if(pt>=600 && pt<10000) return 0.0324204 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.0312084 ; 
+		if(pt>=50 && pt<70) return 0.0174152 ; 
+		if(pt>=70 && pt<100) return 0.0127746 ; 
+		if(pt>=100 && pt<140) return 0.0107694 ; 
+		if(pt>=140 && pt<200) return 0.0103107 ; 
+		if(pt>=200 && pt<300) return 0.0115971 ; 
+		if(pt>=300 && pt<600) return 0.0176692 ; 
+		if(pt>=600 && pt<10000) return 0.0339471 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.040997 ; 
+		if(pt>=50 && pt<70) return 0.0222552 ; 
+		if(pt>=70 && pt<100) return 0.0160718 ; 
+		if(pt>=100 && pt<140) return 0.0147675 ; 
+		if(pt>=140 && pt<200) return 0.0163437 ; 
+		if(pt>=200 && pt<300) return 0.0200816 ; 
+		if(pt>=300 && pt<600) return 0.0295968 ; 
+		if(pt>=600 && pt<10000) return 0.0527284 ; 
+	}
+}
+
+return 1.0;
+
+}
+
+double BTag_MCEfficiency_bQCD(int flavor, double pt, double eta){
+
+if(flavor==5) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.811052 ; 
+		if(pt>=50 && pt<70) return 0.835717 ; 
+		if(pt>=70 && pt<100) return 0.849549 ; 
+		if(pt>=100 && pt<140) return 0.856016 ; 
+		if(pt>=140 && pt<200) return 0.857548 ; 
+		if(pt>=200 && pt<300) return 0.865497 ; 
+		if(pt>=300 && pt<600) return 0.875698 ; 
+		if(pt>=600 && pt<10000) return 0.837915 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.793602 ; 
+		if(pt>=50 && pt<70) return 0.822111 ; 
+		if(pt>=70 && pt<100) return 0.837186 ; 
+		if(pt>=100 && pt<140) return 0.843131 ; 
+		if(pt>=140 && pt<200) return 0.847002 ; 
+		if(pt>=200 && pt<300) return 0.853699 ; 
+		if(pt>=300 && pt<600) return 0.859497 ; 
+		if(pt>=600 && pt<10000) return 0.812472 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.738744 ; 
+		if(pt>=50 && pt<70) return 0.773496 ; 
+		if(pt>=70 && pt<100) return 0.780866 ; 
+		if(pt>=100 && pt<140) return 0.788358 ; 
+		if(pt>=140 && pt<200) return 0.793432 ; 
+		if(pt>=200 && pt<300) return 0.795082 ; 
+		if(pt>=300 && pt<600) return 0.79771 ; 
+		if(pt>=600 && pt<10000) return 0.741586 ; 
+	}
+}
+
+if(flavor==4) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.198887 ; 
+		if(pt>=50 && pt<70) return 0.182735 ; 
+		if(pt>=70 && pt<100) return 0.181083 ; 
+		if(pt>=100 && pt<140) return 0.183282 ; 
+		if(pt>=140 && pt<200) return 0.197171 ; 
+		if(pt>=200 && pt<300) return 0.206793 ; 
+		if(pt>=300 && pt<600) return 0.228625 ; 
+		if(pt>=600 && pt<10000) return 0.238966 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.189248 ; 
+		if(pt>=50 && pt<70) return 0.177034 ; 
+		if(pt>=70 && pt<100) return 0.176295 ; 
+		if(pt>=100 && pt<140) return 0.179956 ; 
+		if(pt>=140 && pt<200) return 0.185377 ; 
+		if(pt>=200 && pt<300) return 0.196279 ; 
+		if(pt>=300 && pt<600) return 0.209888 ; 
+		if(pt>=600 && pt<10000) return 0.22342 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.170749 ; 
+		if(pt>=50 && pt<70) return 0.158496 ; 
+		if(pt>=70 && pt<100) return 0.154094 ; 
+		if(pt>=100 && pt<140) return 0.152209 ; 
+		if(pt>=140 && pt<200) return 0.165958 ; 
+		if(pt>=200 && pt<300) return 0.174828 ; 
+		if(pt>=300 && pt<600) return 0.183736 ; 
+		if(pt>=600 && pt<10000) return 0.209696 ; 
+	}
+}
+
+if(flavor!=5 && flavor!=4) {
+	if(fabs(eta)>=0 && fabs(eta)<0.6) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.0142848 ; 
+		if(pt>=50 && pt<70) return 0.00827488 ; 
+		if(pt>=70 && pt<100) return 0.0067742 ; 
+		if(pt>=100 && pt<140) return 0.0064532 ; 
+		if(pt>=140 && pt<200) return 0.00689059 ; 
+		if(pt>=200 && pt<300) return 0.00809407 ; 
+		if(pt>=300 && pt<600) return 0.0121235 ; 
+		if(pt>=600 && pt<10000) return 0.0261152 ; 
+	}
+	if(fabs(eta)>=0.6 && fabs(eta)<1.2) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.0152294 ; 
+		if(pt>=50 && pt<70) return 0.00909953 ; 
+		if(pt>=70 && pt<100) return 0.00769217 ; 
+		if(pt>=100 && pt<140) return 0.00733744 ; 
+		if(pt>=140 && pt<200) return 0.00738141 ; 
+		if(pt>=200 && pt<300) return 0.00923737 ; 
+		if(pt>=300 && pt<600) return 0.0130379 ; 
+		if(pt>=600 && pt<10000) return 0.0325017 ; 
+	}
+	if(fabs(eta)>=1.2 && fabs(eta)<2.5) {
+		if(pt>=20 && pt<30) return 0 ; 
+		if(pt>=30 && pt<50) return 0.0217575 ; 
+		if(pt>=50 && pt<70) return 0.0145133 ; 
+		if(pt>=70 && pt<100) return 0.0123139 ; 
+		if(pt>=100 && pt<140) return 0.0126898 ; 
+		if(pt>=140 && pt<200) return 0.0145814 ; 
+		if(pt>=200 && pt<300) return 0.0208179 ; 
+		if(pt>=300 && pt<600) return 0.03009 ; 
+		if(pt>=600 && pt<10000) return 0.0602379 ; 
+	}
+}
+
+return 1.0;
+
+}
+
+double TopTag_SF(double pt){
+
+// scale factors taken from DAKX twiki
+
+ if(pt>=400 & pt<480) return 1.00;
+ if(pt>=480 & pt<600) return 0.98;	
+ if(pt>=600 & pt<12000) return 0.99;	
+ 
+ return 1;
+}
+
+double TopTag_Efficiency_TT(double pt){
+
+ if(pt>=400 && pt<480) return 0.64376 ; 
+ if(pt>=480 && pt<600) return 0.688251 ; 
+ if(pt>=600 && pt<12000) return 0.701325 ;
+
+ return 1;
+}
+
+double TopTag_Efficiency_ST(double pt){
+
+ if(pt>=400 && pt<480) return 0.597507 ; 
+ if(pt>=480 && pt<600) return 0.611694 ; 
+ if(pt>=600 && pt<12000) return 0.600842 ; 
+ 
+ return 1;
+}
+
+double TopTag_Efficiency_DIB(double pt){
+
+ if(pt>=400 && pt<480) return 0.225214 ; 
+ if(pt>=480 && pt<600) return 0.24963 ;  
+ if(pt>=600 && pt<12000) return 0.208174 ; 
+
+ return 1;
+}
+
+double TopTag_Efficiency_WJ(double pt){
+
+ if(pt>=400 && pt<480) return 0.101516 ; 
+ if(pt>=480 && pt<600) return 0.0822782 ; 
+ if(pt>=600 && pt<12000) return 0.0842843 ; 
+
+ return 1;
+}
+
+double TopTag_Efficiency_DY(double pt){
+ 
+ if(pt>=400 && pt<480) return 0.168126 ; 
+ if(pt>=480 && pt<600) return 0.14405 ; 
+ if(pt>=600 && pt<12000) return 0.141325 ;
+
+ return 1;
+}
+
+double TopTag_Efficiency_bQCD(double pt){
+
+ if(pt>=400 && pt<480) return 0.3192 ; 
+ if(pt>=480 && pt<600) return 0.274223 ; 
+ if(pt>=600 && pt<12000) return 0.265134 ;
+
+ return 1;
+}
+
 class Anal_Leptop_PROOF : public TSelector {
  public :
   TTree          *fChain;   //!pointer to the analyzed TTree or TChain
@@ -129,6 +960,13 @@ class Anal_Leptop_PROOF : public TSelector {
   bool SemiLeptt;
   bool DiLeptt;
   bool Hadtt;
+  
+  bool isTT;
+  bool isST;
+  bool isDIB;
+  bool isWJ;
+  bool isDY;
+  bool isbQCD;
   
   // Declaration of leaf types
   Int_t           irun;
@@ -153,6 +991,13 @@ class Anal_Leptop_PROOF : public TSelector {
   Int_t           ihlt08;
   Int_t           ihlt09;
   Int_t           ihlt10;
+  Int_t           ihlt11;
+  Int_t           ihlt12;
+  Int_t           ihlt13;
+  Int_t           ihlt14;
+  Int_t           ihlt15;
+  Int_t           ihlt16;
+  Int_t           ihlt17;
   Float_t         prescl01;
   Float_t         prescl02;
   Float_t         prescl03;
@@ -193,7 +1038,7 @@ class Anal_Leptop_PROOF : public TSelector {
   Float_t         pfjetAK8btag_CSV[njetmxAK8];
   Float_t         pfjetAK8btag_DeepCSV[njetmxAK8];
   Float_t         pfjetAK8btag_DeepFlav[njetmxAK8];
-  Float_t 	  pfjetAK8matchAK4deepb[njetmxAK8];
+  Float_t 	  	  pfjetAK8matchAK4deepb[njetmxAK8];
   Float_t         pfjetAK8DeepTag_TvsQCD[njetmxAK8];
   Float_t         pfjetAK8DeepTag_WvsQCD[njetmxAK8];
   Float_t         pfjetAK8DeepTag_ZvsQCD[njetmxAK8];
@@ -225,7 +1070,7 @@ class Anal_Leptop_PROOF : public TSelector {
   Int_t           pfjetAK8HFEMM[njetmxAK8];
   Int_t           pfjetAK8Neucons[njetmxAK8];
   Int_t           pfjetAK8Chcons[njetmxAK8];
-  Int_t		   pfjetAK8ncons[njetmxAK8];
+  Int_t		   	  pfjetAK8ncons[njetmxAK8];
   Float_t         pfjetAK8reso[njetmxAK8];
   Float_t         pfjetAK8resoup[njetmxAK8];
   Float_t         pfjetAK8resodn[njetmxAK8];
@@ -555,6 +1400,13 @@ class Anal_Leptop_PROOF : public TSelector {
    TBranch        *b_ihlt08;   //!
    TBranch        *b_ihlt09;   //!
    TBranch        *b_ihlt10;   //!
+   TBranch        *b_ihlt11;   //!
+   TBranch        *b_ihlt12;   //!
+   TBranch        *b_ihlt13;   //!
+   TBranch        *b_ihlt14;   //!
+   TBranch        *b_ihlt15;   //!
+   TBranch        *b_ihlt16;   //!
+   TBranch        *b_ihlt17;   //!
    TBranch        *b_prescl01;   //!
    TBranch        *b_prescl02;   //!
    TBranch        *b_prescl03;   //!
@@ -931,6 +1783,8 @@ class Anal_Leptop_PROOF : public TSelector {
  int npfjetAK8_b;
  int npfjetAK8_all;
  
+ float puWeight, puWeightUp, puWeightDown;
+ 
  static const int nmaxjet = 10;
  
  static const int nhist = 75;
@@ -1019,32 +1873,60 @@ class Anal_Leptop_PROOF : public TSelector {
 
   int hist_nbins2D[nhist2D] = {200,200,200,100,100,100,100,100,100,200,200,200,200,200,200,100,100,100,100,100,100,200,200,200};
 
+  double pu_rat18[100] =  {0,13.0204,57.5634,19.082,12.1118,8.99654,6.66583,4.91429,3.59483,2.74519,2.23511,1.90123,1.70431,1.57807,1.50263,1.4648,1.45006,1.45373,1.46061,1.46339,1.45963,1.43638,1.4021,1.35249,1.301,1.24853,1.20344,1.16808,1.13747,1.1148,1.09898,1.08944,1.08188,1.077,1.07364,1.069,1.06282,1.05298,1.03554,1.01205,0.979753,0.936484,0.885825,0.827701,0.760395,0.692411,0.620801,0.550926,0.48254,0.419756,0.361541,0.310761,0.266044,0.227951,0.194841,0.167998,0.145255,0.125278,0.109776,0.0961932,0.0837946,0.0738915,0.0643919,0.0565295,0.0493426,0.0422786,0.0363522,0.0314853,0.026336,0.022446,0.0189216,0.0164908,0.0137806,0.0114497,0.00946543,0.00846572,0.0066371,0.00564392,0.00468337,0.00390401,0.00355194,0.00233117,0.00205709,0.0015375,0.00122804,0.00095344,0.000598666,0.000539365,0.000235921,0.000101888,6.25912e-05,6.00391e-05,1.95961e-05,2.71883e-05,1.75359e-05,6.18118e-06,2.54377e-06,1.48936e-06,2.02377e-06,2.56097e-07};
+  double pu_rat18_up[100] = {0,11.3701,49.1593,16.3978,10.4484,7.79227,5.70396,4.15872,3.02768,2.28549,1.82582,1.52983,1.3595,1.2554,1.19605,1.1684,1.16115,1.17185,1.18964,1.20936,1.22873,1.23491,1.23159,1.21107,1.18259,1.14644,1.11133,1.08136,1.05384,1.03331,1.01987,1.01367,1.01107,1.01298,1.01865,1.02593,1.03512,1.0447,1.05099,1.0554,1.05447,1.04466,1.02824,1.00332,0.965566,0.923431,0.871249,0.814665,0.752156,0.689408,0.624858,0.564,0.505617,0.452167,0.402,0.359344,0.321227,0.285921,0.258403,0.233682,0.210464,0.192413,0.174424,0.159861,0.146181,0.131623,0.119227,0.10899,0.0963316,0.086803,0.0773651,0.0712667,0.0629173,0.0552031,0.0481823,0.0455058,0.0376989,0.0339163,0.0298286,0.0264131,0.0255965,0.0179475,0.0169746,0.0136435,0.0117583,0.00988318,0.00674005,0.00661599,0.00316237,0.00149674,0.0010104,0.00106782,0.000384941,0.000591271,0.000423128,0.000165822,7.60044e-05,4.96232e-05,7.51979e-05,1.05862e-05};
+  double pu_rat18_dn[100] = {0,15.0557,67.8751,22.3278,14.1211,10.4821,7.88069,5.86513,4.31762,3.35551,2.78627,2.40097,2.16428,2.00485,1.9056,1.85092,1.82051,1.80608,1.78719,1.75544,1.71117,1.64481,1.57234,1.49261,1.42092,1.35612,1.3043,1.26517,1.23118,1.20443,1.18302,1.16596,1.14834,1.13047,1.11055,1.08517,1.05388,1.01479,0.96502,0.907499,0.841466,0.767187,0.68971,0.610695,0.530471,0.45611,0.385995,0.32355,0.268127,0.221267,0.181416,0.149012,0.122387,0.100955,0.0832931,0.0694147,0.0579993,0.0482614,0.0406839,0.0341693,0.0284128,0.0238208,0.0196651,0.0163071,0.0134164,0.0108213,0.00875349,0.00713274,0.00561523,0.00450669,0.00357902,0.00293888,0.00231295,0.00180802,0.00140385,0.00117654,0.000861839,0.000682485,0.000525487,0.000404909,0.00033922,0.000204219,0.000164688,0.000112084,8.12391e-05,5.70485e-05,3.2298e-05,2.61592e-05,1.02574e-05,3.96059e-06,2.16985e-06,1.85204e-06,5.36884e-07,6.60936e-07,3.78607e-07,1.19189e-07,4.4536e-08,2.4673e-08,3.47283e-08,5.35281e-09};
+
+
   
-  static const int nobshist = 14;
+  static const int nobshist = 16;
   
   const char *obsnames[nobshist] = {
 	  "pt","y","mass",
 	  "NHad","neuhad","sdmass","chrad","subhaddiff","tau21",
 	  "DAK8_topvsQCD","bbyW_E","Kfactor",
-	  "re","rnu"
+	  "re","rnu",
+	  "hadsdmass",
+	  "haspfelectron"
 	  };
 	  
- double obs_low[nobshist] = {400,-2.5,0,0,0,0,-2.5,0,0,0,0,-2,0,0}; 
- double obs_up[nobshist] = {3100,2.5,300,1,1,300,2.5,1,1,1,2.5,4.5,1,1}; 
- int obs_nbins[nobshist] = {25,25,25,25,25,25,25,25,25,20,25,25,20,20};
+ double obs_low[nobshist] = {400,-2.5,0,0,0,0,-2.5,0,0,0,0,-2,-1,-1,0,-0.5}; 
+ double obs_up[nobshist] = {3100,2.5,300,1,1,300,2.5,1,1,1,2.5,4.5,1,1,300,1.5}; 
+ int obs_nbins[nobshist] = {25,25,25,25,25,25,25,25,25,20,25,25,40,40,25,2};
  
  TH1D *hist_obs[nobshist] ;
  TH1D *hist_obs_1[nobshist] ;
  TH1D *hist_obs_2[nobshist] ;
+ 
+ TH2D *hist_2D_bpass_flavb;
+ TH2D *hist_2D_bpass_flavc;
+ TH2D *hist_2D_bpass_flavq;
+ 
+ TH2D *hist_2D_ball_flavb;
+ TH2D *hist_2D_ball_flavc;
+ TH2D *hist_2D_ball_flavq;
+ 
+ TH1D *hist_top_deepak8_pass;
+ TH1D *hist_top_deepak8;
   
   static const int noptbins = 32;
   double ptbins[noptbins+1] = {395, 430, 468,
      507, 548, 592, 638, 686, 737, 790, 846, 905, 967,
      1032, 1101, 1172, 1248, 1327, 1410, 1497, 1588, 1684, 1784, 1890, 2000, 2116, 2238, 2366, 2500, 2640, 2787, 2941, 3103};
   
+ 
+  static const int nobptbins = 9;
+  double bptbins[nobptbins+1] = {20, 30, 50, 70, 100, 140, 200, 300, 600, 1000};
+  
+  static const int nobetabins = 3;
+  double betabins[nobetabins+1] = {0, 0.6, 1.2, 2.5};
+ 
+  static const int notptbins = 3;
+  double tptbins[notptbins+1] = {400, 480, 600, 1200};
+ 
   float DAK8_topcut = 0.470 ;//1% mistag rate (0.920 // 0.1% mistag) (0.802 // 1% mistag )
   float deep_btag_cut = 0.2770; //medium (0.7264 //tight)
-  float re_cut = 0.5;
+  float re_cut = 0.3;
   
   static const int nre = 100;
   
@@ -1075,7 +1957,8 @@ class Anal_Leptop_PROOF : public TSelector {
   TH2D *hist2D_dRnut;
   TH2D *hist2D_dRbt;
   
-
+  TH1D *hist_pfmet;
+  TH1D *hist_pfmet_1;
 
 
   TH1D *hvsb_re;
@@ -1180,8 +2063,15 @@ class Anal_Leptop_PROOF : public TSelector {
 
 
   TH1D *hist_npv;
+  TH1D *hist_npv_sel;
   TH1D *hist_npv_final;
   TH1D *hist_npu;
+  TH1D *hist_npv_nopuwt;
+  TH1D *hist_npu_nopuwt;
+  
+  TH1D *hist_njets_AK8;
+  TH1D *hist_njets_AK4;
+  TH1D *hist_nbjets_AK4;
   
   TH1D *h1d_eldxy_subjet;
   TH1D *h1d_eldxy_subjetM;
@@ -1393,6 +2283,13 @@ void Anal_Leptop_PROOF::Init(TTree *tree)
    fChain->SetBranchAddress("ihlt08", &ihlt08, &b_ihlt08);
    fChain->SetBranchAddress("ihlt09", &ihlt09, &b_ihlt09);
    fChain->SetBranchAddress("ihlt10", &ihlt10, &b_ihlt10);
+   fChain->SetBranchAddress("ihlt11", &ihlt11, &b_ihlt11);
+   fChain->SetBranchAddress("ihlt12", &ihlt12, &b_ihlt12);
+   fChain->SetBranchAddress("ihlt13", &ihlt13, &b_ihlt13);
+   fChain->SetBranchAddress("ihlt14", &ihlt14, &b_ihlt14);
+   fChain->SetBranchAddress("ihlt15", &ihlt15, &b_ihlt15);
+   fChain->SetBranchAddress("ihlt16", &ihlt16, &b_ihlt16);
+   fChain->SetBranchAddress("ihlt17", &ihlt17, &b_ihlt17);
    fChain->SetBranchAddress("prescl01", &prescl01, &b_prescl01);
    fChain->SetBranchAddress("prescl02", &prescl02, &b_prescl02);
    fChain->SetBranchAddress("prescl03", &prescl03, &b_prescl03);
