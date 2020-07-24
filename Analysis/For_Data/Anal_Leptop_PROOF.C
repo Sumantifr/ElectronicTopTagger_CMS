@@ -3,8 +3,8 @@
 #include <TH2.h>
 #include <TStyle.h>
 
-//#define E_MU_TTBar
-#define E_Jets_TTBar
+#define E_MU_TTBar
+//#define E_Jets_TTBar
 
 void Anal_Leptop_PROOF::Begin(TTree * /*tree*/)
 {
@@ -23,7 +23,7 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   
   TString option = GetOption();
   //OutFile = new TProofOutputFile("testHadronic_elid_notallevtsv4.root");
-  OutFile = new TProofOutputFile("JetHT_Data_2018D.root");
+  OutFile = new TProofOutputFile("testData.root");
 
   //fOutput->Add(OutFile);
   fileOut = OutFile->OpenFile("RECREATE");
@@ -33,9 +33,9 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
 	      OutFile->GetDir(), OutFile->GetFileName());
     }
   
-  isMC = false;
+  isMC = true;
   
-  isTT = false;
+  isTT = true;
   isST = false;
   isDIB = false;
   isWJ = false;
@@ -131,8 +131,28 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   hist_2D_ball_flavq->Sumw2();  
   
   hist_top_deepak8 = new TH1D("TopJet_Pt","TopJet_Pt",notptbins,tptbins);
+  hist_top_deepak8->Sumw2();  
+  
   hist_top_deepak8_pass = new TH1D("TopJet_Pt_DeepAK8_pass","TopJet_Pt_DeepAK8_pass",notptbins,tptbins);
+  hist_top_deepak8_pass->Sumw2();  
 
+  hist_th_pt = new TH1D("HTop_pt","HTop_pt",25,400,3100);
+  hist_th_pt->Sumw2(); 
+  
+  hist_th_y = new TH1D("HTop_y","HTop_y",25,-2.5,2.5);
+  hist_th_y->Sumw2(); 
+  
+  hist_th_sdmass = new TH1D("HTop_sdmass","HTop_sdmass",25,0,300);
+  hist_th_sdmass->Sumw2(); 
+  
+  hist_th_deepak8 = new TH1D("HTop_DAK8","HTop_DAK8",25,0,1);
+  hist_th_deepak8->Sumw2();  
+  
+  hist_th_tau32 = new TH1D("HTop_tau32","HTop_tau32",25,0,1);
+  hist_th_tau32->Sumw2();  
+  
+  hist_count = new TH1D("Counter","Counter",10,0,10);
+  hist_count->Sumw2();  
 
   reader1 = new TMVA::Reader( "BDTG_Re" );
   reader1->AddVariable( "selpfjetAK8NHadF", &in_pfjetAK8NHadF);
@@ -210,6 +230,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   int fjet = 0;
   for(int ijet=0; ijet<npfjetAK8; ijet++){
+	  
     if(!pfjetAK8looseID[ijet]) continue; //switch to tight ID (even tight ID calculation also do here in this code)
     
     if(fabs(pfjetAK8y[ijet])>2.5) continue;
@@ -319,8 +340,8 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   for(int ljet=0; ljet< npfjetAK8; ljet++){
     if (!(isnan(pfjetAK8mass[ljet]))) {
       if (pfjetAK8mass[ljet] > LMass) {
-	LMass = pfjetAK8mass[ljet];
-	maxM = ljet;
+			LMass = pfjetAK8mass[ljet];
+			maxM = ljet;
       }
     }
   }
@@ -337,6 +358,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
     bool mu_iso = Muon_Iso_ID(muonpfiso[mu]);
     
     if(!mu_id) continue;
+    if(!mu_iso) continue;
     
     muonpt[nmuon1] = muonpt[mu];
     muoneta[nmuon1] = muoneta[mu];
@@ -350,8 +372,35 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   nmuons = nmuon1;
   
+  // resolved case 
+  /*
+  int nelec1 = 0;
+  for(int ie=0; ie<nelecs; ie++) {
+	
+	if(fabs(elpt[ie])<30.) continue; 
+    if(fabs(eleta[ie])>2.4)  continue; 
+    
+    if(!elmvaid[ie]) continue;
+    
+    elpt[nelec1] = fabs(elpt[ie]);
+    eleta[nelec1] = eleta[ie];
+    elphi[nelec1] = elphi[ie];
+    elp[nelec1] = elp[ie];
+    elmvaid[nelec1] = elmvaid[ie];
+    elmvaid_noIso[nelec1] = elmvaid_noIso[ie];
+	elpfiso[nelec1] = elpfiso[ie];
+	
+	nelec1++;
+	if(nelec1 >= njetmx) break;
+  }
+  
+   nelecs =  nelec1;
+  */
+   // resolved case ends
+  
   fjet = 0;
   int nbjetAK4 = 0;
+  
   float btagwt = 1.;
   float btag_eff = 1;
   
@@ -394,7 +443,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
     
 		if(pfjetAK4btag_DeepFlav[fjet] > deep_btag_cut) { 
 	
-			btagwt *= BTag_SF(pfjetAK4hadronflav[fjet],"noSyst",pfjetAK4pt[fjet]);
+			btagwt *= max(float(0),float(BTag_SF(pfjetAK4hadronflav[fjet],"noSyst",pfjetAK4pt[fjet])));
 	
 		}else{
 			
@@ -428,71 +477,19 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
         puWeightDown = pu_rat18_dn[npu_vert];
      }
    
-    weight *= puWeight;  
+    if(!isnan(puWeight) || fabs(puWeight)<1.e+6){
+		weight *= puWeight;  
+	}
     hist_npu->Fill(npu_vert,weight);
      
   }
   
   hist_npv->Fill(nchict,weight);
   
-  weight *= btagwt;
-  
-  // event selection
-  
-  if(nchict<1) return kFALSE;
-  
-  bool itrig_pass = false;
-  bool itrig_epass = false;
-  bool itrig_ljpass = false;
-
-  // e + jets (semileptonic ttbar) 
-  
-  #ifdef E_Jets_TTBar
-  /*
-  itrig_epass = ((ihlt14==1)||(ihlt15==1));
-  itrig_ljpass = (ihlt09==1);
-  
-  if(!itrig_epass && !itrig_ljpass) return kFALSE;
-  */
-  itrig_pass = ((ihlt05==1)||(ihlt15==1)||(ihlt14==1)||(ihlt09==1));
-  if(!itrig_pass) return kFALSE;
-  
-  int npfjetAK8_we = 0;
-  for(int ijet=0; ijet<npfjetAK8; ijet++){
-    if (pfjetAK8haspfelectron[ijet]) {
-      npfjetAK8_we++;
-    }
+  if(!isnan(btagwt) || fabs(btagwt)<1.e+6){
+	weight *= btagwt;
   }
   
-  if(npfjetAK8<2) return kFALSE;
-  
-//  if(npfjetAK8_we<1) return kFALSE;
-
-  #endif
-  
-  // e + mu (dileptonic ttbar)
-  
-  #ifdef E_MU_TTBar
-  
-  itrig_pass = ((ihlt02==1)||(ihlt05==1)||(ihlt09==1)||(ihlt10==1));
-  if(!itrig_pass) return kFALSE;
-  
-  if(!(nmuons==1)) return kFALSE;
-  if(npfjetAK8<1) return kFALSE;
-  
-  #endif
-  
-  #if !defined(E_Jets_TTBar) && !defined(E_MU_TTBar) 
-  itrig_pass = ((ihlt01==1)||(ihlt02==1)||(ihlt03==1)||(ihlt04==1)||(ihlt05==1)||(ihlt06==1)||(ihlt07==1)||(ihlt08==1)||(ihlt09==1)||(ihlt10==1));
-  if(!itrig_pass) return kFALSE;
-  #endif
-  
-  hist_pfmet->Fill(PFMET,weight);
-  
-  if(PFMET < 50.) return kFALSE;  // MET cut of 50 GeV
-  
-  // event selection ends //
-
   for(int ijet=0; ijet< npfjetAK8; ijet++){
 	  
     if(ijet>(nmaxjet-1)) break;
@@ -661,6 +658,119 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
     }
   }
  
+  // top pt reweighting //
+  
+  if(isTT){
+  
+  TLorentzVector top4mom[2];
+  
+  int ngent = 0;
+  
+  for(int igen=0; igen<ngenparticles; igen++){
+	   
+	 if(abs(genpartstatus[igen])!=22) continue;
+     if(!(genpartfromhard[igen])) continue;
+     if(abs(genpartpdg[igen])!=6) continue;
+
+	 top4mom[ngent].SetPtEtaPhiM(genpartpt[igen],genparteta[igen],genpartphi[igen],genpartm[igen]);
+     ngent++;
+	 if(ngent>=2) break;
+	    
+	}
+  
+  float toppt_wt = 1;
+  
+  if(ngent==2){
+	  toppt_wt = SF_TOP(0.0615,0.0005,top4mom[0].Pt(),top4mom[1].Pt());
+	  }
+  
+  weight *= toppt_wt;
+  
+  }
+  
+  // top pt reweighting ends //
+  
+  
+  if(isnan(weight) || weight>1.e+12) { weight = 0; }
+  
+   
+  // event selection
+  
+  hist_count->Fill(1,weight);
+  
+  if(nchict<1) return kFALSE;
+  
+  bool itrig_pass = false;
+  bool itrig_epass = false;
+  bool itrig_ljpass = false;
+ 
+  // e + jets (semileptonic ttbar) 
+  
+  #ifdef E_Jets_TTBar
+  /*
+  itrig_epass = ((ihlt14==1)||(ihlt15==1));
+  itrig_ljpass = (ihlt09==1);
+  
+  if(!itrig_epass && !itrig_ljpass) return kFALSE;
+  */
+  
+  itrig_pass = ((ihlt05==1)||(ihlt15==1)||(ihlt14==1)||(ihlt09==1)); // boosted case
+//  itrig_pass = (ihlt03==1);	// resolved case 
+//  itrig_pass = (ihlt09==1);
+  if(!itrig_pass) return kFALSE;
+  
+  hist_count->Fill(2,weight);
+  
+  int npfjetAK8_we = 0;
+  for(int ijet=0; ijet<npfjetAK8; ijet++){
+    if (pfjetAK8haspfelectron[ijet]) {
+		npfjetAK8_we++;
+    }
+  }
+  
+  if(npfjetAK8<2) return kFALSE;
+ 
+  hist_count->Fill(3,weight);
+  
+  // resolved case 
+  /*
+  if(!(nelecs==1)) return kFALSE;
+  if(nbjetAK4<2) return kFALSE;
+  */
+  // resolved case ends
+  
+//  if(npfjetAK8_we<1) return kFALSE;
+
+  #endif
+  
+  // e + mu (dileptonic ttbar)
+  
+  #ifdef E_MU_TTBar
+  
+  itrig_pass = ((ihlt01==1)||(ihlt02==1));//||(ihlt09==1)||(ihlt10==1));
+  if(!itrig_pass) return kFALSE;
+  
+  if(!(nmuons==1)) return kFALSE;
+  if(npfjetAK8<1) return kFALSE;
+  
+  #endif
+  
+  #if !defined(E_Jets_TTBar) && !defined(E_MU_TTBar) 
+  itrig_pass = ((ihlt01==1)||(ihlt02==1)||(ihlt03==1)||(ihlt04==1)||(ihlt05==1)||(ihlt06==1)||(ihlt07==1)||(ihlt08==1)||(ihlt09==1)||(ihlt10==1));
+  if(!itrig_pass) return kFALSE;
+  #endif
+  
+  hist_count->Fill(4,weight);
+  
+  hist_pfmet->Fill(PFMET,weight);
+  
+  if(PFMET < 50.) return kFALSE;  // MET cut of 50 GeV
+  
+  hist_count->Fill(5,weight);
+  
+  // event selection ends //
+
+ 
   // object assignment //
   
   int telcand = -1;
@@ -677,11 +787,13 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   for(int ijet=0; ijet<npfjetAK8; ijet++){
 	  
-	   if(pfjetAK8sdmass[ijet] > 105. &&  pfjetAK8sdmass[ijet] < 210. && pfjetAK8DeepTag_TvsQCD[ijet] > maxscore){
+	   if(pfjetAK8sdmass[ijet] > 105. &&  pfjetAK8sdmass[ijet] < 210. && pfjetAK8DeepTag_TvsQCD[ijet] > maxscore
+//	   && (fabs(PhiInRange(elphi[0] - pfjetAK8phi[ijet])) > M_PI/3.) // resolved case 
+	   ){
 		   maxscore = pfjetAK8DeepTag_TvsQCD[ijet] ;
 		   thcand = ijet;
 		   nhcand++;
-		   }
+		}
 		
 		if(pfjetAK8sdmass[ijet] > 105. &&  pfjetAK8sdmass[ijet] < 210.){
 			hist_top_deepak8->Fill(pfjetAK8pt[ijet],weight);
@@ -692,7 +804,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 		
 		if(pfjetAK8sdmass[ijet] > 105. &&  pfjetAK8sdmass[ijet] < 210.){
 			
-			if(pfjetAK8DeepTag_TvsQCD[ijet] > DAK8_topcut) { topwt *= TopTag_SF(pfjetAK8pt[ijet]); }
+			if(pfjetAK8DeepTag_TvsQCD[ijet] > DAK8_topcut) { topwt *= max(float(0),float(TopTag_SF(pfjetAK8pt[ijet]))); }
 			
 			else {	
 			
@@ -723,7 +835,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 		if(ijet==thcand) continue;
 	   
 		if( (delta2R(pfjetAK8y[thcand],pfjetAK8phi[thcand],pfjetAK8y[ijet],pfjetAK8phi[ijet]) > 1.6)
-			&& (fabs(PhiInRange(pfjetAK8phi[thcand] - pfjetAK8phi[ijet])) > M_PI/3.) 
+			&& (fabs(PhiInRange(pfjetAK8phi[thcand] - pfjetAK8phi[ijet])) > M_PI/2.) 
 		//	&& pfjetAK8haspfelectron[ijet]	
 			&& pfjetAK8pt[ijet]>maxpt ){
 				te_found = true;
@@ -742,15 +854,20 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   #ifdef E_MU_TTBar
   
+  float maxpt = -100;
+  
   for(int ijet=0; ijet<npfjetAK8; ijet++){
 	  
 	   if(pfjetAK8pt[ijet]<400.) { continue; }
 	   
 	   if( (delta2R(muoneta[0],muonphi[0],pfjetAK8y[ijet],pfjetAK8phi[ijet]) > 1.2)
-			&& (PhiInRange(muonphi[0] - pfjetAK8phi[ijet]) > M_PI/3.) 
-			&& pfjetAK8haspfelectron[ijet]	){
+			&& (PhiInRange(muonphi[0] - pfjetAK8phi[ijet]) > M_PI/2.)
+			&& pfjetAK8pt[ijet]>maxpt
+			//		&& pfjetAK8haspfelectron[ijet]	
+			){
 				te_found = true;
 				telcand = ijet;
+				maxpt = pfjetAK8pt[ijet];
 				}
 		if(te_found) break;
 		
@@ -766,14 +883,29 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   // fill the histograms //
   
+  
+  if(thcand>=0){
+	  
+	  hist_th_pt->Fill(pfjetAK8pt[thcand],weight);
+	  hist_th_y->Fill(pfjetAK8y[thcand],weight);
+	  hist_th_sdmass->Fill(pfjetAK8sdmass[thcand],weight);
+	  hist_th_tau32->Fill(pfjetAK8tau32[thcand],weight);
+	  hist_th_deepak8->Fill(pfjetAK8DeepTag_TvsQCD[thcand],weight);
+	  
+	  }
+  
   if(telcand>=0){
+	  
+	  hist_count->Fill(6,weight);
 	  
 	  hist_npv_sel->Fill(nchict,weight);
 	  hist_njets_AK8->Fill(npfjetAK8,weight);
 	  hist_njets_AK4->Fill(npfjetAK4,weight);
 	  hist_nbjets_AK4->Fill(nbjetAK4,weight);
 	  
-	  if(nbjetAK4>=2){ 
+	  if(nbjetAK4>=0){ 
+	  
+	  hist_count->Fill(7,weight);
 	  
 	  hist_obs[0]->Fill(pfjetAK8pt[telcand],weight);
 	  hist_obs[1]->Fill(pfjetAK8y[telcand],weight);
@@ -789,7 +921,9 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 	  hist_obs[11]->Fill(pfjetAK8_Kfactor[telcand],weight);
 	  hist_obs[12]->Fill(pfjetAK8re_tvsb[telcand],weight);
 	  hist_obs[13]->Fill(pfjetAK8rnu_tvsb[telcand],weight);
-	  hist_obs[14]->Fill(pfjetAK8sdmass[thcand],weight);
+	  if(thcand>=0){
+		hist_obs[14]->Fill(pfjetAK8sdmass[thcand],weight);
+	  }
 	  hist_obs[15]->Fill(pfjetAK8haspfelectron[telcand],weight);
 	
 	  hist_pfmet_1->Fill(PFMET,weight);
@@ -810,7 +944,9 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 		  hist_obs_1[11]->Fill(pfjetAK8_Kfactor[telcand],weight);
 		  hist_obs_1[12]->Fill(pfjetAK8re_tvsb[telcand],weight);
 		  hist_obs_1[13]->Fill(pfjetAK8rnu_tvsb[telcand],weight);
-		  hist_obs_1[14]->Fill(pfjetAK8sdmass[thcand],weight);
+		  if(thcand>=0){
+			hist_obs_1[14]->Fill(pfjetAK8sdmass[thcand],weight);
+		  }
 		  hist_obs_1[15]->Fill(pfjetAK8haspfelectron[telcand],weight);
 		  
 		  }else{
@@ -829,7 +965,9 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 			  hist_obs_2[11]->Fill(pfjetAK8_Kfactor[telcand],weight);
 			  hist_obs_2[12]->Fill(pfjetAK8re_tvsb[telcand],weight);
 			  hist_obs_2[13]->Fill(pfjetAK8rnu_tvsb[telcand],weight);
-			  hist_obs_2[14]->Fill(pfjetAK8sdmass[thcand],weight);
+			  if(thcand>=0){
+				hist_obs_2[14]->Fill(pfjetAK8sdmass[thcand],weight);
+			  }
 			  hist_obs_2[15]->Fill(pfjetAK8haspfelectron[telcand],weight);
 			  
 			  }

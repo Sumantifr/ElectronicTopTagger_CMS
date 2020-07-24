@@ -126,7 +126,7 @@ if(syst ==  "noSyst") {
 	if(abs(flavor)==5||abs(flavor)==4){
         if (pt >= 20  && pt < 1000) return (1.0097+(-(2.89663e-06*(log(x+19)*(log(x+18)*(3-(-(110.381*log(x+18)))))))));
      }else{
-			if (pt >= 20  && pt < 1000) return 0.949449+0.000516201*x+7.13398e-08*x*x+-3.55644e-10*x*x*x;
+			if (pt >= 20  && pt < 1000) return (1.59373+-0.00113028*x+8.66631e-07*x*x+-1.10505/x) ;
 		  }
 }
 
@@ -944,6 +944,13 @@ double TopTag_Efficiency_bQCD(double pt){
 
  return 1;
 }
+
+double SF_TOP(double alpha, double beta, double pt0, double pt1)
+{
+        double sfwt = sqrt(exp(alpha-beta*pt0) * exp(alpha-beta*pt1));
+        return sfwt;
+}
+
 
 class Anal_Leptop_PROOF : public TSelector {
  public :
@@ -1908,6 +1915,14 @@ class Anal_Leptop_PROOF : public TSelector {
  
  TH1D *hist_top_deepak8_pass;
  TH1D *hist_top_deepak8;
+ 
+ TH1D *hist_th_pt;
+ TH1D *hist_th_y;
+ TH1D *hist_th_sdmass;
+ TH1D *hist_th_tau32;
+ TH1D *hist_th_deepak8;
+ 
+ TH1D *hist_count;
   
   static const int noptbins = 32;
   double ptbins[noptbins+1] = {395, 430, 468,
