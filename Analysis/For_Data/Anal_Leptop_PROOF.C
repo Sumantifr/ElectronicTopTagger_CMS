@@ -3,8 +3,8 @@
 #include <TH2.h>
 #include <TStyle.h>
 
-#define E_MU_TTBar
-//#define E_Jets_TTBar
+//#define E_MU_TTBar
+#define E_Jets_TTBar
 
 void Anal_Leptop_PROOF::Begin(TTree * /*tree*/)
 {
@@ -111,6 +111,9 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   sprintf(title,"# of b tagged AK4 jets");
   hist_nbjets_AK4 = new TH1D(name,title,10,0,10);
   hist_nbjets_AK4->Sumw2();
+
+  hist_2D_msd_deepak8 = new TH2D("hist_2D_msd_deepak8","hist_2D_msd_deepak8",25,0,300,25,0,1);
+  hist_2D_msd_deepak8->Sumw2();
 
   hist_2D_bpass_flavb = new TH2D("h2d_btagpass_flavb","h2d_btagpass_flavb",nobptbins,bptbins,nobetabins,betabins);
   hist_2D_bpass_flavb->Sumw2();
@@ -228,6 +231,13 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   hist_event_count->Fill(1,weight);
   
+  int nbjet_cut = -1;
+  #ifdef E_MU_TTBar
+  nbjet_cut = 1;
+  #elif defined(E_Jets_TTBar)
+  nbjet_cut = 0;
+  #endif
+  
   int fjet = 0;
   for(int ijet=0; ijet<npfjetAK8; ijet++){
 	  
@@ -235,12 +245,12 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
     
     if(fabs(pfjetAK8y[ijet])>2.5) continue;
     pfjetAK8pt[ijet] *= pfjetAK8JEC[ijet] ;
-    pfjetAK8mass[ijet] *= pfjetAK8JEC[ijet];
+//    pfjetAK8mass[ijet] *= pfjetAK8JEC[ijet];
     
     if(isMC){
       pfjetAK8pt[ijet] *= (1+pfjetAK8reso[ijet]) ;
       pfjetAK8mass[ijet] *= (1+pfjetAK8reso[ijet]) ;
-      pfjetAK8sdmass[ijet] *= (1+pfjetAK8reso[ijet]) ;
+//      pfjetAK8sdmass[ijet] *= (1+pfjetAK8reso[ijet]) ;
     }
     
     if(pfjetAK8pt[ijet] < ptcut) continue;
@@ -486,7 +496,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   hist_npv->Fill(nchict,weight);
   
-  if(!isnan(btagwt) || fabs(btagwt)<1.e+6){
+  if((!isnan(btagwt) || fabs(btagwt)<1.e+6) && nbjet_cut>0){
 	weight *= btagwt;
   }
   
@@ -636,6 +646,8 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
     if (!isnan(Rho)) in_pfjetAK8matchedelRho = Rho;
     else in_pfjetAK8matchedelRho = -999;
     
+    hist_2D_msd_deepak8->Fill(pfjetAK8sdmass[ijet],pfjetAK8DeepTag_TvsQCD[ijet]);
+    
     pfjetAK8re_tvsb[ijet] = -100;
     Re = reader1->EvaluateMVA("BDTG method");
     pfjetAK8re_tvsb[ijet] = Re;
@@ -714,9 +726,9 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   if(!itrig_epass && !itrig_ljpass) return kFALSE;
   */
   
-  itrig_pass = ((ihlt05==1)||(ihlt15==1)||(ihlt14==1)||(ihlt09==1)); // boosted case
+//  itrig_pass = ((ihlt05==1)||(ihlt15==1)||(ihlt14==1)||(ihlt09==1)); // boosted case
 //  itrig_pass = (ihlt03==1);	// resolved case 
-//  itrig_pass = (ihlt09==1);
+  itrig_pass = (ihlt15==1);// || ihlt14==1);
   if(!itrig_pass) return kFALSE;
   
   hist_count->Fill(2,weight);
@@ -868,7 +880,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 				te_found = true;
 				telcand = ijet;
 				maxpt = pfjetAK8pt[ijet];
-				}
+			 }
 		if(te_found) break;
 		
 	}
@@ -903,7 +915,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 	  hist_njets_AK4->Fill(npfjetAK4,weight);
 	  hist_nbjets_AK4->Fill(nbjetAK4,weight);
 	  
-	  if(nbjetAK4>=0){ 
+	  if(nbjetAK4>=nbjet_cut){ 
 	  
 	  hist_count->Fill(7,weight);
 	  

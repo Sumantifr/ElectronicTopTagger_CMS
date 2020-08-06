@@ -1905,6 +1905,8 @@ class Anal_Leptop_PROOF : public TSelector {
  TH1D *hist_obs_1[nobshist] ;
  TH1D *hist_obs_2[nobshist] ;
  
+ TH2D *hist_2D_msd_deepak8;
+ 
  TH2D *hist_2D_bpass_flavb;
  TH2D *hist_2D_bpass_flavc;
  TH2D *hist_2D_bpass_flavq;
