@@ -23,7 +23,7 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   
   TString option = GetOption();
   //OutFile = new TProofOutputFile("testHadronic_elid_notallevtsv4.root");
-  OutFile = new TProofOutputFile("testData.root");
+  OutFile = new TProofOutputFile("SingleElectron_Data_2018A_leptrig.root");
 
   //fOutput->Add(OutFile);
   fileOut = OutFile->OpenFile("RECREATE");
@@ -33,9 +33,9 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
 	      OutFile->GetDir(), OutFile->GetFileName());
     }
   
-  isMC = true;
+  isMC = false;
   
-  isTT = true;
+  isTT = false;
   isST = false;
   isDIB = false;
   isWJ = false;
@@ -245,7 +245,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
     
     if(fabs(pfjetAK8y[ijet])>2.5) continue;
     pfjetAK8pt[ijet] *= pfjetAK8JEC[ijet] ;
-//    pfjetAK8mass[ijet] *= pfjetAK8JEC[ijet];
+    pfjetAK8mass[ijet] *= pfjetAK8JEC[ijet];
     
     if(isMC){
       pfjetAK8pt[ijet] *= (1+pfjetAK8reso[ijet]) ;
@@ -277,7 +277,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
     pfjetAK8NHadF[fjet] = (1.-pfjetAK8HadF[fjet]);
     pfjetAK8EmF[fjet] = (pfjetAK8NEMF[fjet]+pfjetAK8CEMF[fjet]);
     pfjetAK8EEM[fjet] = pfjetAK8EEM[ijet];
-    pfjetAK8ncons[fjet] = pfjetAK8Chcons[ijet]+pfjetAK8Chcons[ijet];
+    pfjetAK8ncons[fjet] = pfjetAK8Chcons[ijet]+pfjetAK8Neucons[ijet];
     pfjetAK8Chcons[fjet] = pfjetAK8Chcons[ijet];
     pfjetAK8neuemfrac[fjet] = (pfjetAK8NEMF[fjet]*1./pfjetAK8EmF[fjet]);
     pfjetAK8neunhadfrac[fjet] = (pfjetAK8NEMF[fjet]*1./pfjetAK8NHadF[fjet]);
@@ -345,6 +345,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   }//ijet
   
   npfjetAK8 = fjet;
+  
   int maxM(-1);
   float LMass(0);
   for(int ljet=0; ljet< npfjetAK8; ljet++){
@@ -382,6 +383,19 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   nmuons = nmuon1;
   
+  int nelec1 = 0;
+  for(int ie=0; ie<nelecs; ie++) {
+	  
+	  if(fabs(elpt[ie])<125.) continue; 
+	  if(fabs(eleta[ie])>2.5)  continue; 
+	  
+//	  if(!elmvaid[ie]) continue;
+	  if(!elmvaid_noIso[ie]) continue;
+	  
+	  nelec1++;
+	  
+  }
+  
   // resolved case 
   /*
   int nelec1 = 0;
@@ -413,6 +427,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   float btagwt = 1.;
   float btag_eff = 1;
+  float Event_HT = 0;
   
   for(int ijet=0; ijet<npfjetAK4; ijet++){
     
@@ -427,6 +442,8 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
     }
     
     if(pfjetAK4pt[ijet]<30.) continue;
+    
+    Event_HT += pfjetAK4pt[ijet];
     
     pfjetAK4pt[fjet] = pfjetAK4pt[ijet];
     pfjetAK4mass[fjet] = pfjetAK4mass[ijet];
@@ -719,16 +736,11 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   // e + jets (semileptonic ttbar) 
   
   #ifdef E_Jets_TTBar
-  /*
-  itrig_epass = ((ihlt14==1)||(ihlt15==1));
-  itrig_ljpass = (ihlt09==1);
-  
-  if(!itrig_epass && !itrig_ljpass) return kFALSE;
-  */
-  
+
 //  itrig_pass = ((ihlt05==1)||(ihlt15==1)||(ihlt14==1)||(ihlt09==1)); // boosted case
 //  itrig_pass = (ihlt03==1);	// resolved case 
   itrig_pass = (ihlt15==1);// || ihlt14==1);
+//  itrig_pass = (ihlt09==1);
   if(!itrig_pass) return kFALSE;
   
   hist_count->Fill(2,weight);
@@ -744,6 +756,8 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
  
   hist_count->Fill(3,weight);
   
+  if(nelec1!=1) return kFALSE;
+  
   // resolved case 
   /*
   if(!(nelecs==1)) return kFALSE;
@@ -751,19 +765,22 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   */
   // resolved case ends
   
-//  if(npfjetAK8_we<1) return kFALSE;
-
+//  
   #endif
   
   // e + mu (dileptonic ttbar)
   
   #ifdef E_MU_TTBar
   
-  itrig_pass = ((ihlt01==1)||(ihlt02==1));//||(ihlt09==1)||(ihlt10==1));
+  itrig_pass = ((ihlt01==1));//||(ihlt09==1)||(ihlt10==1));
   if(!itrig_pass) return kFALSE;
+  
+  hist_count->Fill(2,weight);
   
   if(!(nmuons==1)) return kFALSE;
   if(npfjetAK8<1) return kFALSE;
+  
+  hist_count->Fill(3,weight);
   
   #endif
   
@@ -904,11 +921,13 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 	  hist_th_tau32->Fill(pfjetAK8tau32[thcand],weight);
 	  hist_th_deepak8->Fill(pfjetAK8DeepTag_TvsQCD[thcand],weight);
 	  
+	  hist_count->Fill(6,weight);
+	  
 	  }
   
   if(telcand>=0){
 	  
-	  hist_count->Fill(6,weight);
+	  hist_count->Fill(7,weight);
 	  
 	  hist_npv_sel->Fill(nchict,weight);
 	  hist_njets_AK8->Fill(npfjetAK8,weight);
@@ -917,7 +936,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 	  
 	  if(nbjetAK4>=nbjet_cut){ 
 	  
-	  hist_count->Fill(7,weight);
+	  hist_count->Fill(8,weight);
 	  
 	  hist_obs[0]->Fill(pfjetAK8pt[telcand],weight);
 	  hist_obs[1]->Fill(pfjetAK8y[telcand],weight);
