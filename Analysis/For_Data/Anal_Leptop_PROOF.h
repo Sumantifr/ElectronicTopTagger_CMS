@@ -967,6 +967,7 @@ class Anal_Leptop_PROOF : public TSelector {
   bool SemiLeptt;
   bool DiLeptt;
   bool Hadtt;
+  bool EE, EMU, MUMU, EJets, MUJets;
   
   bool isTT;
   bool isST;
@@ -2189,6 +2190,8 @@ class Anal_Leptop_PROOF : public TSelector {
   TH2D *h2d_re_rnu_4;
   TH2D *h2d_re_rnu_5;
   TH2D *h2d_re_rnu_6;
+  
+  TH1D *hist_counter_2;
   
   float in_pfjetAK8NHadF;
   float in_pfjetAK8neunhadfrac;

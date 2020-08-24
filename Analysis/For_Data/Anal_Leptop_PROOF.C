@@ -23,7 +23,7 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   
   TString option = GetOption();
   //OutFile = new TProofOutputFile("testHadronic_elid_notallevtsv4.root");
-  OutFile = new TProofOutputFile("SingleElectron_Data_2018A_leptrig.root");
+  OutFile = new TProofOutputFile("test.root");
 
   //fOutput->Add(OutFile);
   fileOut = OutFile->OpenFile("RECREATE");
@@ -33,9 +33,9 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
 	      OutFile->GetDir(), OutFile->GetFileName());
     }
   
-  isMC = false;
+  isMC = true;
   
-  isTT = false;
+  isTT = true;
   isST = false;
   isDIB = false;
   isWJ = false;
@@ -156,6 +156,9 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   
   hist_count = new TH1D("Counter","Counter",10,0,10);
   hist_count->Sumw2();  
+  
+  hist_counter_2 = new TH1D("Score_counter","Score counter",2000,0,200);
+  hist_counter_2->Sumw2();  
 
   reader1 = new TMVA::Reader( "BDTG_Re" );
   reader1->AddVariable( "selpfjetAK8NHadF", &in_pfjetAK8NHadF);
@@ -228,6 +231,169 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
     weight = 1;
   }
   Tout->Fill();
+  
+  int ngenelc = 0;
+   int ngenmu = 0;
+   int ngenqg = 0;
+   int ngenb = 0;
+   
+   hist_event_count->Fill(1,weight);
+   
+   TLorentzVector leptop4v[2];
+   TLorentzVector leptop4v_daught[3][2];
+   TLorentzVector hadtop4v[2];
+   TLorentzVector hadtop4v_daught[3][2];
+   int leptop_id_daught[2];
+   
+   if(isMC && isTT){
+   
+   int top_dp[6];
+   int idp = 0;
+   int ndq = 0; int ndb = 0; int ndl = 0;
+   int top_dqp[4] = {-1,-1,-1,-1};
+   int top_dbp[2] = {-1,-1};
+   int top_dlp[4] = {-1,-1,-1,-1};
+   
+   for(int igen=0; igen<ngenparticles; igen++){
+	  
+	   if(!(genpartstatus[igen]==23 || genpartstatus[igen]==1)) continue;
+	   if(!(genpartfromhard[igen])) continue;
+	   
+	   if(!((abs(genpartpdg[igen])>=1 && abs(genpartpdg[igen])<=5)||(abs(genpartpdg[igen])>=11 && abs(genpartpdg[igen])<=16))) continue;
+	   if(!(abs(genpartmompdg[igen])==6 || abs(genpartmompdg[igen])==24)) continue;
+	   top_dp[idp] = igen;
+	   if(abs(genpartpdg[igen])>=1 && abs(genpartpdg[igen])<5 && abs(genpartmompdg[igen])==24) {  top_dqp[ndq] = igen;  ndq++; }
+	   if(abs(genpartpdg[igen])>=11 && abs(genpartpdg[igen])<=16 && abs(genpartmompdg[igen])==24) {  top_dlp[ndl] = igen;  ndl++; }
+	   if(abs(genpartpdg[igen])==5 && abs(genpartmompdg[igen])==6) {  top_dbp[ndb] = igen;  ndb++; }
+	   idp++;
+//	   if(idp>=6) break;
+//	   if(ndq>=4 && ndl>=4 && ndb>=2) break;
+   }
+   
+   
+   nleptop = nhadtop = -1;
+   /*
+   if(ndq==4 && ndl==0) { nleptop = 0; nhadtop = 2; }
+   if(ndq==2 && ndl==2) { nleptop = 1; nhadtop = 1; }
+   if(ndq==0 && ndl==4) { nleptop = 2; nhadtop = 0; }
+   if(ndq==0 && ndl==2) { nleptop = 1; nhadtop = 0; }
+   if(ndq==2 && ndl==0) { nleptop = 0; nhadtop = 1; }
+   if(ndq==0 && ndl==0) { nleptop = 0; nhadtop = 0; }
+   */
+   if(ndl==0) { nleptop = 0; }
+   if(ndl==2) { nleptop = 1; }
+   if(ndl==4) { nleptop = 2; }
+   
+   if(ndq==0) { nhadtop = 0; }
+   if(ndq==2) { nhadtop = 1; }
+   if(ndq==4) { nhadtop = 2; }
+   
+ //  TString str = TString::Format("entry %lli nleptop %i nhadtop %i ngentops %i\n",entry,nleptop,nhadtop,ngentops);
+ //  if(gProofServ) gProofServ->SendAsynMessage(str);
+   
+	 
+   for(int ilep=0; ilep<ndl; ilep++){
+	   for(int jlep=(ilep+1); jlep<ndl; jlep++){
+		if((abs(abs(genpartpdg[top_dlp[ilep]])-abs(genpartpdg[top_dlp[jlep]]))==1) && (genpartpdg[top_dlp[ilep]]*genpartpdg[top_dlp[jlep]]<0) && (genpartmompdg[top_dlp[ilep]]==genpartmompdg[top_dlp[jlep]]))
+		{
+			genpartpair[top_dlp[ilep]] = top_dlp[jlep];
+			genpartpair[top_dlp[jlep]] = top_dlp[ilep];
+		}
+	   }
+   }
+   
+   for(int iq=0; iq<ndq; iq++){
+	   for(int jq=(iq+1); jq<ndq; jq++){
+		if( ( (abs(abs(genpartpdg[top_dqp[iq]])-abs(genpartpdg[top_dqp[jq]]))==1)||(abs(abs(genpartpdg[top_dqp[iq]])-abs(genpartpdg[top_dqp[jq]]))==3) ) && (genpartpdg[top_dqp[iq]]*genpartpdg[top_dqp[jq]]<0) && (genpartmompdg[top_dqp[iq]]==genpartmompdg[top_dqp[jq]]) )
+		{
+			genpartpair[top_dqp[iq]] = top_dqp[jq];
+			genpartpair[top_dqp[jq]] = top_dqp[iq];
+		}
+	   }
+   }
+   
+   
+   int ileptop = 0;
+   int ihadtop = 0;
+   
+   if(nleptop>0){
+   
+   for(int ilep=0; ilep<ndl; ilep++){
+	   if(!((abs(genpartpdg[top_dlp[ilep]])==11 || abs(genpartpdg[top_dlp[ilep]])==13 || abs(genpartpdg[top_dlp[ilep]])==15) && genpartpair[top_dlp[ilep]]>=0)) continue;
+	
+	   for(int ib=0; ib<ndb; ib++){
+	
+		   if(genpartmompdg[top_dbp[ib]]*genpartmompdg[top_dlp[ilep]]>0){
+			   TLorentzVector b4; b4.SetPtEtaPhiM(genpartpt[top_dbp[ib]],genparteta[top_dbp[ib]],genpartphi[top_dbp[ib]],genpartm[top_dbp[ib]]);
+			   int ipar = top_dlp[ilep];
+			   if(ipar>=0){
+				TLorentzVector q1; q1.SetPtEtaPhiM(genpartpt[ipar],genparteta[ipar],genpartphi[ipar],genpartm[ipar]);
+				int jpar = genpartpair[top_dlp[ilep]];
+				TLorentzVector q2; q2.SetPtEtaPhiM(genpartpt[jpar],genparteta[jpar],genpartphi[jpar],genpartm[jpar]);
+				leptop4v[ileptop] = (b4+q1+q2);
+				leptop4v_daught[0][ileptop] = q1;
+				leptop4v_daught[1][ileptop] = q2;
+				leptop4v_daught[2][ileptop] = b4;
+				leptop_id_daught[ileptop] = genpartpdg[top_dlp[ilep]];
+				
+				ileptop++;
+				break;
+			   }
+			 }
+		   
+		   }
+		   if(ileptop>=nleptop) break;
+	   }
+   }
+   
+   if(nhadtop>0){
+   
+   for(int iq=0; iq<ndq; iq++){
+	   
+	   if(!(( (abs(genpartpdg[top_dqp[iq]])==1) || (abs(genpartpdg[top_dqp[iq]])==3) ) && genpartpair[top_dqp[iq]]>=0)) continue;
+	
+	   for(int ib=0; ib<ndb; ib++){
+		   
+		   if(genpartmompdg[top_dbp[ib]]*genpartmompdg[top_dqp[iq]]>0){
+			   TLorentzVector b4; b4.SetPtEtaPhiM(genpartpt[top_dbp[ib]],genparteta[top_dbp[ib]],genpartphi[top_dbp[ib]],genpartm[top_dbp[ib]]);
+			   int ipar = top_dqp[iq];
+			   if(ipar>=0){
+				TLorentzVector q1; q1.SetPtEtaPhiM(genpartpt[ipar],genparteta[ipar],genpartphi[ipar],genpartm[ipar]);
+				int jpar = genpartpair[top_dqp[iq]];
+				TLorentzVector q2; q2.SetPtEtaPhiM(genpartpt[jpar],genparteta[jpar],genpartphi[jpar],genpartm[jpar]);
+				hadtop4v[ihadtop] = (b4+q1+q2);
+				hadtop4v_daught[0][ihadtop] = q1;
+				hadtop4v_daught[1][ihadtop] = q2;
+				hadtop4v_daught[2][ihadtop] = b4;
+				
+				ihadtop++;
+				break;
+				}
+			   }
+			   
+		   }
+		   if(ihadtop>=nhadtop) break;
+	   }
+   
+	}
+
+	nleptop = ileptop;
+	nhadtop = ihadtop;
+
+ }//isMC
+ 
+  DiLeptt = SemiLeptt = Hadtt = EE = MUMU = EMU = EJets = MUJets = false;
+
+  if(nleptop==2 && nhadtop==0) { DiLeptt = true; }
+  if(nleptop==1 && nhadtop==1) { SemiLeptt = true; }
+  if(nleptop==0 && nhadtop==2) { Hadtt = true; }
+  
+  if(DiLeptt && abs(leptop_id_daught[0])==11 && abs(leptop_id_daught[0])==11) { EE = true; }
+  if(DiLeptt && abs(leptop_id_daught[0])==13 && abs(leptop_id_daught[0])==13) { MUMU = true; }
+  if(DiLeptt && ((abs(leptop_id_daught[0])==11 && abs(leptop_id_daught[0])==13) || (abs(leptop_id_daught[0])==13 && abs(leptop_id_daught[0])==11)) ) { EMU = true; }
+  
+  if(SemiLeptt && abs(leptop_id_daught[0])==11) { EJets = true; }
+  if(SemiLeptt && abs(leptop_id_daught[0])==13) { MUJets = true; }
   
   hist_event_count->Fill(1,weight);
   
@@ -360,7 +526,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   int nmuon1 = 0;
   for(int mu=0; mu<nmuons; mu++){
     
-    if(muonpt[mu]<30.) continue; 
+    if(muonpt[mu]<53.) continue; 
     if(fabs(muoneta[mu])>2.4)  continue; 
     
     bool mu_id = Muon_TightID(muonisGL[mu],muonisPF[mu],
@@ -369,11 +535,38 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
     bool mu_iso = Muon_Iso_ID(muonpfiso[mu]);
     
     if(!mu_id) continue;
-    if(!mu_iso) continue;
+//    if(!mu_iso) continue;
+    
+    //2d iso //
+    
+    float dR_min = 1000;
+    int nearjet = -1;
+    
+    for(int kjet=0; kjet<npfjetAK4; kjet++){
+        if(pfjetAK4looseID[kjet]==0) continue;
+          if(delta2R(pfjetAK4y[kjet],pfjetAK4phi[kjet],muoneta[mu],muoneta[mu]) < dR_min){
+                   dR_min = delta2R(pfjetAK4y[kjet],pfjetAK4phi[kjet],muoneta[mu],muoneta[mu]) ;
+                   nearjet = kjet;
+          }
+    }
+
+    float muonpt_nearjet = 10000;
+
+    if(nearjet>=0){
+        TLorentzVector mu_mom; mu_mom.SetPtEtaPhiE(muonpt[mu],muoneta[mu],muonphi[mu],muone[mu]);
+        TLorentzVector j_mom; j_mom.SetPtEtaPhiM(pfjetAK4pt[nearjet],pfjetAK4eta[nearjet],pfjetAK4phi[nearjet],pfjetAK4mass[nearjet]);
+        muonpt_nearjet = ((mu_mom.Vect()).Perp(j_mom.Vect()));
+    }
+
+    bool mu_2diso = (dR_min > 0.4 ||  muonpt_nearjet > 15.);
+    
+    //2d iso ends//
+    
+    if(!mu_2diso) continue;
     
     muonpt[nmuon1] = muonpt[mu];
     muoneta[nmuon1] = muoneta[mu];
-    muonphi[nmuon1] = muonphi[mu];
+    muonphi[nmuon1] = muoneta[mu];
     muone[nmuon1] = muone[mu];
     muonp[nmuon1] = muonp[mu];
     
@@ -441,7 +634,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
       pfjetAK4mass[ijet] *= (1+pfjetAK4reso[ijet]) ;
     }
     
-    if(pfjetAK4pt[ijet]<30.) continue;
+    if(pfjetAK4pt[ijet]<50.) continue;
     
     Event_HT += pfjetAK4pt[ijet];
     
@@ -772,7 +965,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   #ifdef E_MU_TTBar
   
-  itrig_pass = ((ihlt01==1));//||(ihlt09==1)||(ihlt10==1));
+  itrig_pass = ((ihlt02==1));//||(ihlt09==1)||(ihlt10==1));
   if(!itrig_pass) return kFALSE;
   
   hist_count->Fill(2,weight);
@@ -793,7 +986,11 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   hist_pfmet->Fill(PFMET,weight);
   
+  #ifdef E_MU_TTBar
+  if(PFMET < 30.) return kFALSE;  // MET cut of 30 GeV
+  #else
   if(PFMET < 50.) return kFALSE;  // MET cut of 50 GeV
+  #endif
   
   hist_count->Fill(5,weight);
   
@@ -898,7 +1095,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 				telcand = ijet;
 				maxpt = pfjetAK8pt[ijet];
 			 }
-		if(te_found) break;
+//		if(te_found) break;
 		
 	}
 
@@ -958,6 +1155,13 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 	  hist_obs[15]->Fill(pfjetAK8haspfelectron[telcand],weight);
 	
 	  hist_pfmet_1->Fill(PFMET,weight);
+	  
+	  for(int ij=0; ij<2000; ij++){
+		  if(pfjetAK8re_tvsb[telcand] >= (-1 + ij*(1./1000))){
+			  hist_counter_2->Fill(ij+1,weight);
+			  }
+		  }
+	  
 	  
 	  if(pfjetAK8re_tvsb[telcand] > re_cut){
 		  
