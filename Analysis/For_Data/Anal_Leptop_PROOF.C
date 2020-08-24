@@ -232,13 +232,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   }
   Tout->Fill();
   
-  int ngenelc = 0;
-   int ngenmu = 0;
-   int ngenqg = 0;
-   int ngenb = 0;
-   
-   hist_event_count->Fill(1,weight);
-   
+  
    TLorentzVector leptop4v[2];
    TLorentzVector leptop4v_daught[3][2];
    TLorentzVector hadtop4v[2];
