@@ -1142,6 +1142,7 @@ class Anal_Leptop_PROOF : public TSelector {
   Float_t         pfjetAK8_bbyW_E[njetmxAK8];
   Float_t         pfjetAK8_Kfactor[njetmxAK8];
   Float_t         pfjetAK8_Rnew[njetmxAK8];
+  Bool_t 		  pfjetAK8_hasmatche[njetmxAK8];
   Float_t		   pfjetAK8stau21[njetmxAK8];
   Float_t		   pfjetAK8stau32[njetmxAK8];
   Float_t		   pfjetAK8subptdiff[njetmxAK8];
