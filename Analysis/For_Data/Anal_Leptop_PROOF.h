@@ -1943,7 +1943,7 @@ class Anal_Leptop_PROOF : public TSelector {
   static const int notptbins = 3;
   double tptbins[notptbins+1] = {400, 480, 600, 1200};
  
-  float DAK8_topcut = 0.470; //0.470 ;//1% mistag rate (0.920 // 0.1% mistag) (0.802 // 1% mistag )
+  float DAK8_topcut = 0.470; //0.470 ;//1% mistag rate (0.920 // 0.1% mistag) 
   float deep_btag_cut = 0.2770; //medium (0.7264 //tight)
   float re_cut = 0.3;
   

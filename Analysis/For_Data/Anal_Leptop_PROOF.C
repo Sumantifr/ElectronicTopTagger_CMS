@@ -3,8 +3,8 @@
 #include <TH2.h>
 #include <TStyle.h>
 
-#define E_MU_TTBar
-//#define E_Jets_TTBar
+//#define E_MU_TTBar
+#define E_Jets_TTBar
 
 void Anal_Leptop_PROOF::Begin(TTree * /*tree*/)
 {
@@ -154,7 +154,7 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   hist_th_tau32 = new TH1D("HTop_tau32","HTop_tau32",25,0,1);
   hist_th_tau32->Sumw2();  
   
-  hist_count = new TH1D("Counter","Counter",10,0,10);
+  hist_count = new TH1D("Counter","Counter",11,0,11);
   hist_count->Sumw2();  
   
   hist_counter_2 = new TH1D("Score_counter","Score counter",2000,0,2000);
@@ -389,8 +389,10 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   if(SemiLeptt && abs(leptop_id_daught[0])==11) { EJets = true; }
   if(SemiLeptt && abs(leptop_id_daught[0])==13) { MUJets = true; }
   
-//  if(isTT && SemiLeptt && EJets) return kFALSE;
-  if((isTT && DiLeptt && EMU)) return kFALSE;
+  bool boosted = ((SemiLeptt && (leptop4v[0].Pt()>400)) || (DiLeptt && ((abs(leptop_id_daught[0])==11 && (leptop4v[0].Pt()>400)) || (abs(leptop_id_daught[1])==11 && (leptop4v[1].Pt()>400))))) ; 
+  
+  if((isTT && SemiLeptt && EJets && boosted)) return kFALSE;
+//  if((isTT && DiLeptt && EMU && boosted)) return kFALSE;
   
   hist_event_count->Fill(1,weight);
   
@@ -541,8 +543,8 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
     
     for(int kjet=0; kjet<npfjetAK4; kjet++){
         if(pfjetAK4looseID[kjet]==0) continue;
-          if(delta2R(pfjetAK4y[kjet],pfjetAK4phi[kjet],muoneta[mu],muoneta[mu]) < dR_min){
-                   dR_min = delta2R(pfjetAK4y[kjet],pfjetAK4phi[kjet],muoneta[mu],muoneta[mu]) ;
+          if(delta2R(pfjetAK4y[kjet],pfjetAK4phi[kjet],muoneta[mu],muonphi[mu]) < dR_min){
+                   dR_min = delta2R(pfjetAK4y[kjet],pfjetAK4phi[kjet],muoneta[mu],muonphi[mu]) ;
                    nearjet = kjet;
           }
     }
@@ -555,7 +557,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
         muonpt_nearjet = ((mu_mom.Vect()).Perp(j_mom.Vect()));
     }
 
-    bool mu_2diso = (dR_min > 0.4 ||  muonpt_nearjet > 15.);
+    bool mu_2diso = (nearjet>=0)?(dR_min > 0.4 ||  muonpt_nearjet > 15.):true;
     
     //2d iso ends//
     
@@ -576,7 +578,11 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   int nelec1 = 0;
   for(int ie=0; ie<nelecs; ie++) {
 	  
+	  #ifdef E_Jets_TTBar
 	  if(fabs(elpt[ie])<125.) continue; 
+	  #elif defined(E_MU_TTBar)
+	  if(fabs(elpt[ie])<25.) continue; 
+	  #endif
 	  if(fabs(eleta[ie])>2.5)  continue; 
 	  
 //	  if(!elmvaid[ie]) continue;
@@ -614,6 +620,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   fjet = 0;
   int nbjetAK4 = 0;
+  int nbjetAK4_lead = 0;
   
   float btagwt = 1.;
   float btag_eff = 1;
@@ -631,7 +638,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
       pfjetAK4mass[ijet] *= (1+pfjetAK4reso[ijet]) ;
     }
     
-    if(pfjetAK4pt[ijet]<50.) continue;
+    if(pfjetAK4pt[ijet]<30.) continue;
     
     Event_HT += pfjetAK4pt[ijet];
     
@@ -655,6 +662,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
     if(abs(pfjetAK4hadronflav[fjet])!=5 &&abs(pfjetAK4hadronflav[fjet])!=4){  hist_2D_ball_flavq->Fill(pfjetAK4pt[fjet],fabs(pfjetAK4eta[fjet]),weight); }
     
     if(pfjetAK4btag_DeepFlav[fjet] > deep_btag_cut) { nbjetAK4++; }
+    if((pfjetAK4btag_DeepFlav[fjet] > deep_btag_cut) && (fjet==0||fjet==1)) { nbjetAK4_lead++; }
     
     if(isMC){
     
@@ -933,8 +941,8 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 
 //  itrig_pass = ((ihlt05==1)||(ihlt15==1)||(ihlt14==1)||(ihlt09==1)); // boosted case
 //  itrig_pass = (ihlt03==1);	// resolved case 
-  itrig_pass = (ihlt15==1);// || ihlt14==1);
-//  itrig_pass = (ihlt09==1);
+  itrig_pass = (ihlt15==1);// || ihlt14==1);  // for EGamma
+//  itrig_pass = (ihlt09==1);		// for JetHT
   if(!itrig_pass) return kFALSE;
   
   hist_count->Fill(2,weight);
@@ -950,7 +958,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
  
   hist_count->Fill(3,weight);
   
-  if(nelec1!=1) return kFALSE;
+  if(nelec1!=1) return kFALSE;   // off for JetHT
   
   // resolved case 
   /*
@@ -972,6 +980,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   hist_count->Fill(2,weight);
   
   if(!(nmuons==1)) return kFALSE;
+  if(nelec1!=1) return kFALSE;  
   if(npfjetAK8<1) return kFALSE;
   
   hist_count->Fill(3,weight);
@@ -1125,6 +1134,9 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   // fill the histograms //
   
+  if(Event_HT < 800) return kFALSE;
+  
+  hist_count->Fill(6,weight);
   
   if(thcand>=0){
 	  
@@ -1134,28 +1146,40 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 	  hist_th_tau32->Fill(pfjetAK8tau32[thcand],weight);
 	  hist_th_deepak8->Fill(pfjetAK8DeepTag_TvsQCD[thcand],weight);
 	  
-	  hist_count->Fill(6,weight);
+	  hist_count->Fill(7,weight);
 	  
 	  }
   
-  #ifdef pfjetAK8_hasmatche
+  #ifdef E_MU_TTBar
   
-  if(nhcand>0) return kFALSE;
+//  if(nhcand>0) return kFALSE;
+  if(npfjetAK4<2) return kFALSE;
   
+  TLorentzVector mu_mom;
+  if(nmuons>0) { mu_mom.SetPtEtaPhiE(fabs(muonp[0]),muoneta[0],muonphi[0],muone[0]); }
+  TLorentzVector e_mom;
+  if(nelecs>0) { e_mom.SetPtEtaPhiM(elpt[0],eleta[0],elphi[0],ele[0]); }
+  float inv_mass = 1000;
+  inv_mass = (mu_mom + e_mom).M();	  
+  if(!((inv_mass > 20 && inv_mass < 76) || (inv_mass > 106))) return kFALSE;
+  hist_count->Fill(7,weight);
+   
   #endif
   
-  if(telcand>=0 /*&& pfjetAK8_hasmatche[telcand]*/){
+  if(telcand>=0) { hist_count->Fill(8,weight); }
+  
+  if(telcand>=0 && pfjetAK8_hasmatche[telcand]){
 	  
-	  hist_count->Fill(7,weight);
+	  hist_count->Fill(9,weight);
 	  
 	  hist_npv_sel->Fill(nchict,weight);
 	  hist_njets_AK8->Fill(npfjetAK8,weight);
 	  hist_njets_AK4->Fill(npfjetAK4,weight);
 	  hist_nbjets_AK4->Fill(nbjetAK4,weight);
 	  
-	  if(nbjetAK4>=nbjet_cut){ 
+	  if(nbjetAK4_lead>=nbjet_cut){ 
 	  
-	  hist_count->Fill(8,weight);
+	  hist_count->Fill(10,weight);
 	  
 	  hist_obs[0]->Fill(pfjetAK8pt[telcand],weight);
 	  hist_obs[1]->Fill(pfjetAK8y[telcand],weight);
