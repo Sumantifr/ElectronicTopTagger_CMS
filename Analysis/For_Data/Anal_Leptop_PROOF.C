@@ -3,8 +3,11 @@
 #include <TH2.h>
 #include <TStyle.h>
 
-//#define E_MU_TTBar
-#define E_Jets_TTBar
+#define E_MU_TTBar
+//#define E_Jets_TTBar
+
+//#define Sample_JetHT
+#define Data_MC
 
 void Anal_Leptop_PROOF::Begin(TTree * /*tree*/)
 {
@@ -53,6 +56,8 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   
   hist_pfmet_1 = new TH1D("hist_PFMET_pass","hist_PFMET_pass",25,0,500);
   
+  hist_pfmet_match_1 = new TH1D("hist_PFMET_pass_match","hist_PFMET_pass",25,0,500);
+  
   for(int ihist=0; ihist<nobshist; ihist++){
     sprintf(name,"Obs_%s",obsnames[ihist]);
     hist_obs[ihist] = new TH1D(name,name,obs_nbins[ihist],obs_low[ihist],obs_up[ihist]);
@@ -65,6 +70,30 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
     sprintf(name,"Obs_%s_fail",obsnames[ihist]);
     hist_obs_2[ihist] = new TH1D(name,name,obs_nbins[ihist],obs_low[ihist],obs_up[ihist]);
     hist_obs_2[ihist]->Sumw2();
+    
+    sprintf(name,"Obs_%s_match",obsnames[ihist]);
+    hist_obs_match[ihist] = new TH1D(name,name,obs_nbins[ihist],obs_low[ihist],obs_up[ihist]);
+    hist_obs_match[ihist]->Sumw2();
+    
+    sprintf(name,"Obs_%s_match_pass",obsnames[ihist]);
+    hist_obs_match_1[ihist] = new TH1D(name,name,obs_nbins[ihist],obs_low[ihist],obs_up[ihist]);
+    hist_obs_match_1[ihist]->Sumw2();
+    
+    sprintf(name,"Obs_%s_match_fail",obsnames[ihist]);
+    hist_obs_match_2[ihist] = new TH1D(name,name,obs_nbins[ihist],obs_low[ihist],obs_up[ihist]);
+    hist_obs_match_2[ihist]->Sumw2();
+    
+    sprintf(name,"Obs_%s_nomatch",obsnames[ihist]);
+    hist_obs_nomatch[ihist] = new TH1D(name,name,obs_nbins[ihist],obs_low[ihist],obs_up[ihist]);
+    hist_obs_nomatch[ihist]->Sumw2();
+    
+    sprintf(name,"Obs_%s_nomatch_pass",obsnames[ihist]);
+    hist_obs_nomatch_1[ihist] = new TH1D(name,name,obs_nbins[ihist],obs_low[ihist],obs_up[ihist]);
+    hist_obs_nomatch_1[ihist]->Sumw2();
+    
+    sprintf(name,"Obs_%s_nomatch_fail",obsnames[ihist]);
+    hist_obs_nomatch_2[ihist] = new TH1D(name,name,obs_nbins[ihist],obs_low[ihist],obs_up[ihist]);
+    hist_obs_nomatch_2[ihist]->Sumw2();
   }
   
   char title[1000];
@@ -82,6 +111,11 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   sprintf(title,"# of Primary Vertices");
   hist_npv_sel = new TH1D(name,title,100,-0.1,99.9);//80,-0.1,79.9);
   hist_npv_sel->Sumw2();
+  
+  sprintf(name,"N_PV_sel_match");
+  sprintf(title,"# of Primary Vertices");
+  hist_npv_sel_match = new TH1D(name,title,100,-0.1,99.9);//80,-0.1,79.9);
+  hist_npv_sel_match->Sumw2();
   
   sprintf(name,"N_PV_nopuwt");
   sprintf(title,"# of Primary Vertices");
@@ -111,6 +145,21 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   sprintf(title,"# of b tagged AK4 jets");
   hist_nbjets_AK4 = new TH1D(name,title,10,0,10);
   hist_nbjets_AK4->Sumw2();
+  
+  sprintf(name,"NJets_AK8_match");
+  sprintf(title,"# of AK8 jets");
+  hist_njets_AK8_match = new TH1D(name,title,10,0,10);
+  hist_njets_AK8_match->Sumw2();
+  
+  sprintf(name,"NJets_AK4_match");
+  sprintf(title,"# of AK4 jets");
+  hist_njets_AK4_match = new TH1D(name,title,10,0,10);
+  hist_njets_AK4_match->Sumw2();
+  
+  sprintf(name,"NBJets_AK4_match");
+  sprintf(title,"# of b tagged AK4 jets");
+  hist_nbjets_AK4_match = new TH1D(name,title,10,0,10);
+  hist_nbjets_AK4_match->Sumw2();
 
   hist_2D_msd_deepak8 = new TH2D("hist_2D_msd_deepak8","hist_2D_msd_deepak8",25,0,300,25,0,1);
   hist_2D_msd_deepak8->Sumw2();
@@ -154,11 +203,20 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   hist_th_tau32 = new TH1D("HTop_tau32","HTop_tau32",25,0,1);
   hist_th_tau32->Sumw2();  
   
-  hist_count = new TH1D("Counter","Counter",11,0,11);
+  hist_count = new TH1D("Counter","Counter",18,0,18);
   hist_count->Sumw2();  
   
   hist_counter_2 = new TH1D("Score_counter","Score counter",2000,0,2000);
   hist_counter_2->Sumw2();  
+
+  hist_counter_match_2 = new TH1D("Score_counter_match","Score counter",2000,0,2000);
+  hist_counter_match_2->Sumw2(); 
+  
+  hist_dilep_tag = new TH1D ("DiLep_tag","DiLep_tag",10,-0.5,9.5);
+  hist_dilep_tag->Sumw2(); 
+  
+  hist_semilep_tag = new TH1D ("SemiLep_tag","SemiLep_tag",10,-0.5,9.5);
+  hist_semilep_tag->Sumw2(); 
 
   reader1 = new TMVA::Reader( "BDTG_Re" );
   reader1->AddVariable( "selpfjetAK8NHadF", &in_pfjetAK8NHadF);
@@ -202,6 +260,16 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   reader2->AddVariable( "selpfjetAK8_bbyW_E", &in_pfjetAK8_bbyW_E);
   reader2->AddVariable( "selpfjetAK8_Kfactor", &in_pfjetAK8_Kfactor);
   reader2->BookMVA("BDTG method", weightfile2);
+  
+  reader3 = new TMVA::Reader( "BDTG_Rt" );
+  reader3->AddVariable( "selpfjetAK8NHadF", &in_pfjetAK8NHadF);
+  reader3->AddVariable( "selpfjetAK8neunhadfrac", &in_pfjetAK8neunhadfrac);
+  reader3->AddVariable( "selpfjetAK8subhaddiff", &in_pfjetAK8subhaddiff);
+  reader3->AddVariable( "selpfjetAK8tau21", &in_pfjetAK8tau21);
+  reader3->AddVariable( "selpfjetAK8chrad", &in_pfjetAK8chrad);
+  reader3->AddVariable( "selpfjetAK8sdmass", &in_pfjetAK8sdmass);
+  reader3->BookMVA("BDTG method", weightfile3);
+  
 }
 
 Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
@@ -232,6 +300,13 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   }
   Tout->Fill();
   
+  #ifdef Sample_JetHT
+  
+  ptcut = 550;
+  DAK8_topcut = 0.920;
+  
+  #endif
+  
   
    TLorentzVector leptop4v[2];
    TLorentzVector leptop4v_daught[3][2];
@@ -239,7 +314,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
    TLorentzVector hadtop4v_daught[3][2];
    int leptop_id_daught[2];
    
-   if(isMC && isTT){
+   
    
    int top_dp[6];
    int idp = 0;
@@ -264,6 +339,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 //	   if(ndq>=4 && ndl>=4 && ndb>=2) break;
    }
    
+   if(isMC && isTT){
    
    nleptop = nhadtop = -1;
    /*
@@ -376,7 +452,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 
  }//isMC
  
-  DiLeptt = SemiLeptt = Hadtt = EE = MUMU = EMU = EJets = MUJets = false;
+  DiLeptt = SemiLeptt = Hadtt = EE = MUMU = EMU = EJets = MUJets = TauTau = ETau = MuTau = false;
 
   if(nleptop==2 && nhadtop==0) { DiLeptt = true; }
   if(nleptop==1 && nhadtop==1) { SemiLeptt = true; }
@@ -384,15 +460,25 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   if(DiLeptt && abs(leptop_id_daught[0])==11 && abs(leptop_id_daught[1])==11) { EE = true; }
   if(DiLeptt && abs(leptop_id_daught[0])==13 && abs(leptop_id_daught[1])==13) { MUMU = true; }
+  if(DiLeptt && abs(leptop_id_daught[0])==15 && abs(leptop_id_daught[1])==15) { TauTau = true; }
   if(DiLeptt && ((abs(leptop_id_daught[0])==11 && abs(leptop_id_daught[1])==13) || (abs(leptop_id_daught[0])==13 && abs(leptop_id_daught[1])==11)) ) { EMU = true; }
+  if(DiLeptt && ((abs(leptop_id_daught[0])==11 && abs(leptop_id_daught[1])==15) || (abs(leptop_id_daught[0])==15 && abs(leptop_id_daught[1])==11)) ) { ETau = true; }
+  if(DiLeptt && ((abs(leptop_id_daught[0])==13 && abs(leptop_id_daught[1])==15) || (abs(leptop_id_daught[0])==15 && abs(leptop_id_daught[1])==13)) ) { MuTau = true; }
+  
   
   if(SemiLeptt && abs(leptop_id_daught[0])==11) { EJets = true; }
   if(SemiLeptt && abs(leptop_id_daught[0])==13) { MUJets = true; }
+  if(SemiLeptt && abs(leptop_id_daught[0])==15) { TAUJets = true; }
   
   bool boosted = ((SemiLeptt && (leptop4v[0].Pt()>400)) || (DiLeptt && ((abs(leptop_id_daught[0])==11 && (leptop4v[0].Pt()>400)) || (abs(leptop_id_daught[1])==11 && (leptop4v[1].Pt()>400))))) ; 
   
-  if((isTT && SemiLeptt && EJets && boosted)) return kFALSE;
+  #ifdef Data_MC
+//  if(!(isTT && SemiLeptt && EJets)) return kFALSE;
+  if((isTT && DiLeptt && EMU)) return kFALSE;
+  #else
+//  if((isTT && SemiLeptt && EJets && boosted)) return kFALSE;
 //  if((isTT && DiLeptt && EMU && boosted)) return kFALSE;
+  #endif
   
   hist_event_count->Fill(1,weight);
   
@@ -402,6 +488,66 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   #elif defined(E_Jets_TTBar)
   nbjet_cut = 0;
   #endif
+  
+   
+  int nmuon1 = 0;
+  for(int mu=0; mu<nmuons; mu++){
+    #if defined(E_MU_TTBar) && !defined(Data_MC)
+    if(muonpt[mu]<53.) continue; 
+    #else
+    if(muonpt[mu]<30.) continue; 
+    #endif
+    if(fabs(muoneta[mu])>2.4)  continue; 
+    
+    bool mu_id = Muon_TightID(muonisGL[mu],muonisPF[mu],
+			      muonchi[mu],muonthit[mu],muonmst[mu],
+			      muontrkvtx[mu],muondz[mu],muonpixhit[mu],muontrklay[mu]);
+    bool mu_iso = Muon_Iso_ID(muonpfiso[mu]);
+    
+    if(!mu_id) continue;
+//    if(!mu_iso) continue;
+    
+    //2d iso //
+    
+    float dR_min = 1000;
+    int nearjet = -1;
+    
+    for(int kjet=0; kjet<npfjetAK4; kjet++){
+        if(pfjetAK4looseID[kjet]==0) continue;
+          if(delta2R(pfjetAK4y[kjet],pfjetAK4phi[kjet],muoneta[mu],muonphi[mu]) < dR_min){
+                   dR_min = delta2R(pfjetAK4y[kjet],pfjetAK4phi[kjet],muoneta[mu],muonphi[mu]) ;
+                   nearjet = kjet;
+          }
+    }
+
+    float muonpt_nearjet = 10000;
+
+    if(nearjet>=0){
+        TLorentzVector mu_mom; mu_mom.SetPtEtaPhiE(muonpt[mu],muoneta[mu],muonphi[mu],muone[mu]);
+        TLorentzVector j_mom; j_mom.SetPtEtaPhiM(pfjetAK4pt[nearjet],pfjetAK4eta[nearjet],pfjetAK4phi[nearjet],pfjetAK4mass[nearjet]);
+        muonpt_nearjet = ((mu_mom.Vect()).Perp(j_mom.Vect()));
+    }
+
+    bool mu_2diso = (nearjet>=0)?(dR_min > 0.4 ||  muonpt_nearjet > 15.):true;
+    
+    //2d iso ends//
+    #ifdef E_MU_TTBar
+    if(!mu_iso) continue;
+    #else
+    if(!mu_2diso) continue;
+    #endif
+    
+    muonpt[nmuon1] = muonpt[mu];
+    muoneta[nmuon1] = muoneta[mu];
+    muonphi[nmuon1] = muoneta[mu];
+    muone[nmuon1] = muone[mu];
+    muonp[nmuon1] = muonp[mu];
+    
+    nmuon1++;
+    if(nmuon1 >= njetmx) break;
+  }
+  
+  nmuons = nmuon1;
   
   int fjet = 0;
   for(int ijet=0; ijet<npfjetAK8; ijet++){
@@ -504,6 +650,23 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
       pfjetAK8matchAK4deepb[fjet] = -100;
     }
     
+    pfjetAK8haspfmuon[fjet] = false;
+    pfjetAK8muon[fjet] = -1;
+    
+    float minRmu = 100;
+    
+    for(int imu=0; imu<nmuons; imu++){
+		
+		if(delta2R(pfjetAK8y[fjet],pfjetAK8phi[fjet],muoneta[imu],muonphi[imu])<minRmu){
+			minRmu = delta2R(pfjetAK8y[fjet],pfjetAK8phi[fjet],muoneta[imu],muonphi[imu]);
+			pfjetAK8muon[fjet] = imu;
+			}
+		}
+		
+	if(minRmu<0.8){
+		pfjetAK8haspfmuon[fjet] = true;
+		}
+    
     fjet++;
     if(fjet>=njetmxAK8) break;
   
@@ -521,59 +684,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
       }
     }
   }
-  
-  int nmuon1 = 0;
-  for(int mu=0; mu<nmuons; mu++){
-    
-    if(muonpt[mu]<53.) continue; 
-    if(fabs(muoneta[mu])>2.4)  continue; 
-    
-    bool mu_id = Muon_TightID(muonisGL[mu],muonisPF[mu],
-			      muonchi[mu],muonthit[mu],muonmst[mu],
-			      muontrkvtx[mu],muondz[mu],muonpixhit[mu],muontrklay[mu]);
-    bool mu_iso = Muon_Iso_ID(muonpfiso[mu]);
-    
-    if(!mu_id) continue;
-//    if(!mu_iso) continue;
-    
-    //2d iso //
-    
-    float dR_min = 1000;
-    int nearjet = -1;
-    
-    for(int kjet=0; kjet<npfjetAK4; kjet++){
-        if(pfjetAK4looseID[kjet]==0) continue;
-          if(delta2R(pfjetAK4y[kjet],pfjetAK4phi[kjet],muoneta[mu],muonphi[mu]) < dR_min){
-                   dR_min = delta2R(pfjetAK4y[kjet],pfjetAK4phi[kjet],muoneta[mu],muonphi[mu]) ;
-                   nearjet = kjet;
-          }
-    }
-
-    float muonpt_nearjet = 10000;
-
-    if(nearjet>=0){
-        TLorentzVector mu_mom; mu_mom.SetPtEtaPhiE(muonpt[mu],muoneta[mu],muonphi[mu],muone[mu]);
-        TLorentzVector j_mom; j_mom.SetPtEtaPhiM(pfjetAK4pt[nearjet],pfjetAK4eta[nearjet],pfjetAK4phi[nearjet],pfjetAK4mass[nearjet]);
-        muonpt_nearjet = ((mu_mom.Vect()).Perp(j_mom.Vect()));
-    }
-
-    bool mu_2diso = (nearjet>=0)?(dR_min > 0.4 ||  muonpt_nearjet > 15.):true;
-    
-    //2d iso ends//
-    
-    if(!mu_2diso) continue;
-    
-    muonpt[nmuon1] = muonpt[mu];
-    muoneta[nmuon1] = muoneta[mu];
-    muonphi[nmuon1] = muoneta[mu];
-    muone[nmuon1] = muone[mu];
-    muonp[nmuon1] = muonp[mu];
-    
-    nmuon1++;
-    if(nmuon1 >= njetmx) break;
-  }
-  
-  nmuons = nmuon1;
+ 
   
   int nelec1 = 0;
   for(int ie=0; ie<nelecs; ie++) {
@@ -594,7 +705,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   // resolved case 
   /*
-  int nelec1 = 0;
+  int nelec2 = 0;
   for(int ie=0; ie<nelecs; ie++) {
 	
 	if(fabs(elpt[ie])<30.) continue; 
@@ -602,19 +713,19 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
     
     if(!elmvaid[ie]) continue;
     
-    elpt[nelec1] = fabs(elpt[ie]);
-    eleta[nelec1] = eleta[ie];
-    elphi[nelec1] = elphi[ie];
-    elp[nelec1] = elp[ie];
-    elmvaid[nelec1] = elmvaid[ie];
-    elmvaid_noIso[nelec1] = elmvaid_noIso[ie];
-	elpfiso[nelec1] = elpfiso[ie];
+    elpt[nelec2] = fabs(elpt[ie]);
+    eleta[nelec2] = eleta[ie];
+    elphi[nelec2] = elphi[ie];
+    elp[nelec2] = elp[ie];
+    elmvaid[nelec2] = elmvaid[ie];
+    nelec2[nelec1] = elmvaid_noIso[ie];
+	elpfiso[nelec2] = elpfiso[ie];
 	
-	nelec1++;
-	if(nelec1 >= njetmx) break;
+	nelec2++;
+	if(nelec2 >= njetmx) break;
   }
   
-   nelecs =  nelec1;
+   nelecs =  nelec2;
   */
    // resolved case ends
   
@@ -877,8 +988,32 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 
     Rnu = reader2->EvaluateMVA("BDTG method");
     pfjetAK8rnu_tvsb[ijet] = Rnu;
+    
+    pfjetAK8rt[ijet] = reader3->EvaluateMVA("BDTG method");
 
   }//ijet
+  
+  int nelec2 = 0;
+  for(int ie=0; ie<nelecs; ie++) {
+	
+	if(fabs(elpt[ie])<30.) continue; 
+    if(fabs(eleta[ie])>2.4)  continue; 
+    
+    if(!elmvaid_noIso[ie]) continue;
+    
+    elpt[nelec2] = fabs(elpt[ie]);
+    eleta[nelec2] = eleta[ie];
+    elphi[nelec2] = elphi[ie];
+    elp[nelec2] = elp[ie];
+    elmvaid[nelec2] = elmvaid[ie];
+    elmvaid_noIso[nelec2] = elmvaid_noIso[ie];
+	elpfiso[nelec2] = elpfiso[ie];
+	
+	nelec2++;
+	if(nelec2 >= njetmx) break;
+  }
+  
+   nelecs =  nelec2;
   
   int t_cand = -1;
   double remax = -200;
@@ -912,7 +1047,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   float toppt_wt = 1;
   
   if(ngent==2){
-	  toppt_wt = SF_TOP(0.0615,0.0005,top4mom[0].Pt(),top4mom[1].Pt());
+	  toppt_wt = SF_TOP(0.0416,0.0003,TMath::Min(float(500),float(top4mom[0].Pt())),TMath::Min(float(500),float(top4mom[1].Pt())));
 	  }
   
   weight *= toppt_wt;
@@ -941,8 +1076,14 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 
 //  itrig_pass = ((ihlt05==1)||(ihlt15==1)||(ihlt14==1)||(ihlt09==1)); // boosted case
 //  itrig_pass = (ihlt03==1);	// resolved case 
-  itrig_pass = (ihlt15==1);// || ihlt14==1);  // for EGamma
+ // itrig_pass = (ihlt15==1);// || ihlt14==1);  // for EGamma
 //  itrig_pass = (ihlt09==1);		// for JetHT
+  #ifdef Sample_JetHT
+  itrig_pass = (ihlt09==1);
+  #else
+  itrig_pass = (ihlt15==1);
+  #endif
+
   if(!itrig_pass) return kFALSE;
   
   hist_count->Fill(2,weight);
@@ -958,7 +1099,14 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
  
   hist_count->Fill(3,weight);
   
+  #ifndef Sample_JetHT
+  
   if(nelec1!=1) return kFALSE;   // off for JetHT
+  if(nelecs>1) return kFALSE;   // off for JetHT
+  
+  #endif
+  
+  if(nmuons>0) return kFALSE;
   
   // resolved case 
   /*
@@ -974,13 +1122,20 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   #ifdef E_MU_TTBar
   
-  itrig_pass = ((ihlt02==1));//||(ihlt09==1)||(ihlt10==1));
+  #if defined(Data_MC)
+  itrig_pass = ((ihlt01==1));//||(ihlt09==1)||(ihlt10==1));
+  #else
+  itrig_pass = ((ihlt02==1));
+  #endif
+  
   if(!itrig_pass) return kFALSE;
   
   hist_count->Fill(2,weight);
   
   if(!(nmuons==1)) return kFALSE;
-  if(nelec1!=1) return kFALSE;  
+  #ifndef Data_MC
+  if(nelec1!=1) return kFALSE;  	// switch off for data-MC comparison
+  #endif
   if(npfjetAK8<1) return kFALSE;
   
   hist_count->Fill(3,weight);
@@ -996,12 +1151,12 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   
   hist_pfmet->Fill(PFMET,weight);
   
-  #ifdef E_MU_TTBar
-  if(PFMET < 30.) return kFALSE;  // MET cut of 30 GeV
+  #if defined(E_MU_TTBar) && !defined(Data_MC)
+  if(PFMET < 30.) return kFALSE;	// MET cut of 30 GeV
   #else
-  if(PFMET < 50.) return kFALSE;  // MET cut of 50 GeV
+  if(PFMET < 50.) return kFALSE;  // MET cut of 30 GeV
   #endif
-  
+ 
   hist_count->Fill(5,weight);
   
   // event selection ends //
@@ -1150,7 +1305,9 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 	  
 	  }
   
-  #ifdef E_MU_TTBar
+  // switch off this part of data-MC comparison
+  
+  #if defined(E_MU_TTBar) && !defined(Data_MC)
   
 //  if(nhcand>0) return kFALSE;
   if(npfjetAK4<2) return kFALSE;
@@ -1166,20 +1323,28 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
    
   #endif
   
-  if(telcand>=0) { hist_count->Fill(8,weight); }
+//  if(telcand>=0) { hist_count->Fill(8,weight); }
   
-  if(telcand>=0 && pfjetAK8_hasmatche[telcand]){
+  if(telcand>=0){
 	  
-	  hist_count->Fill(9,weight);
+	  hist_count->Fill(8,weight);
 	  
 	  hist_npv_sel->Fill(nchict,weight);
 	  hist_njets_AK8->Fill(npfjetAK8,weight);
 	  hist_njets_AK4->Fill(npfjetAK4,weight);
 	  hist_nbjets_AK4->Fill(nbjetAK4,weight);
 	  
-	  if(nbjetAK4_lead>=nbjet_cut){ 
+	  bool bjet_cond = false;
 	  
-	  hist_count->Fill(10,weight);
+	  #ifdef Data_MC
+	  bjet_cond = (nbjetAK4>=nbjet_cut);
+	  #else
+	  bjet_cond = (nbjetAK4_lead>=nbjet_cut);
+	  #endif
+	  
+	  if(bjet_cond){   
+		  
+	  hist_count->Fill(9,weight);
 	  
 	  hist_obs[0]->Fill(pfjetAK8pt[telcand],weight);
 	  hist_obs[1]->Fill(pfjetAK8y[telcand],weight);
@@ -1199,7 +1364,31 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 		hist_obs[14]->Fill(pfjetAK8sdmass[thcand],weight);
 	  }
 	  hist_obs[15]->Fill(pfjetAK8haspfelectron[telcand],weight);
-	
+	  hist_obs[16]->Fill(pfjetAK8haspfmuon[telcand],weight);
+	  if(pfjetAK8muon[telcand]>=0){
+		hist_obs[17]->Fill(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],muoneta[pfjetAK8muon[telcand]],muonphi[pfjetAK8muon[telcand]]),weight);
+	  }
+
+	  int idaugh_in = 0;	  
+	  for(int ip=0; ip<idp; ip++){
+		  if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],genparteta[top_dp[ip]],genpartphi[top_dp[ip]]) < 0.8){
+				hist_obs[18]->Fill(abs(genpartpdg[top_dp[ip]]),weight);
+				idaugh_in++;
+			}
+		  }
+	  hist_obs[19]->Fill(idaugh_in,weight);
+	  
+	  int leptop_found = 0;
+	  for(int ileptop=0; ileptop<nleptop; ileptop++){
+		  if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],leptop4v[ileptop].Rapidity(),leptop4v[ileptop].Phi()) < 0.8){
+			leptop_found = 1;
+			break;
+		}
+	  }
+	  hist_obs[20]->Fill(leptop_found,weight);
+	  
+	  hist_obs[22]->Fill(pfjetAK8rt[telcand],weight);
+	  
 	  hist_pfmet_1->Fill(PFMET,weight);
 	  
 	  for(int ij=0; ij<2000; ij++){
@@ -1210,6 +1399,8 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 	  
 	  
 	  if(pfjetAK8re_tvsb[telcand] > re_cut){
+		  
+		  hist_count->Fill(10,weight);
 		  
 		  hist_obs_1[0]->Fill(pfjetAK8pt[telcand],weight);
 		  hist_obs_1[1]->Fill(pfjetAK8y[telcand],weight);
@@ -1229,6 +1420,48 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 			hist_obs_1[14]->Fill(pfjetAK8sdmass[thcand],weight);
 		  }
 		  hist_obs_1[15]->Fill(pfjetAK8haspfelectron[telcand],weight);
+		  hist_obs_1[16]->Fill(pfjetAK8haspfmuon[telcand],weight);
+		  if(pfjetAK8muon[telcand]>=0){
+			hist_obs_1[17]->Fill(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],muoneta[pfjetAK8muon[telcand]],muonphi[pfjetAK8muon[telcand]]),weight);
+		  }
+		  
+		  int idaugh_in = 0;
+		  int idaught_pdgid[6] = {0};
+		  for(int ip=0; ip<idp; ip++){
+			if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],genparteta[top_dp[ip]],genpartphi[top_dp[ip]]) < 0.8){
+					hist_obs_1[18]->Fill(abs(genpartpdg[top_dp[ip]]),weight);
+					idaught_pdgid[idaugh_in] = abs(genpartpdg[top_dp[ip]]);
+					idaugh_in++;
+				}
+			}
+		  hist_obs_1[19]->Fill(idaugh_in,weight);
+		  
+		  int leptop_found = 0;
+		  for(int ileptop=0; ileptop<nleptop; ileptop++){
+			if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],leptop4v[ileptop].Rapidity(),leptop4v[ileptop].Phi()) < 0.8){
+				leptop_found = 1;
+				break;
+				}
+			}
+		  hist_obs_1[20]->Fill(leptop_found,weight);
+		  hist_obs_1[21]->Fill(pfjetAK8rt[telcand],weight);
+		  
+		  if(idaugh_in==2){
+			if((idaught_pdgid[0]==5 && idaught_pdgid[1]==11)||(idaught_pdgid[0]==11 && idaught_pdgid[1]==5)) { hist_obs_1[21]->Fill(1,weight); }
+			if((idaught_pdgid[0]==5 && idaught_pdgid[1]==12)||(idaught_pdgid[0]==12 && idaught_pdgid[1]==5)) { hist_obs_1[21]->Fill(2,weight); }
+			if((idaught_pdgid[0]==5 && idaught_pdgid[1]==13)||(idaught_pdgid[0]==13 && idaught_pdgid[1]==5)) { hist_obs_1[21]->Fill(3,weight); }
+			if((idaught_pdgid[0]==5 && idaught_pdgid[1]==14)||(idaught_pdgid[0]==14 && idaught_pdgid[1]==5)) { hist_obs_1[21]->Fill(4,weight); }
+			if((idaught_pdgid[0]==5 && idaught_pdgid[1]==15)||(idaught_pdgid[0]==15 && idaught_pdgid[1]==5)) { hist_obs_1[21]->Fill(5,weight); }
+			if((idaught_pdgid[0]==5 && idaught_pdgid[1]==16)||(idaught_pdgid[0]==16 && idaught_pdgid[1]==5)) { hist_obs_1[21]->Fill(6,weight); }
+			if((idaught_pdgid[0]==11 && idaught_pdgid[1]==12)||(idaught_pdgid[0]==12 && idaught_pdgid[1]==11)) { hist_obs_1[21]->Fill(7,weight); }
+			if((idaught_pdgid[0]==13 && idaught_pdgid[1]==14)||(idaught_pdgid[0]==14 && idaught_pdgid[1]==13)) { hist_obs_1[21]->Fill(8,weight); }
+			if((idaught_pdgid[0]==11 && idaught_pdgid[1]==16)||(idaught_pdgid[0]==16 && idaught_pdgid[1]==11)) { hist_obs_1[21]->Fill(9,weight); }
+			if((idaught_pdgid[0]==13 && idaught_pdgid[1]==16)||(idaught_pdgid[0]==16 && idaught_pdgid[1]==13)) { hist_obs_1[21]->Fill(10,weight); }
+			if((idaught_pdgid[0]==11 && idaught_pdgid[1]==14)||(idaught_pdgid[0]==14 && idaught_pdgid[1]==11)) { hist_obs_1[21]->Fill(11,weight); }
+		  }
+	  
+	  
+		  hist_obs_1[22]->Fill(pfjetAK8rt[telcand],weight);
 		  
 		  }else{
 			  
@@ -1250,10 +1483,380 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 				hist_obs_2[14]->Fill(pfjetAK8sdmass[thcand],weight);
 			  }
 			  hist_obs_2[15]->Fill(pfjetAK8haspfelectron[telcand],weight);
+			  hist_obs_2[16]->Fill(pfjetAK8haspfmuon[telcand],weight);
+			  if(pfjetAK8muon[telcand]>=0){
+				hist_obs_2[17]->Fill(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],muoneta[pfjetAK8muon[telcand]],muonphi[pfjetAK8muon[telcand]]),weight);
+			  }
+			  int idaugh_in = 0;
+			  for(int ip=0; ip<idp; ip++){
+				if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],genparteta[top_dp[ip]],genpartphi[top_dp[ip]]) < 0.8){
+						hist_obs_2[18]->Fill(abs(genpartpdg[top_dp[ip]]),weight);
+						idaugh_in++;
+					}
+				}
+			  hist_obs_2[19]->Fill(idaugh_in,weight);
 			  
+			  int leptop_found = 0;
+			  for(int ileptop=0; ileptop<nleptop; ileptop++){
+					if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],leptop4v[ileptop].Rapidity(),leptop4v[ileptop].Phi()) < 0.8){
+						leptop_found = 1;
+						break;
+					}
+				}
+			  hist_obs_2[20]->Fill(leptop_found,weight);	
+			  hist_obs_2[22]->Fill(pfjetAK8rt[telcand],weight);
+			
 			  }
 		}
 	  }
+	  
+	
+	if(telcand>=0 && pfjetAK8_hasmatche[telcand]){
+	  
+	  hist_count->Fill(12,weight);
+	  
+	  hist_npv_sel_match->Fill(nchict,weight);
+	  hist_njets_AK8_match->Fill(npfjetAK8,weight);
+	  hist_njets_AK4_match->Fill(npfjetAK4,weight);
+	  hist_nbjets_AK4_match->Fill(nbjetAK4,weight);
+	  
+	  bool bjet_cond = false;
+	  
+	  #ifdef Data_MC
+	  bjet_cond = (nbjetAK4>=nbjet_cut);
+	  #else
+	  bjet_cond = (nbjetAK4_lead>=nbjet_cut);
+	  #endif
+	  
+	  if(bjet_cond){   
+		  
+	  hist_count->Fill(13,weight);
+	  
+	  hist_obs_match[0]->Fill(pfjetAK8pt[telcand],weight);
+	  hist_obs_match[1]->Fill(pfjetAK8y[telcand],weight);
+	  hist_obs_match[2]->Fill(pfjetAK8mass[telcand],weight);
+	  hist_obs_match[3]->Fill(pfjetAK8NHadF[telcand],weight);
+	  hist_obs_match[4]->Fill(pfjetAK8neunhadfrac[telcand],weight);
+	  hist_obs_match[5]->Fill(pfjetAK8sdmass[telcand],weight);
+	  hist_obs_match[6]->Fill(pfjetAK8chrad[telcand],weight);
+	  hist_obs_match[7]->Fill(pfjetAK8subhaddiff[telcand],weight);
+	  hist_obs_match[8]->Fill(pfjetAK8tau21[telcand],weight);
+	  hist_obs_match[9]->Fill(pfjetAK8DeepTag_TvsQCD[telcand],weight);
+	  hist_obs_match[10]->Fill(pfjetAK8_bbyW_E[telcand],weight);
+	  hist_obs_match[11]->Fill(pfjetAK8_Kfactor[telcand],weight);
+	  hist_obs_match[12]->Fill(pfjetAK8re_tvsb[telcand],weight);
+	  hist_obs_match[13]->Fill(pfjetAK8rnu_tvsb[telcand],weight);
+	  if(thcand>=0){
+		hist_obs_match[14]->Fill(pfjetAK8sdmass[thcand],weight);
+	  }
+	  hist_obs_match[15]->Fill(pfjetAK8haspfelectron[telcand],weight);
+	  hist_obs_match[16]->Fill(pfjetAK8haspfmuon[telcand],weight);
+	  if(pfjetAK8muon[telcand]>=0){
+		hist_obs_match[17]->Fill(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],muoneta[pfjetAK8muon[telcand]],muonphi[pfjetAK8muon[telcand]]),weight);
+	  }
+	  int idaugh_in = 0;
+	  for(int ip=0; ip<idp; ip++){
+			if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],genparteta[top_dp[ip]],genpartphi[top_dp[ip]]) < 0.8){
+					hist_obs_match[18]->Fill(abs(genpartpdg[top_dp[ip]]),weight);
+					idaugh_in++;
+				}
+			}
+	  hist_obs_match[19]->Fill(idaugh_in,weight);
+	
+	  hist_pfmet_match_1->Fill(PFMET,weight);
+	  
+	  for(int ij=0; ij<2000; ij++){
+		  if(pfjetAK8re_tvsb[telcand] >= (-1 + ij*(1./1000))){
+			  hist_counter_match_2->Fill(ij+1,weight);
+			  }
+		  }
+	  
+	  int leptop_found = 0;
+	  for(int ileptop=0; ileptop<nleptop; ileptop++){
+		if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],leptop4v[ileptop].Rapidity(),leptop4v[ileptop].Phi()) < 0.8){
+			leptop_found = 1;
+			break;
+			}
+		}
+	  hist_obs_match[20]->Fill(leptop_found,weight);
+	  hist_obs_match[22]->Fill(pfjetAK8rt[telcand],weight);
+	  
+	  
+	  if(pfjetAK8re_tvsb[telcand] > re_cut){
+		  
+		  hist_count->Fill(14,weight);
+		  
+		  hist_obs_match_1[0]->Fill(pfjetAK8pt[telcand],weight);
+		  hist_obs_match_1[1]->Fill(pfjetAK8y[telcand],weight);
+		  hist_obs_match_1[2]->Fill(pfjetAK8mass[telcand],weight);
+		  hist_obs_match_1[3]->Fill(pfjetAK8NHadF[telcand],weight);
+		  hist_obs_match_1[4]->Fill(pfjetAK8neunhadfrac[telcand],weight);
+		  hist_obs_match_1[5]->Fill(pfjetAK8sdmass[telcand],weight);
+		  hist_obs_match_1[6]->Fill(pfjetAK8chrad[telcand],weight);
+		  hist_obs_match_1[7]->Fill(pfjetAK8subhaddiff[telcand],weight);
+		  hist_obs_match_1[8]->Fill(pfjetAK8tau21[telcand],weight);
+		  hist_obs_match_1[9]->Fill(pfjetAK8DeepTag_TvsQCD[telcand],weight);
+		  hist_obs_match_1[10]->Fill(pfjetAK8_bbyW_E[telcand],weight);
+		  hist_obs_match_1[11]->Fill(pfjetAK8_Kfactor[telcand],weight);
+		  hist_obs_match_1[12]->Fill(pfjetAK8re_tvsb[telcand],weight);
+		  hist_obs_match_1[13]->Fill(pfjetAK8rnu_tvsb[telcand],weight);
+		  if(thcand>=0){
+			hist_obs_match_1[14]->Fill(pfjetAK8sdmass[thcand],weight);
+		  }
+		  hist_obs_match_1[15]->Fill(pfjetAK8haspfelectron[telcand],weight);
+		  hist_obs_match_1[16]->Fill(pfjetAK8haspfmuon[telcand],weight);
+		  if(pfjetAK8muon[telcand]>=0){
+			hist_obs_match_1[17]->Fill(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],muoneta[pfjetAK8muon[telcand]],muonphi[pfjetAK8muon[telcand]]),weight);
+		  }
+		  
+		  int idaugh_in = 0;
+		  int idaught_pdgid[6] = {0};
+		  for(int ip=0; ip<idp; ip++){
+			if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],genparteta[top_dp[ip]],genpartphi[top_dp[ip]]) < 0.8){
+					hist_obs_match_1[18]->Fill(abs(genpartpdg[top_dp[ip]]),weight);
+					idaught_pdgid[idaugh_in] = abs(genpartpdg[top_dp[ip]]);
+					idaugh_in++;
+				}
+			}
+		  hist_obs_match_1[19]->Fill(idaugh_in,weight);
+		  
+		  int leptop_found = 0;
+		  for(int ileptop=0; ileptop<nleptop; ileptop++){
+				if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],leptop4v[ileptop].Rapidity(),leptop4v[ileptop].Phi()) < 0.8){
+					leptop_found = 1;
+					break;
+				}
+			}
+		  hist_obs_match_1[20]->Fill(leptop_found,weight);
+		  hist_obs_match_1[22]->Fill(pfjetAK8rt[telcand],weight);
+		  
+		  if(idaugh_in==2){
+			if((idaught_pdgid[0]==5 && idaught_pdgid[1]==11)||(idaught_pdgid[0]==11 && idaught_pdgid[1]==5)) { hist_obs_match_1[21]->Fill(1,weight); }
+			if((idaught_pdgid[0]==5 && idaught_pdgid[1]==12)||(idaught_pdgid[0]==12 && idaught_pdgid[1]==5)) { hist_obs_match_1[21]->Fill(2,weight); }
+			if((idaught_pdgid[0]==5 && idaught_pdgid[1]==13)||(idaught_pdgid[0]==13 && idaught_pdgid[1]==5)) { hist_obs_match_1[21]->Fill(3,weight); }
+			if((idaught_pdgid[0]==5 && idaught_pdgid[1]==14)||(idaught_pdgid[0]==14 && idaught_pdgid[1]==5)) { hist_obs_match_1[21]->Fill(4,weight); }
+			if((idaught_pdgid[0]==5 && idaught_pdgid[1]==15)||(idaught_pdgid[0]==15 && idaught_pdgid[1]==5)) { hist_obs_match_1[21]->Fill(5,weight); }
+			if((idaught_pdgid[0]==5 && idaught_pdgid[1]==16)||(idaught_pdgid[0]==16 && idaught_pdgid[1]==5)) { hist_obs_match_1[21]->Fill(6,weight); }
+			if((idaught_pdgid[0]==11 && idaught_pdgid[1]==12)||(idaught_pdgid[0]==12 && idaught_pdgid[1]==11)) { hist_obs_match_1[21]->Fill(7,weight); }
+			if((idaught_pdgid[0]==13 && idaught_pdgid[1]==14)||(idaught_pdgid[0]==14 && idaught_pdgid[1]==13)) { hist_obs_match_1[21]->Fill(8,weight); }
+			if((idaught_pdgid[0]==11 && idaught_pdgid[1]==16)||(idaught_pdgid[0]==16 && idaught_pdgid[1]==11)) { hist_obs_1[21]->Fill(9,weight); }
+			if((idaught_pdgid[0]==13 && idaught_pdgid[1]==16)||(idaught_pdgid[0]==16 && idaught_pdgid[1]==13)) { hist_obs_match_1[21]->Fill(10,weight); }
+			if((idaught_pdgid[0]==11 && idaught_pdgid[1]==14)||(idaught_pdgid[0]==14 && idaught_pdgid[1]==11)) { hist_obs_match_1[21]->Fill(11,weight); }
+		  }
+		  
+//		  if(!pfjetAK8haspfmuon[telcand]){
+		  if(pfjetAK8rt[telcand]>rt_cut){
+				
+				hist_count->Fill(15,weight);
+				
+			}
+			
+			if(DiLeptt && EE){	hist_dilep_tag->Fill(1,weight); 	}
+			if(DiLeptt && MUMU){	hist_dilep_tag->Fill(2,weight); 	}
+			if(DiLeptt && TauTau){	hist_dilep_tag->Fill(3,weight); 	}
+			if(DiLeptt && EMU){	hist_dilep_tag->Fill(4,weight); 	}
+			if(DiLeptt && ETau){	hist_dilep_tag->Fill(5,weight); 	}
+			if(DiLeptt && MuTau){	hist_dilep_tag->Fill(6,weight); 	}
+  
+			if(SemiLeptt && EJets){	hist_semilep_tag->Fill(1,weight); 	}
+			if(SemiLeptt && MUJets){	hist_semilep_tag->Fill(2,weight); 	}
+			if(SemiLeptt && TAUJets){	hist_semilep_tag->Fill(3,weight); 	}
+			if(SemiLeptt && !EJets && !MUJets && !TAUJets){	hist_semilep_tag->Fill(4,weight); 	}	
+		  
+		  }else{
+			  
+			  hist_obs_match_2[0]->Fill(pfjetAK8pt[telcand],weight);
+			  hist_obs_match_2[1]->Fill(pfjetAK8y[telcand],weight);
+			  hist_obs_match_2[2]->Fill(pfjetAK8mass[telcand],weight);
+			  hist_obs_match_2[3]->Fill(pfjetAK8NHadF[telcand],weight);
+			  hist_obs_match_2[4]->Fill(pfjetAK8neunhadfrac[telcand],weight);
+			  hist_obs_match_2[5]->Fill(pfjetAK8sdmass[telcand],weight);
+			  hist_obs_match_2[6]->Fill(pfjetAK8chrad[telcand],weight);
+			  hist_obs_match_2[7]->Fill(pfjetAK8subhaddiff[telcand],weight);
+			  hist_obs_match_2[8]->Fill(pfjetAK8tau21[telcand],weight);
+			  hist_obs_match_2[9]->Fill(pfjetAK8DeepTag_TvsQCD[telcand],weight);
+			  hist_obs_match_2[10]->Fill(pfjetAK8_bbyW_E[telcand],weight);
+			  hist_obs_match_2[11]->Fill(pfjetAK8_Kfactor[telcand],weight);
+			  hist_obs_match_2[12]->Fill(pfjetAK8re_tvsb[telcand],weight);
+			  hist_obs_match_2[13]->Fill(pfjetAK8rnu_tvsb[telcand],weight);
+			  if(thcand>=0){
+				hist_obs_match_2[14]->Fill(pfjetAK8sdmass[thcand],weight);
+			  }
+			  hist_obs_match_2[15]->Fill(pfjetAK8haspfelectron[telcand],weight);
+			  hist_obs_match_2[16]->Fill(pfjetAK8haspfmuon[telcand],weight);
+			  if(pfjetAK8muon[telcand]>=0){
+				hist_obs_match_2[17]->Fill(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],muoneta[pfjetAK8muon[telcand]],muonphi[pfjetAK8muon[telcand]]),weight);
+			  }
+			  int idaugh_in = 0;
+			  for(int ip=0; ip<idp; ip++){
+				if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],genparteta[top_dp[ip]],genpartphi[top_dp[ip]]) < 0.8){
+						hist_obs_match_2[18]->Fill(abs(genpartpdg[top_dp[ip]]),weight);
+						idaugh_in++;
+					}
+				}
+			  hist_obs_match_2[19]->Fill(idaugh_in,weight);	
+			  
+			  int leptop_found = 0;
+			  for(int ileptop=0; ileptop<nleptop; ileptop++){
+				if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],leptop4v[ileptop].Rapidity(),leptop4v[ileptop].Phi()) < 0.8){
+						leptop_found = 1;
+						break;
+					}
+				}
+			  hist_obs_match_2[20]->Fill(leptop_found,weight);
+			  hist_obs_match_2[22]->Fill(pfjetAK8rt[telcand],weight);
+			  
+			  }
+		}
+	  }  
+	  
+	 if(telcand>=0 && !pfjetAK8_hasmatche[telcand]){
+	  
+
+	  bool bjet_cond = false;
+	  
+	  #ifdef Data_MC
+	  bjet_cond = (nbjetAK4>=nbjet_cut);
+	  #else
+	  bjet_cond = (nbjetAK4_lead>=nbjet_cut);
+	  #endif
+	  
+	  if(bjet_cond){   
+		  
+	  hist_obs_nomatch[0]->Fill(pfjetAK8pt[telcand],weight);
+	  hist_obs_nomatch[1]->Fill(pfjetAK8y[telcand],weight);
+	  hist_obs_nomatch[2]->Fill(pfjetAK8mass[telcand],weight);
+	  hist_obs_nomatch[3]->Fill(pfjetAK8NHadF[telcand],weight);
+	  hist_obs_nomatch[4]->Fill(pfjetAK8neunhadfrac[telcand],weight);
+	  hist_obs_nomatch[5]->Fill(pfjetAK8sdmass[telcand],weight);
+	  hist_obs_nomatch[6]->Fill(pfjetAK8chrad[telcand],weight);
+	  hist_obs_nomatch[7]->Fill(pfjetAK8subhaddiff[telcand],weight);
+	  hist_obs_match[8]->Fill(pfjetAK8tau21[telcand],weight);
+	  hist_obs_nomatch[9]->Fill(pfjetAK8DeepTag_TvsQCD[telcand],weight);
+	  hist_obs_nomatch[10]->Fill(pfjetAK8_bbyW_E[telcand],weight);
+	  hist_obs_nomatch[11]->Fill(pfjetAK8_Kfactor[telcand],weight);
+	  hist_obs_nomatch[12]->Fill(pfjetAK8re_tvsb[telcand],weight);
+	  hist_obs_nomatch[13]->Fill(pfjetAK8rnu_tvsb[telcand],weight);
+	  if(thcand>=0){
+		hist_obs_nomatch[14]->Fill(pfjetAK8sdmass[thcand],weight);
+	  }
+	  hist_obs_nomatch[15]->Fill(pfjetAK8haspfelectron[telcand],weight);
+	  hist_obs_nomatch[16]->Fill(pfjetAK8haspfmuon[telcand],weight);
+	  if(pfjetAK8muon[telcand]>=0){
+		hist_obs_nomatch[17]->Fill(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],muoneta[pfjetAK8muon[telcand]],muonphi[pfjetAK8muon[telcand]]),weight);
+	  }
+	  int idaugh_in = 0;
+	  for(int ip=0; ip<idp; ip++){
+			if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],genparteta[top_dp[ip]],genpartphi[top_dp[ip]]) < 0.8){
+					hist_obs_nomatch[18]->Fill(abs(genpartpdg[top_dp[ip]]),weight);
+					idaugh_in++;
+				}
+			}
+	  hist_obs_nomatch[19]->Fill(idaugh_in,weight);
+	
+	  int leptop_found = 0;
+	  for(int ileptop=0; ileptop<nleptop; ileptop++){
+		if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],leptop4v[ileptop].Rapidity(),leptop4v[ileptop].Phi()) < 0.8){
+			leptop_found = 1;
+			break;
+			}
+		}
+	  hist_obs_nomatch[20]->Fill(leptop_found,weight);
+	  hist_obs_nomatch[22]->Fill(pfjetAK8rt[telcand],weight);
+	  
+	  if(pfjetAK8rt[telcand] > rt_cut){
+		  
+		  hist_obs_nomatch_1[0]->Fill(pfjetAK8pt[telcand],weight);
+		  hist_obs_nomatch_1[1]->Fill(pfjetAK8y[telcand],weight);
+		  hist_obs_nomatch_1[2]->Fill(pfjetAK8mass[telcand],weight);
+		  hist_obs_nomatch_1[3]->Fill(pfjetAK8NHadF[telcand],weight);
+		  hist_obs_nomatch_1[4]->Fill(pfjetAK8neunhadfrac[telcand],weight);
+		  hist_obs_nomatch_1[5]->Fill(pfjetAK8sdmass[telcand],weight);
+		  hist_obs_nomatch_1[6]->Fill(pfjetAK8chrad[telcand],weight);
+		  hist_obs_nomatch_1[7]->Fill(pfjetAK8subhaddiff[telcand],weight);
+		  hist_obs_nomatch_1[8]->Fill(pfjetAK8tau21[telcand],weight);
+		  hist_obs_nomatch_1[9]->Fill(pfjetAK8DeepTag_TvsQCD[telcand],weight);
+		  hist_obs_nomatch_1[10]->Fill(pfjetAK8_bbyW_E[telcand],weight);
+		  hist_obs_nomatch_1[11]->Fill(pfjetAK8_Kfactor[telcand],weight);
+		  hist_obs_nomatch_1[12]->Fill(pfjetAK8re_tvsb[telcand],weight);
+		  hist_obs_nomatch_1[13]->Fill(pfjetAK8rnu_tvsb[telcand],weight);
+		  if(thcand>=0){
+			hist_obs_nomatch_1[14]->Fill(pfjetAK8sdmass[thcand],weight);
+		  }
+		  hist_obs_nomatch_1[15]->Fill(pfjetAK8haspfelectron[telcand],weight);
+		  hist_obs_nomatch_1[16]->Fill(pfjetAK8haspfmuon[telcand],weight);
+		  if(pfjetAK8muon[telcand]>=0){
+			hist_obs_nomatch_1[17]->Fill(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],muoneta[pfjetAK8muon[telcand]],muonphi[pfjetAK8muon[telcand]]),weight);
+		  }
+		  
+		  int idaugh_in = 0;
+		  int idaught_pdgid[6] = {0};
+		  for(int ip=0; ip<idp; ip++){
+			if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],genparteta[top_dp[ip]],genpartphi[top_dp[ip]]) < 0.8){
+					hist_obs_match_1[18]->Fill(abs(genpartpdg[top_dp[ip]]),weight);
+					idaught_pdgid[idaugh_in] = abs(genpartpdg[top_dp[ip]]);
+					idaugh_in++;
+				}
+			}
+		  hist_obs_nomatch_1[19]->Fill(idaugh_in,weight);
+		  
+		  int leptop_found = 0;
+		  for(int ileptop=0; ileptop<nleptop; ileptop++){
+				if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],leptop4v[ileptop].Rapidity(),leptop4v[ileptop].Phi()) < 0.8){
+					leptop_found = 1;
+					break;
+				}
+			}
+		  hist_obs_nomatch_1[20]->Fill(leptop_found,weight);
+		  hist_obs_nomatch_1[22]->Fill(pfjetAK8rt[telcand],weight);
+		  
+		  }else{
+			  
+			  hist_obs_nomatch_2[0]->Fill(pfjetAK8pt[telcand],weight);
+			  hist_obs_nomatch_2[1]->Fill(pfjetAK8y[telcand],weight);
+			  hist_obs_nomatch_2[2]->Fill(pfjetAK8mass[telcand],weight);
+			  hist_obs_nomatch_2[3]->Fill(pfjetAK8NHadF[telcand],weight);
+			  hist_obs_nomatch_2[4]->Fill(pfjetAK8neunhadfrac[telcand],weight);
+			  hist_obs_nomatch_2[5]->Fill(pfjetAK8sdmass[telcand],weight);
+			  hist_obs_nomatch_2[6]->Fill(pfjetAK8chrad[telcand],weight);
+			  hist_obs_nomatch_2[7]->Fill(pfjetAK8subhaddiff[telcand],weight);
+			  hist_obs_nomatch_2[8]->Fill(pfjetAK8tau21[telcand],weight);
+			  hist_obs_nomatch_2[9]->Fill(pfjetAK8DeepTag_TvsQCD[telcand],weight);
+			  hist_obs_nomatch_2[10]->Fill(pfjetAK8_bbyW_E[telcand],weight);
+			  hist_obs_nomatch_2[11]->Fill(pfjetAK8_Kfactor[telcand],weight);
+			  hist_obs_nomatch_2[12]->Fill(pfjetAK8re_tvsb[telcand],weight);
+			  hist_obs_nomatch_2[13]->Fill(pfjetAK8rnu_tvsb[telcand],weight);
+			  if(thcand>=0){
+				hist_obs_nomatch_2[14]->Fill(pfjetAK8sdmass[thcand],weight);
+			  }
+			  hist_obs_nomatch_2[15]->Fill(pfjetAK8haspfelectron[telcand],weight);
+			  hist_obs_nomatch_2[16]->Fill(pfjetAK8haspfmuon[telcand],weight);
+			  if(pfjetAK8muon[telcand]>=0){
+				hist_obs_nomatch_2[17]->Fill(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],muoneta[pfjetAK8muon[telcand]],muonphi[pfjetAK8muon[telcand]]),weight);
+			  }
+			  int idaugh_in = 0;
+			  for(int ip=0; ip<idp; ip++){
+				if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],genparteta[top_dp[ip]],genpartphi[top_dp[ip]]) < 0.8){
+						hist_obs_nomatch_2[18]->Fill(abs(genpartpdg[top_dp[ip]]),weight);
+						idaugh_in++;
+					}
+				}
+			  hist_obs_nomatch_2[19]->Fill(idaugh_in,weight);	
+			  
+			  int leptop_found = 0;
+			  for(int ileptop=0; ileptop<nleptop; ileptop++){
+				if(delta2R(pfjetAK8y[telcand],pfjetAK8phi[telcand],leptop4v[ileptop].Rapidity(),leptop4v[ileptop].Phi()) < 0.8){
+						leptop_found = 1;
+						break;
+					}
+				}
+			  hist_obs_nomatch_2[20]->Fill(leptop_found,weight);
+			  hist_obs_nomatch_2[22]->Fill(pfjetAK8rt[telcand],weight);
+			  
+			  }
+		}
+	  } 
+	  
 
   // end //
   

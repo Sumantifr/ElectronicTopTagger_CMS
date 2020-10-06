@@ -967,7 +967,7 @@ class Anal_Leptop_PROOF : public TSelector {
   bool SemiLeptt;
   bool DiLeptt;
   bool Hadtt;
-  bool EE, EMU, MUMU, EJets, MUJets;
+  bool EE, EMU, MUMU, EJets, MUJets, TAUJets, TauTau, ETau, MuTau;
   
   bool isTT;
   bool isST;
@@ -1096,6 +1096,8 @@ class Anal_Leptop_PROOF : public TSelector {
   Float_t         pfjetAK8sdmass[njetmxAK8];
   Float_t         pfjetAK8elsubjptrat[njetmxAK8];
   bool			  pfjetAK8haspfelectron[njetmxAK8];
+  bool			  pfjetAK8haspfmuon[njetmxAK8];
+  Int_t			  pfjetAK8muon[njetmxAK8];
 
 
   Float_t         pfjetAK8tau1[njetmxAK8];
@@ -1157,6 +1159,7 @@ class Anal_Leptop_PROOF : public TSelector {
   Bool_t		   pfjetAK8hastop[njetmxAK8];
   Float_t		   pfjetAK8re_tvsb[njetmxAK8];
   Float_t		   pfjetAK8rnu_tvsb[njetmxAK8];
+  Float_t		   pfjetAK8rt[njetmxAK8];
 
   Float_t                  pfjetAK8elinsubpt[njetmxAK8];
   Float_t                  pfjetAK8elinsubeta[njetmxAK8];
@@ -1888,7 +1891,7 @@ class Anal_Leptop_PROOF : public TSelector {
 
 
   
-  static const int nobshist = 16;
+  static const int nobshist = 23;
   
   const char *obsnames[nobshist] = {
 	  "pt","y","mass",
@@ -1896,16 +1899,29 @@ class Anal_Leptop_PROOF : public TSelector {
 	  "DAK8_topvsQCD","bbyW_E","Kfactor",
 	  "re","rnu",
 	  "hadsdmass",
-	  "haspfelectron"
+	  "haspfelectron",
+	  "haspfmuon",
+	  "deltaR_muon",
+	  "PDGId","Numdaught","Isleptop","Bidaughtid",
+	  "rt"
 	  };
 	  
- double obs_low[nobshist] = {400,-2.5,0,0,0,0,-2.5,0,0,0,0,-2,-1,-1,0,-0.5}; 
- double obs_up[nobshist] = {3100,2.5,300,1,1,300,2.5,1,1,1,2.5,4.5,1,1,300,1.5}; 
- int obs_nbins[nobshist] = {25,25,25,25,25,25,25,25,25,20,25,25,40,40,25,2};
+ double obs_low[nobshist] = {400,-2.5,0,0,0,0,-2.5,0,0,0,0,-2,-1,-1,0,-0.5,-0.5,0,-0.5,-0.5,-0.5,-0.5,-1}; 
+ double obs_up[nobshist] = {3100,2.5,300,1,1,300,2.5,1,1,1,2.5,4.5,1,1,300,1.5,1.5,3,19.5,5.5,1.5,12.5,1}; 
+ int obs_nbins[nobshist] = {25,25,25,25,25,25,25,25,25,20,25,25,40,40,25,2,2,10,20,6,2,13,25};
  
  TH1D *hist_obs[nobshist] ;
  TH1D *hist_obs_1[nobshist] ;
  TH1D *hist_obs_2[nobshist] ;
+ 
+ TH1D *hist_obs_match[nobshist] ;
+ TH1D *hist_obs_match_1[nobshist] ;
+ TH1D *hist_obs_match_2[nobshist] ;
+ 
+ TH1D *hist_obs_nomatch[nobshist] ;
+ TH1D *hist_obs_nomatch_1[nobshist] ;
+ TH1D *hist_obs_nomatch_2[nobshist] ;
+ 
  
  TH2D *hist_2D_msd_deepak8;
  
@@ -1925,6 +1941,9 @@ class Anal_Leptop_PROOF : public TSelector {
  TH1D *hist_th_sdmass;
  TH1D *hist_th_tau32;
  TH1D *hist_th_deepak8;
+ 
+ TH1D *hist_dilep_tag;
+ TH1D *hist_semilep_tag;
  
  TH1D *hist_count;
   
@@ -1946,6 +1965,7 @@ class Anal_Leptop_PROOF : public TSelector {
   float DAK8_topcut = 0.470; //0.470 ;//1% mistag rate (0.920 // 0.1% mistag) 
   float deep_btag_cut = 0.2770; //medium (0.7264 //tight)
   float re_cut = 0.3;
+  float rt_cut = 0.7;//0.725;
   
   static const int nre = 100;
   
@@ -1978,7 +1998,7 @@ class Anal_Leptop_PROOF : public TSelector {
   
   TH1D *hist_pfmet;
   TH1D *hist_pfmet_1;
-
+  TH1D *hist_pfmet_match_1;
 
   TH1D *hvsb_re;
   TH1D *helinidiso;
@@ -2083,10 +2103,15 @@ class Anal_Leptop_PROOF : public TSelector {
 
   TH1D *hist_npv;
   TH1D *hist_npv_sel;
+  TH1D *hist_npv_sel_match;
   TH1D *hist_npv_final;
   TH1D *hist_npu;
   TH1D *hist_npv_nopuwt;
   TH1D *hist_npu_nopuwt;
+  
+  TH1D *hist_njets_AK8_match;
+  TH1D *hist_njets_AK4_match;
+  TH1D *hist_nbjets_AK4_match;
   
   TH1D *hist_njets_AK8;
   TH1D *hist_njets_AK4;
@@ -2193,6 +2218,7 @@ class Anal_Leptop_PROOF : public TSelector {
   TH2D *h2d_re_rnu_6;
   
   TH1D *hist_counter_2;
+  TH1D *hist_counter_match_2;
   
   float in_pfjetAK8NHadF;
   float in_pfjetAK8neunhadfrac;
@@ -2235,6 +2261,7 @@ class Anal_Leptop_PROOF : public TSelector {
   
   TMVA::Reader *reader1;
   TMVA::Reader *reader2;
+  TMVA::Reader *reader3;
 
   TString dir = "/home/chatterj/t3store/Leptop/CMSSW_10_5_0/src/V2/RealData/";
   //TString dir = "/home/deroy/t3store3/CMSSW_10_5_0/src/BDTResponse_validator/Analysis/";
@@ -2242,6 +2269,8 @@ class Anal_Leptop_PROOF : public TSelector {
   TString weightfile1 = dir + TString("TMVAClassification_BDTG_elIDvarv3.weights.xml");
   //TString weightfile1 = dir + TString("TMVAClassification_BDTG_re.weights.xml");
   TString weightfile2 = dir + TString("TMVAClassification_BDTG_rnu.weights.xml");
+  
+  TString weightfile3 = dir + TString("TMVAClassification_only7varsnomatchel_BDTG.weights.xml");
   
   float ptcut = 400;
 
