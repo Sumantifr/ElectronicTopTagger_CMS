@@ -12,34 +12,46 @@
 
 #include "My_Style.C"
 
+//#define Matching
+//#define No_Matching
 
-static const int nfiles = 7;
+static const int nfiles = 8;
 
 const char *filenames[nfiles] = {
-				//				"/home/suman/CMS_Physics/Leptop/New_version/Total_SingleElectron_Data.root",
-								"/home/suman/CMS_Physics/Leptop/New_version/Muon/Total_SingleMuon_Data.root",//Muon_Data_2018D.root",
-							    "/home/suman/CMS_Physics/Leptop/New_version/Muon/Total_TT.root",
-							    "/home/suman/CMS_Physics/Leptop/New_version/Muon/Total_QCD.root",
-								"/home/suman/CMS_Physics/Leptop/New_version/Muon/Total_ST.root",
-								"/home/suman/CMS_Physics/Leptop/New_version/Muon/Total_DYJets.root",
-								"/home/suman/CMS_Physics/Leptop/New_version/Muon/Total_WJets.root",
-								"/home/suman/CMS_Physics/Leptop/New_version/Muon/Total_DiBoson.root"
+				//				"/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EMU/Total_SingleElectron_Data.root",
+								"/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EJets_JetHT/JetHT_Data_2018D_nogen.root",//Muon_Data_2018D.root",
+		//					    "/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EMU/TT_SemiLep_ej.root",
+		//					    "/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EJets_JetHT/Total_TT_nogen.root",
+							    "/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EJets_JetHT/TT_Lep_ej.root",
+							    "/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EJets_JetHT/TT_Had_noej_nogen.root",
+							    "/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EJets_JetHT/Total_QCD.root",
+								"/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EJets_JetHT/Total_ST.root",
+								"/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EJets_JetHT/Total_DYJets.root",
+								"/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EJets_JetHT/Total_WJets.root",
+								"/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EJets_JetHT/Total_DiBoson.root"
 								};								
 /*
 
 const char *filenames[nfiles] = {
-								"/home/suman/CMS_Physics/Leptop/New_version/Total_SingleMuon_Data_Muon.root",
-				//				"/home/suman/CMS_Physics/Leptop/New_version/Muon_Data_2018D.root",
-							    "/home/suman/CMS_Physics/Leptop/New_version/Total_TT_Muon.root",
-								"/home/suman/CMS_Physics/Leptop/New_version/Total_QCD_Muon.root",
-								"/home/suman/CMS_Physics/Leptop/New_version/Total_ST_Muon.root",
-								"/home/suman/CMS_Physics/Leptop/New_version/Total_DYJets_Muon.root",
-								"/home/suman/CMS_Physics/Leptop/New_version/Total_WJets_Muon.root",
-								"/home/suman/CMS_Physics/Leptop/New_version/Total_DiBoson_Muon.root"
-								};		
+				//				"/home/suman/CMS_Physics/Leptop/New_version/Total_SingleElectron_Data.root",
+								"/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EMU_Muon/SingleMuon_Data_2018D.root",//Muon_Data_2018D.root",
+		//					    "/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EMU_Muon/TT_DiLep_emu.root",
+		//					    "/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EMU_Muon/Total_TT.root",
+							    "/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EMU_Muon/TT_Lep_emu.root",
+							    "/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EMU_Muon/TT_Had_emu_nogen.root",
+							    "/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EMU_Muon/Total_QCD.root",
+								"/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EMU_Muon/Total_ST.root",
+								"/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EMU_Muon/Total_DYJets.root",
+								"/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EMU_Muon/Total_WJets.root",
+								"/home/suman/CMS_Physics/Leptop/New_version/Data_MC/EMU_Muon/Total_DiBoson.root"
+								};	
 */
-float lumi_fac[nfiles] = 	  {		1.,
-									1.,
+
+float lumi_fac[nfiles] = 	  {		1.,// 0.875,
+//									0.00000607799,
+//									0.0000190505,
+									1,
+									0.00000604081,
 									1,
 									1,
 									1,
@@ -47,12 +59,12 @@ float lumi_fac[nfiles] = 	  {		1.,
 									1
 							  };
 
-float data_lumi = 59.7;//59.7;//31.9;//59.7;
+float data_lumi = 31.9;//31.9;//59.7;
 
 void Compare_DataMC()
 {
 
-static const int nobshist = 28;
+static const int nobshist = 29;
 
 int ncat = nobshist-12;
 
@@ -67,6 +79,7 @@ const char *obsnames[nobshist] = {
 	  "re","rnu",
 	  "hadsdmass",
 	 "haspfelectron",
+	 "rt",
 	 "N_PV_sel",
 	 "hist_PFMET","hist_PFMET_pass",
 	 "HTop_pt","HTop_y","HTop_sdmass","HTop_DAK8","HTop_tau32",
@@ -81,6 +94,7 @@ const char *obstitles[nobshist] = {
 	  "r_{e}","r_{#nu}",
 	  "M_{SD} (GeV) of hadronic top",
 	  "haspfelectron",
+	  "r_{ne}",
 	  "N_{PV}","p^{miss}_{T} (GeV)","p^{miss}_{T} (GeV)",
 	  "p^{th}_{T} (GeV)","y^{th}","M^{th}_{SD} (GeV)","DeepAK8 score of hadronic top","#tau_{32} of hadronic top",
 	  "Counter",
@@ -94,6 +108,7 @@ const char *obslabels[nobshist] = {
 	  "r_e","r_{#nu}",
 	  "M^{th}_{SD}",
 	  "haspfelectron",
+	  "r_t"
 	  "N_{PV}","p^{miss}_{T}","p^{miss}_{T}"
 	  }; 
  
@@ -115,7 +130,13 @@ if(fg>0){ lumi_fac[fg] *= data_lumi; }
  for(int ihist=0; ihist<nobshist; ihist++){
  
     if(ihist<(ncat)){
-	sprintf(name,"Obs_%s",obsnames[ihist]);
+		#ifdef Matching
+		sprintf(name,"Obs_%s_match",obsnames[ihist]);
+		#elif defined No_Matching
+		sprintf(name,"Obs_%s_nomatch",obsnames[ihist]);
+		#else
+		sprintf(name,"Obs_%s",obsnames[ihist]);
+		#endif
 	}else{
 		sprintf(name,"%s",obsnames[ihist]);
 		}
@@ -124,11 +145,23 @@ if(fg>0){ lumi_fac[fg] *= data_lumi; }
     
     if(ihist<(ncat)){
     
+    #ifdef Matching
+	sprintf(name,"Obs_%s_match_pass",obsnames[ihist]);
+	#elif defined No_Matching
+	sprintf(name,"Obs_%s_nomatch_pass",obsnames[ihist]);
+	#else
 	sprintf(name,"Obs_%s_pass",obsnames[ihist]);
+	#endif
 	hist_obs_1[ihist][fg] = (TH1D*)filein->Get(name);
 	hist_obs_1[ihist][fg]->Scale(lumi_fac[fg]);
  
+	#ifdef Matching
+	sprintf(name,"Obs_%s_match_fail",obsnames[ihist]);
+	#elif defined No_Matching
+	sprintf(name,"Obs_%s_nomatch_fail",obsnames[ihist]);
+	#else
 	sprintf(name,"Obs_%s_fail",obsnames[ihist]);
+	#endif
 	hist_obs_2[ihist][fg] = (TH1D*)filein->Get(name);
 	hist_obs_2[ihist][fg]->Scale(lumi_fac[fg]);
  
@@ -138,9 +171,11 @@ if(fg>0){ lumi_fac[fg] *= data_lumi; }
 }
 
      
-int col[nfiles-1]  = {kRed,kGreen+4,kBlue,kOrange+7,kCyan+1,kMagenta-7};
+//int col[nfiles-1]  = {kRed,kGreen+4,kBlue,kOrange+7,kCyan+1,kMagenta-7};
+int col[nfiles-1]  = {kRed,kMagenta-7,kGreen+4,kBlue,kOrange+7,kCyan+1,kRed-5};
 
-const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j","DiBoson"};
+const char *dataname[nfiles] = {"Data",/*"t #bar{t} (e+j)",*/"t #bar{t} (leptonic)","t #bar{t} (hadronic)","QCD","Single t","Z+j","W+j","DiBoson"};
+//const char *dataname[nfiles] = {"Data","t #bar{t} (SemiLep)","t #bar{t} (DiLep)","t #bar{t} (Had)","QCD","Single t","Z+j","W+j","DiBoson"};
 
  THStack *hist_obs_stack[nobshist];
  THStack *hist_obs_1_stack[nobshist];
@@ -224,11 +259,12 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 	hist_obs[iv][0]->GetXaxis()->SetLabelSize(0.045);
 	hist_obs[iv][0]->GetXaxis()->CenterTitle();
 	
-	sprintf(name,"d#sigma / d%s (in fb/unit)",obslabels[iv]);
-//	hist_obs[iv][0]->GetYaxis()->SetTitle(name);
+//	sprintf(name,"d#sigma / d%s (in fb/unit)",obslabels[iv]);
+	sprintf(name,"No. of events");
+	hist_obs[iv][0]->GetYaxis()->SetTitle(name);
 	hist_obs[iv][0]->GetYaxis()->SetTitleSize(0.04);
 	hist_obs[iv][0]->GetYaxis()->SetLabelSize(0.04);
-	hist_obs[iv][0]->GetYaxis()->SetTitleOffset(1.2);
+	hist_obs[iv][0]->GetYaxis()->SetTitleOffset(1.4);
 	hist_obs[iv][0]->GetYaxis()->CenterTitle();
 	
 	if(iv<(ncat)){
@@ -239,11 +275,12 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 	hist_obs_1[iv][0]->GetXaxis()->SetLabelSize(0.045);
 	hist_obs_1[iv][0]->GetXaxis()->CenterTitle();
 	
-	sprintf(name,"d#sigma / d%s (in fb/unit)",obslabels[iv]);
-//	hist_obs_1[iv][0]->GetYaxis()->SetTitle(name);
+//	sprintf(name,"d#sigma / d%s (in fb/unit)",obslabels[iv]);
+	sprintf(name,"No. of events");
+	hist_obs_1[iv][0]->GetYaxis()->SetTitle(name);
 	hist_obs_1[iv][0]->GetYaxis()->SetTitleSize(0.04);
 	hist_obs_1[iv][0]->GetYaxis()->SetLabelSize(0.04);
-	hist_obs_1[iv][0]->GetYaxis()->SetTitleOffset(1.2);
+	hist_obs_1[iv][0]->GetYaxis()->SetTitleOffset(1.4);
 	hist_obs_1[iv][0]->GetYaxis()->CenterTitle();
 	
 	sprintf(name,"%s",obstitles[iv]);
@@ -252,11 +289,12 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 	hist_obs_2[iv][0]->GetXaxis()->SetLabelSize(0.045);
 	hist_obs_2[iv][0]->GetXaxis()->CenterTitle();
 	
-	sprintf(name,"d#sigma / d%s (in fb/unit)",obslabels[iv]);
-//	hist_obs_2[iv][0]->GetYaxis()->SetTitle(name);
+//	sprintf(name,"d#sigma / d%s (in fb/unit)",obslabels[iv]);
+	sprintf(name,"No. of events");
+	hist_obs_2[iv][0]->GetYaxis()->SetTitle(name);
 	hist_obs_2[iv][0]->GetYaxis()->SetTitleSize(0.04);
 	hist_obs_2[iv][0]->GetYaxis()->SetLabelSize(0.04);
-	hist_obs_2[iv][0]->GetYaxis()->SetTitleOffset(1.2);
+	hist_obs_2[iv][0]->GetYaxis()->SetTitleOffset(1.4);
 	hist_obs_2[iv][0]->GetYaxis()->CenterTitle();
 	
 	}
@@ -265,12 +303,19 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 	
 	sprintf(name,"Canv_%s",obsnames[iv]);
 	hist_obs[iv][0]->SetMaximum(1.1 * max(hist_obs[iv][0]->GetMaximum(),hist_obs_bkg[iv]->GetMaximum()));
+	if(iv==15){
+		hist_obs[iv][0]->SetMinimum(0);
+	}
+	else{
+		hist_obs[iv][0]->SetMinimum(0.5);
+		}
+		
 	cv[iv] = tdrDiCanvas(name,hist_obs[iv][0],hist_obs_bkg[iv],8,0);
 	
 	if(iv==3||iv==14||iv==8){
 		legv[iv] = tdrLeg(0.2,0.65,0.395,0.915);
 	}else{
-		legv[iv] = tdrLeg(0.7,0.65,0.895,0.915);
+		legv[iv] = tdrLeg(0.65,0.65,0.875,0.915);
 	}
 	
 	legv[iv]->SetTextFont(42);
@@ -286,8 +331,14 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 
 	cv[iv]->cd(1);
 
-	if(iv==0||iv==4||iv==5||iv==7||iv==9||iv==10||iv==12||iv==13||iv==18||iv==19||iv==23||iv==24||iv==25||iv==26) 
-	{ gPad->SetLogy(1);}
+	if(iv==0||iv==4||iv==5||iv==7||iv==9||iv==10||iv==12||iv==13||iv==16||iv==17||iv==18||iv==19||iv==23||iv==24||iv==25||iv==26) 
+	{ 
+		gPad->SetLogy(1);
+		hist_obs[iv][0]->SetMaximum(20*hist_obs[iv][0]->GetMaximum());
+	}
+	if(iv==0){
+		gPad->SetLogx(1);
+		}
 
 	hist_obs[iv][0]->SetFillStyle(0);
 	hist_obs[iv][0]->SetFillColor(0);
@@ -295,14 +346,28 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 	hist_obs[iv][0]->SetMarkerColor(kBlack);
 	hist_obs[iv][0]->SetMarkerSize(0.7);
 	hist_obs[iv][0]->SetLineColor(kBlack);
+	
+//	hist_obs_stack[iv]->SetMinimum(0.5);
+
+	hist_obs[iv][0]->GetYaxis()->SetTitleOffset(1.5);
 
 	hist_obs_stack[iv]->Draw("histSAME");
 	hist_obs[iv][0]->Draw("PSAME");
 	
+	gPad->RedrawAxis();
+	
 	cv[iv]->cd(2);
 	
-	rat_obs[iv] = (TH1D*)hist_obs_bkg[iv]->Clone();
-	rat_obs[iv]->Divide(hist_obs[iv][0]);
+//	rat_obs[iv] = (TH1D*)hist_obs_bkg[iv]->Clone();
+//	rat_obs[iv]->Divide(hist_obs[iv][0]);
+	rat_obs[iv] = (TH1D*)hist_obs[iv][0]->Clone();
+	rat_obs[iv]->Divide(hist_obs_bkg[iv]);
+	
+	if(iv==0){
+		gPad->SetLogx(1);
+		rat_obs[iv]->GetXaxis()->SetMoreLogLabels(kTRUE);
+		rat_obs[iv]->GetXaxis()->SetNoExponent(kTRUE);
+		}
 	
 	sprintf(name,"%s",obstitles[iv]);
 	rat_obs[iv]->GetXaxis()->SetTitle(name);
@@ -310,10 +375,11 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 	rat_obs[iv]->GetXaxis()->SetLabelSize(0.1);
 	rat_obs[iv]->GetXaxis()->CenterTitle();
 	
-	rat_obs[iv]->GetYaxis()->SetTitle("MC / Data");
+	rat_obs[iv]->GetYaxis()->SetTitle("Data / MC");
 	rat_obs[iv]->GetYaxis()->SetTitleSize(0.1);
 	rat_obs[iv]->GetYaxis()->SetLabelSize(0.1);
 	rat_obs[iv]->GetYaxis()->SetTitleOffset(0.75);
+	rat_obs[iv]->GetYaxis()->SetNdivisions(406);
 	rat_obs[iv]->GetYaxis()->CenterTitle();
 	
 	rat_obs[iv]->SetMinimum(0);
@@ -332,7 +398,13 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 	line->SetLineColor(7);
 	line->Draw("sames");
 	
-	sprintf(name,"Data_MC/Muon/%s.pdf",cv[iv]->GetName());
+	#ifdef Matching
+	sprintf(name,"Data_MC/EJets_JetHT/%s_match.pdf",cv[iv]->GetName());
+	#elif defined(No_Matching)
+	sprintf(name,"Data_MC/EJets_JetHT/%s_nomatch.pdf",cv[iv]->GetName());
+	#else
+	sprintf(name,"Data_MC/EJets_JetHT/%s.pdf",cv[iv]->GetName());
+	#endif
 	
 	cv[iv]->SaveAs(name);
 	
@@ -347,7 +419,7 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 	if(iv==3||iv==14){
 		legv_1[iv] = tdrLeg(0.2,0.65,0.395,0.915);
 	}else{
-		legv_1[iv] = tdrLeg(0.7,0.65,0.895,0.915);
+		legv_1[iv] = tdrLeg(0.65,0.65,0.875,0.915);
 	}
 	
 	legv_1[iv]->SetTextFont(42);
@@ -363,8 +435,16 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 
 	cv_1[iv]->cd(1);
 	
-	if(iv==0||iv==12||iv==13) { gPad->SetLogy(1);}
-
+	if(iv==0||iv==4||iv==5||iv==7||iv==9||iv==10||iv==12||iv==13||iv==17||iv==18||iv==19||iv==23||iv==24||iv==25||iv==26) 
+	{ 
+		gPad->SetLogy(1);
+		hist_obs_1[iv][0]->SetMaximum(20*hist_obs_1[iv][0]->GetMaximum());
+	}
+	
+	if(iv==15){
+		hist_obs_1[iv][0]->SetMinimum(0);
+	}
+	
 	hist_obs_1[iv][0]->SetFillStyle(0);
 	hist_obs_1[iv][0]->SetFillColor(0);
 	hist_obs_1[iv][0]->SetMarkerStyle(kFullCircle);
@@ -372,13 +452,19 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 	hist_obs_1[iv][0]->SetMarkerSize(0.7);
 	hist_obs_1[iv][0]->SetLineColor(kBlack);
 
+	hist_obs_1[iv][0]->GetYaxis()->SetTitleOffset(1.5);
+
 	hist_obs_1_stack[iv]->Draw("histSAME");
 	hist_obs_1[iv][0]->Draw("PSAME");
 	
+	gPad->RedrawAxis();
+	
 	cv_1[iv]->cd(2);
 	
-	rat_obs_1[iv] = (TH1D*)hist_obs_1_bkg[iv]->Clone();
-	rat_obs_1[iv]->Divide(hist_obs_1[iv][0]);
+//	rat_obs_1[iv] = (TH1D*)hist_obs_1_bkg[iv]->Clone();
+//	rat_obs_1[iv]->Divide(hist_obs_1[iv][0]);
+	rat_obs_1[iv] = (TH1D*)hist_obs_1[iv][0]->Clone();
+	rat_obs_1[iv]->Divide(hist_obs_1_bkg[iv]);
 	
 	sprintf(name,"%s",obstitles[iv]);
 	rat_obs_1[iv]->GetXaxis()->SetTitle(name);
@@ -386,10 +472,11 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 	rat_obs_1[iv]->GetXaxis()->SetLabelSize(0.1);
 	rat_obs_1[iv]->GetXaxis()->CenterTitle();
 	
-	rat_obs_1[iv]->GetYaxis()->SetTitle("MC / Data");
+	rat_obs_1[iv]->GetYaxis()->SetTitle("Data / MC");
 	rat_obs_1[iv]->GetYaxis()->SetTitleSize(0.1);
 	rat_obs_1[iv]->GetYaxis()->SetLabelSize(0.1);
 	rat_obs_1[iv]->GetYaxis()->SetTitleOffset(0.75);
+	rat_obs_1[iv]->GetYaxis()->SetNdivisions(406);
 	rat_obs_1[iv]->GetYaxis()->CenterTitle();
 	
 	rat_obs_1[iv]->SetMinimum(0);
@@ -408,7 +495,13 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 	line_1->SetLineColor(7);
 	line_1->Draw("sames");
 	
-	sprintf(name,"Data_MC/Muon/%s.pdf",cv_1[iv]->GetName());
+	#ifdef Matching
+	sprintf(name,"Data_MC/EJets_JetHT/%s_match.pdf",cv_1[iv]->GetName());
+	#elif defined(No_Matching)
+	sprintf(name,"Data_MC/EJets_JetHT/%s_nomatch.pdf",cv_1[iv]->GetName());
+	#else
+	sprintf(name,"Data_MC/EJets_JetHT/%s.pdf",cv_1[iv]->GetName());
+	#endif
 	
 	cv_1[iv]->SaveAs(name);
 	
@@ -422,7 +515,7 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 	if(iv==3||iv==14){
 		legv_2[iv] = tdrLeg(0.2,0.65,0.395,0.915);
 	}else{
-		legv_2[iv] = tdrLeg(0.7,0.65,0.895,0.915);
+		legv_2[iv] = tdrLeg(0.65,0.65,0.875,0.915);
 	}
 	
 	legv_2[iv]->SetTextFont(42);
@@ -438,7 +531,15 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 
 	cv_2[iv]->cd(1);
 
-	if(iv==0||iv==12||iv==13) { gPad->SetLogy(1);}
+	if(iv==0||iv==4||iv==5||iv==7||iv==9||iv==10||iv==12||iv==13||iv==17||iv==18||iv==19||iv==23||iv==24||iv==25||iv==26) 
+	{ 
+		gPad->SetLogy(1);
+		hist_obs_2[iv][0]->SetMaximum(20*hist_obs_2[iv][0]->GetMaximum());
+	}
+	
+	if(iv==15){
+		hist_obs_2[iv][0]->SetMinimum(1.e-9);
+	}
 
 	hist_obs_2[iv][0]->SetFillStyle(0);
 	hist_obs_2[iv][0]->SetFillColor(0);
@@ -447,13 +548,19 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 	hist_obs_2[iv][0]->SetMarkerSize(0.7);
 	hist_obs_2[iv][0]->SetLineColor(kBlack);
 
+	hist_obs_2[iv][0]->GetYaxis()->SetTitleOffset(1.5);
+
 	hist_obs_2_stack[iv]->Draw("histSAME");
 	hist_obs_2[iv][0]->Draw("PSAME");
 	
+	gPad->RedrawAxis();
+	
 	cv_2[iv]->cd(2);
 	
-	rat_obs_2[iv] = (TH1D*)hist_obs_2_bkg[iv]->Clone();
-	rat_obs_2[iv]->Divide(hist_obs_2[iv][0]);
+//	rat_obs_2[iv] = (TH1D*)hist_obs_2_bkg[iv]->Clone();
+//	rat_obs_2[iv]->Divide(hist_obs_2[iv][0]);
+	rat_obs_2[iv] = (TH1D*)hist_obs_2[iv][0]->Clone();
+	rat_obs_2[iv]->Divide(hist_obs_2_bkg[iv]);
 	
 	sprintf(name,"%s",obstitles[iv]);
 	rat_obs_2[iv]->GetXaxis()->SetTitle(name);
@@ -461,10 +568,11 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 	rat_obs_2[iv]->GetXaxis()->SetLabelSize(0.1);
 	rat_obs_2[iv]->GetXaxis()->CenterTitle();
 	
-	rat_obs_2[iv]->GetYaxis()->SetTitle("MC / Data");
+	rat_obs_2[iv]->GetYaxis()->SetTitle("Data / MC");
 	rat_obs_2[iv]->GetYaxis()->SetTitleSize(0.1);
 	rat_obs_2[iv]->GetYaxis()->SetLabelSize(0.1);
 	rat_obs_2[iv]->GetYaxis()->SetTitleOffset(0.75);
+	rat_obs_2[iv]->GetYaxis()->SetNdivisions(406);
 	rat_obs_2[iv]->GetYaxis()->CenterTitle();
 	
 	rat_obs_2[iv]->SetMinimum(0);
@@ -483,7 +591,13 @@ const char *dataname[nfiles] = {"Data","t #bar{t}","QCD","Single t","Z+j","W+j",
 	line_2->SetLineColor(7);
 	line_2->Draw("sames");
 	
-	sprintf(name,"Data_MC/Muon/%s.pdf",cv_2[iv]->GetName());
+	#ifdef Matching
+	sprintf(name,"Data_MC/EJets_JetHT/%s_match.pdf",cv_2[iv]->GetName());
+	#elif defined(No_Matching)
+	sprintf(name,"Data_MC/EJets_JetHT/%s_nomatch.pdf",cv_2[iv]->GetName());
+	#else
+	sprintf(name,"Data_MC/EJets_JetHT/%s.pdf",cv_2[iv]->GetName());
+	#endif
 	
 	cv_2[iv]->SaveAs(name);
 	
