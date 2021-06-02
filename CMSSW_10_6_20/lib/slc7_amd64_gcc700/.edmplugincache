@@ -1,0 +1,6 @@
+pluginAnalysisDataAuto.so Data CMS%EDM%Framework%Module
+pluginAnalysisDataAuto.so Data CMS%EDM%Framework%ParameterSet%Description
+pluginAnalysisDataAuto.so Leptop CMS%EDM%Framework%Module
+pluginAnalysisDataAuto.so Leptop CMS%EDM%Framework%ParameterSet%Description
+pluginAnalysisMCAuto.so MC CMS%EDM%Framework%Module
+pluginAnalysisMCAuto.so MC CMS%EDM%Framework%ParameterSet%Description

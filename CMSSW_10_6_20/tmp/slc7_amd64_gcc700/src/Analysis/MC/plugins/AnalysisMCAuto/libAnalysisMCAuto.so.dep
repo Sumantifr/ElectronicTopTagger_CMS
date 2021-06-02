@@ -1,0 +1,3 @@
+tmp/slc7_amd64_gcc700/src/Analysis/MC/plugins/AnalysisMCAuto/MC.cc.o: \
+ src/Analysis/MC/plugins/MC.cc \
+
