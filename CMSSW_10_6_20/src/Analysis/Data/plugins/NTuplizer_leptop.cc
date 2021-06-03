@@ -393,6 +393,8 @@ else {
 				 ( abs(eta)>2.7 && abs(eta)<=3.0 && NHF<0.9999 ) ||
 				 ( abs(eta)>3.0 && NEMF<0.90 && NumNeutralParticle>2 ) ;
 		}
+		// there is a inconsistency between table & lines in https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVUL
+		// table is chosen as it is consistent with the slides https://indico.cern.ch/event/937597/contributions/3940302/attachments/2073315/3481068/ULJetID_UL17_UL18_AK4PUPPI.pdf 
 	}
 	
 	if(year==2016){
