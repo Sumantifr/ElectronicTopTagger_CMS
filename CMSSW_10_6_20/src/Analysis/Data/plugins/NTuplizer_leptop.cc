@@ -312,8 +312,8 @@ if(!UltraLegacy){
 	
 	JetID = ( (abs(eta)<=2.6 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
 			  (abs(eta)<=2.6 &&             CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 &&             NHF < 0.9 && !tightLepVeto ) ||
-			  (abs(eta)>2.6 && abs(eta)<=2.7 && CEMF<0.8 && CHM>0 && NEMF<0.99 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-			  (abs(eta)>2.6 && abs(eta)<=2.7 &&             CHM>0 && NEMF<0.99 &&             NHF < 0.9 && !tightLepVeto ) || 
+			  (abs(eta)>2.6 && abs(eta)<=2.7 && CEMF<0.8 && NEMF<0.99 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
+			  (abs(eta)>2.6 && abs(eta)<=2.7 &&             NEMF<0.99 &&             NHF < 0.9 && !tightLepVeto ) || 
 			  (abs(eta)<=3.0 && NHF<0.99) ||
 			  (abs(eta)>3.0 && NEMF<0.90 && NHF>0.02 && NumNeutralParticle>2 && NumNeutralParticle<15) 
 			);
