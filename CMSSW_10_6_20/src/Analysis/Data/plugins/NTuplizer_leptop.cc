@@ -364,7 +364,7 @@ if(!UltraLegacy){
 			  (abs(eta)>2.4 && abs(eta)<=2.7 && NumConst>1 && NEMF<0.9 &&             NHF < 0.9 && !tightLepVeto )
 			);
 	
-	if(abs(eta)>2.7) { JetID = true; }
+	if(abs(eta)>2.7) { JetID = false; }
 			
 	}
 }
