@@ -175,6 +175,7 @@ struct triggervar{
   bool            highl;
   int             ihlt;
   int             prescl;
+  int 			  pdgId;
 };
 
 int getbinid(double val, int nbmx, double* array) {
@@ -272,155 +273,96 @@ int NumConst, NumNeutralParticle, CHM;
 };
 
 bool getJetID(JetIDVars vars, string jettype="CHS", int year=2018, double eta=0, bool tightLepVeto=true, bool UltraLegacy=false){
-
-//https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetID
-
-if (jettype!="CHS" && jettype!="PUPPI"){
-	cout<<"Don't know your jet type"<<endl;
-	return false;
-	}
-
-float NHF, NEMF, MUF, CHF, CEMF;
-int NumConst, NumNeutralParticle, CHM;
-
-NHF = vars.NHF; 
-NEMF = vars.NEMF;
-MUF = vars.MUF;
-CHF = vars.CHF;
-CEMF = vars.CEMF;
-NumConst = vars.NumConst;
-NumNeutralParticle = vars.NumNeutralParticle;
-CHM = vars.CHM;
-
-bool JetID = false;
-	
+  
+  //https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetID
+  
+  if (jettype!="CHS" && jettype!="PUPPI"){
+    cout<<"Don't know your jet type"<<endl;
+    return false;
+  }
+  
+ float NHF, NEMF, MUF, CHF, CEMF;
+ int NumConst, NumNeutralParticle, CHM;
+ 
+ NHF = vars.NHF; 
+ NEMF = vars.NEMF;
+ MUF = vars.MUF;
+ CHF = vars.CHF;
+ CEMF = vars.CEMF;
+ NumConst = vars.NumConst;
+ NumNeutralParticle = vars.NumNeutralParticle;
+ CHM = vars.CHM;
+ 
+ bool JetID = false;
+ 
 if(!UltraLegacy){
 
 	if(year==2018 && jettype=="CHS"){
-	
-	JetID = ( (abs(eta)<=2.6 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-			  (abs(eta)<=2.6 &&             CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 &&             NHF < 0.9 && !tightLepVeto ) ||
-			  (abs(eta)>2.6 && abs(eta)<=2.7 && CEMF<0.8 && CHM>0 && NEMF<0.99 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-			  (abs(eta)>2.6 && abs(eta)<=2.7 &&             CHM>0 && NEMF<0.99 &&             NHF < 0.9 && !tightLepVeto ) || 
-			  (abs(eta)>2.7 && abs(eta)<=3.0 && NEMF>0.02 && NEMF<0.99 && NumNeutralParticle>2) ||
-			  (abs(eta)>3.0 && NEMF<0.90 && NHF>0.2 && NumNeutralParticle>10) 
-			);
-	
+	  
+	  JetID = ( (fabs(eta)<=2.6 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || (fabs(eta)<=2.6 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && NHF < 0.9 && !tightLepVeto ) || (fabs(eta)>2.6 && fabs(eta)<=2.7 && CEMF<0.8 && CHM>0 && NEMF<0.99 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || (fabs(eta)>2.6 && fabs(eta)<=2.7 && CHM>0 && NEMF<0.99 && NHF < 0.9 && !tightLepVeto ) || (fabs(eta)>2.7 && fabs(eta)<=3.0 && NEMF>0.02 && NEMF<0.99 && NumNeutralParticle>2) || (fabs(eta)>3.0 && NEMF<0.90 && NHF>0.2 && NumNeutralParticle>10));
 	}
 
 	if(year==2018 && jettype=="PUPPI"){
-	
-	JetID = ( (abs(eta)<=2.6 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-			  (abs(eta)<=2.6 &&             CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 &&             NHF < 0.9 && !tightLepVeto ) ||
-			  (abs(eta)>2.6 && abs(eta)<=2.7 && CEMF<0.8 && NEMF<0.99 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-			  (abs(eta)>2.6 && abs(eta)<=2.7 &&             NEMF<0.99 &&             NHF < 0.9 && !tightLepVeto ) || 
-			  (abs(eta)<=3.0 && NHF<0.99) ||
-			  (abs(eta)>3.0 && NEMF<0.90 && NHF>0.02 && NumNeutralParticle>2 && NumNeutralParticle<15) 
-			);
-	
+	  
+	  JetID = ( (fabs(eta)<=2.6 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || (fabs(eta)<=2.6 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && NHF < 0.9 && !tightLepVeto ) || (fabs(eta)>2.6 && fabs(eta)<=2.7 && CEMF<0.8 && NEMF<0.99 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || (fabs(eta)>2.6 && fabs(eta)<=2.7 && NEMF<0.99 && NHF < 0.9 && !tightLepVeto ) || (fabs(eta)<=3.0 && NHF<0.99) || (fabs(eta)>3.0 && NEMF<0.90 && NHF>0.02 && NumNeutralParticle>2 && NumNeutralParticle<15));
 	}
-
+	
 	if(year==2017 && jettype=="CHS"){
 	
-	JetID = ( (abs(eta)<=2.4 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-			  (abs(eta)<=2.4 &&             CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 &&             NHF < 0.9 && !tightLepVeto ) ||
-			  (abs(eta)>2.4 && abs(eta)<=2.7 &&  NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-			  (abs(eta)>2.4 && abs(eta)<=2.7 &&  NumConst>1 && NEMF<0.9 &&             NHF < 0.9 && !tightLepVeto ) ||
-			  (abs(eta)>2.7 && abs(eta)<=3.0 && NEMF>0.02 && NEMF<0.99 && NumNeutralParticle>2) ||
-			  (abs(eta)>3.0 && NEMF<0.90 && NHF>0.02 && NumNeutralParticle>10) 
-			);
-	
+	  JetID = ( (fabs(eta)<=2.4 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || (fabs(eta)<=2.4 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && NHF < 0.9 && !tightLepVeto ) || (fabs(eta)>2.4 && fabs(eta)<=2.7 &&  NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || (fabs(eta)>2.4 && fabs(eta)<=2.7 &&  NumConst>1 && NEMF<0.9 && NHF < 0.9 && !tightLepVeto ) || (fabs(eta)>2.7 && fabs(eta)<=3.0 && NEMF>0.02 && NEMF<0.99 && NumNeutralParticle>2) || (fabs(eta)>3.0 && NEMF<0.90 && NHF>0.02 && NumNeutralParticle>10));
 	}
 
 	if(year==2017 && jettype=="PUPPI"){
 	
-	JetID = ( (abs(eta)<=2.4 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-			  (abs(eta)<=2.4 &&             CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 &&             NHF < 0.9 && !tightLepVeto ) ||
-			  (abs(eta)>2.4 && abs(eta)<=2.7 &&  NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-			  (abs(eta)>2.4 && abs(eta)<=2.7 &&  NumConst>1 && NEMF<0.9 &&             NHF < 0.9 && !tightLepVeto ) ||
-			  (abs(eta)>2.7 && abs(eta)<=3.0 && NHF<0.99) ||
-			  (abs(eta)>3.0 && NEMF<0.90 && NHF>0.02 && NumNeutralParticle>2 && NumNeutralParticle<15) 
-			);
-			
+	JetID = ( (fabs(eta)<=2.4 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || (fabs(eta)<=2.4 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && NHF < 0.9 && !tightLepVeto ) ||
+ (fabs(eta)>2.4 && fabs(eta)<=2.7 &&  NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || (fabs(eta)>2.4 && fabs(eta)<=2.7 &&  NumConst>1 && NEMF<0.9 && NHF < 0.9 && !tightLepVeto ) || (fabs(eta)>2.7 && fabs(eta)<=3.0 && NHF<0.99) || (fabs(eta)>3.0 && NEMF<0.90 && NHF>0.02 && NumNeutralParticle>2 && NumNeutralParticle<15));
 	}
 
 	if(year==2016 && jettype=="CHS"){
 	
-	JetID = ( (abs(eta)<=2.4 && CEMF<0.90 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-			  (abs(eta)<=2.4 && CEMF<0.99 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 &&            NHF < 0.9  && !tightLepVeto ) ||
-			  (abs(eta)>2.4 && abs(eta)<=2.7 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-			  (abs(eta)>2.4 && abs(eta)<=2.7 && NumConst>1 && NEMF<0.9 &&             NHF < 0.9 && !tightLepVeto ) ||
-			  (abs(eta)>2.7 && abs(eta)<=3.0 && NEMF>0.01 && NHF<0.98 && NumNeutralParticle>2) ||
-			  (abs(eta)>3.0 && NEMF<0.90 && NumNeutralParticle>10) 
-			);
-	
+	JetID = ( (fabs(eta)<=2.4 && CEMF<0.90 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || (fabs(eta)<=2.4 && CEMF<0.99 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && NHF < 0.9  && !tightLepVeto ) || (fabs(eta)>2.4 && fabs(eta)<=2.7 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || (fabs(eta)>2.4 && fabs(eta)<=2.7 && NumConst>1 && NEMF<0.9 && NHF < 0.9 && !tightLepVeto ) || (fabs(eta)>2.7 && fabs(eta)<=3.0 && NEMF>0.01 && NHF<0.98 && NumNeutralParticle>2) || (fabs(eta)>3.0 && NEMF<0.90 && NumNeutralParticle>10));
 	}
 
 	if(year==2016 && jettype=="PUPPI"){
 	
-	JetID = ( (abs(eta)<=2.4 && CEMF<0.9 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-			  (abs(eta)<=2.4 && CEMF<0.99 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 &&             NHF < 0.9 && !tightLepVeto ) ||
-			  (abs(eta)>2.4 && abs(eta)<=2.7 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-			  (abs(eta)>2.4 && abs(eta)<=2.7 && NumConst>1 && NEMF<0.9 &&             NHF < 0.9 && !tightLepVeto )
-			);
-	
-	if(abs(eta)>2.7) { JetID = false; }
-			
+	JetID = ( (fabs(eta)<=2.4 && CEMF<0.9 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || (fabs(eta)<=2.4 && CEMF<0.99 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && NHF < 0.9 && !tightLepVeto ) || (fabs(eta)>2.4 && fabs(eta)<=2.7 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || (fabs(eta)>2.4 && fabs(eta)<=2.7 && NumConst>1 && NEMF<0.9 && NHF < 0.9 && !tightLepVeto ));
+	if(fabs(eta)>2.7) { JetID = false; }
 	}
-}
-
+ }
+ 
 else {
-		
-	if(year==2017||year==2018){
-
-		if(jettype=="CHS"){
-		
-		JetID = ( abs(eta)<=2.6 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-				( abs(eta)<=2.6 &&             CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 &&             NHF < 0.9 && !tightLepVeto ) ||
-				( abs(eta)>2.6 && abs(eta)<=2.7 && CEMF<0.8 && CHM>0 && NEMF<0.99 && MUF <0.8 && NHF < 0.9 ) ||
-				( abs(eta)>2.6 && abs(eta)<=2.7 &&             CHM>0 && NEMF<0.99 &&             NHF < 0.9 ) ||
-				( abs(eta)>2.7 && abs(eta)<=3.0 && NEMF>0.01 && NEMF<0.99 && NumNeutralParticle>1 ) ||
-				( abs(eta)>3.0 && NEMF<0.90 && NHF>0.2 && NumNeutralParticle>10) ;
-				  
-		}
-
-		if(jettype=="PUPPI"){
-		
-		JetID =  ( abs(eta)<=2.6 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-				 ( abs(eta)<=2.6 &&             CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 &&             NHF < 0.9 && !tightLepVeto ) ||
-				 ( abs(eta)>2.6 && abs(eta)<=2.7 && CEMF<0.8 && CHM>0 && NEMF<0.99 && MUF <0.8 && NHF < 0.9 ) ||
-				 ( abs(eta)>2.6 && abs(eta)<=2.7 &&             CHM>0 && NEMF<0.99 &&             NHF < 0.9 ) ||
-				 ( abs(eta)>2.7 && abs(eta)<=3.0 && NHF<0.9999 ) ||
-				 ( abs(eta)>3.0 && NEMF<0.90 && NumNeutralParticle>2 ) ;
-		}
-		// there is a inconsistency between table & lines in https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVUL
-		// table is chosen as it is consistent with the slides https://indico.cern.ch/event/937597/contributions/3940302/attachments/2073315/3481068/ULJetID_UL17_UL18_AK4PUPPI.pdf 
-	}
+  
+  if(year==2017||year==2018){
+    
+    if(jettype=="CHS"){
+      
+		JetID = ( fabs(eta)<=2.6 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || ( fabs(eta)<=2.6 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && NHF < 0.9 && !tightLepVeto ) || ( fabs(eta)>2.6 && fabs(eta)<=2.7 && CEMF<0.8 && CHM>0 && NEMF<0.99 && MUF <0.8 && NHF < 0.9 ) || ( fabs(eta)>2.6 && fabs(eta)<=2.7 && CHM>0 && NEMF<0.99 && NHF < 0.9 ) || ( fabs(eta)>2.7 && fabs(eta)<=3.0 && NEMF>0.01 && NEMF<0.99 && NumNeutralParticle>1 ) || ( fabs(eta)>3.0 && NEMF<0.90 && NHF>0.2 && NumNeutralParticle>10) ;
+    }
+    
+    if(jettype=="PUPPI"){
+		  
+		JetID =  ( fabs(eta)<=2.6 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || ( fabs(eta)<=2.6 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && NHF < 0.9 && !tightLepVeto ) || ( fabs(eta)>2.6 && fabs(eta)<=2.7 && CEMF<0.8 && NEMF<0.99 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || ( fabs(eta)>2.6 && fabs(eta)<=2.7 && NEMF<0.99 && NHF < 0.9 && !tightLepVeto ) || ( fabs(eta)>2.7 && fabs(eta)<=3.0 && NHF<0.9999 ) ||( fabs(eta)>3.0 && NEMF<0.90 && NumNeutralParticle>2 ) ;
+    }
+    // there is a inconsistency between table & lines in https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVUL
+    // table is chosen as it is consistent with the slides https://indico.cern.ch/event/937597/contributions/3940302/attachments/2073315/3481068/ULJetID_UL17_UL18_AK4PUPPI.pdf 
+  }
 	
-	if(year==2016){
-
-		if(jettype=="CHS"){
-		
-		JetID =  ( abs(eta)<=2.4 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-				 ( abs(eta)<=2.4 &&             CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 &&             NHF < 0.9 && !tightLepVeto ) ||
-				 ( abs(eta)>2.4 && abs(eta)<=2.7 && NEMF<0.99 && NHF < 0.9 ) ||
-				 ( abs(eta)>2.7 && abs(eta)<=3.0 && NEMF>0.0 && NEMF<0.99 && NHF<0.9 && NumNeutralParticle>1 )  ||
-				 ( abs(eta)>3.0 && NEMF<0.90 && NHF>0.2 && NumNeutralParticle>10) ;
+  if(year==2016){
+    
+    if(jettype=="CHS"){
+      
+      JetID =  ( fabs(eta)<=2.4 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || ( fabs(eta)<=2.4 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && NHF < 0.9 && !tightLepVeto ) || ( fabs(eta)>2.4 && fabs(eta)<=2.7 && NEMF<0.99 && NHF < 0.9 ) || ( fabs(eta)>2.7 && fabs(eta)<=3.0 && NEMF>0.0 && NEMF<0.99 && NHF<0.9 && NumNeutralParticle>1 ) || ( fabs(eta)>3.0 && NEMF<0.90 && NHF>0.2 && NumNeutralParticle>10) ;
 				  
-		}
+    }
 
    if(jettype=="PUPPI"){
 		
-		JetID = ( abs(eta)<=2.4 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) ||
-				( abs(eta)<=2.4 &&             CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 &&             NHF < 0.9 && !tightLepVeto ) ||
-				( abs(eta)>2.4 && abs(eta)<=2.7 && NEMF<0.99 && NHF < 0.98 ) ||
-				( abs(eta)>2.7 && abs(eta)<=3.0 && NumNeutralParticle>=1 ) ||
-				( abs(eta)>3.0 && NEMF<0.90 && NumNeutralParticle>2  ) ;
-		}
-	}	
-}
+     JetID = ( fabs(eta)<=2.4 && CEMF<0.8 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && MUF <0.8 && NHF < 0.9 && tightLepVeto ) || ( fabs(eta)<=2.4 && CHM>0 && CHF>0 && NumConst>1 && NEMF<0.9 && NHF < 0.9 && !tightLepVeto ) || ( fabs(eta)>2.4 && fabs(eta)<=2.7 && NEMF<0.99 && NHF < 0.98 ) || ( fabs(eta)>2.7 && fabs(eta)<=3.0 && NumNeutralParticle>=1 ) || ( fabs(eta)>3.0 && NEMF<0.90 && NumNeutralParticle>2  ) ;
+   }
+  }	
+ }
 
-return JetID;
+ return JetID;
 
 }
 
@@ -586,7 +528,7 @@ private:
 
   float pfjetAK4chrad[njetmx], pfjetAK4pTD[njetmx], pfjetAK4sdmass[njetmx];
 
-  bool pfjetAK4ID[njetmx], pfjetAK4ULID[njetmx];
+  bool pfjetAK4jetID[njetmx], pfjetAK4jetID_tightlepveto[njetmx];
 
   float pfjetAK4reso[njetmx], pfjetAK4resoup[njetmx], pfjetAK4resodn[njetmx];
   
@@ -611,7 +553,7 @@ private:
   float genjetAK4pt[njetmx], genjetAK4y[njetmx], genjetAK4phi[njetmx], genjetAK4btag[njetmx], genjetAK4mass[njetmx], genjetAK4sdmass[njetmx]; 
   
   int ngenparticles;
-  int genpartstatus[npartmx], genpartpdg[npartmx], genpartmompdg[npartmx], genpartmomid[npartmx], genpartdaugno[npartmx];
+  int genpartstatus[npartmx], genpartpdg[npartmx], genpartmompdg[npartmx], genpartgrmompdg[npartmx], genpartmomid[npartmx], genpartdaugno[npartmx];
   float genpartpt[npartmx], genparteta[npartmx], genpartphi[npartmx], genpartm[npartmx], genpartq[npartmx];
   bool genpartfromhard[npartmx], genpartfromhardbFSR[npartmx], genpartisPromptFinalState[npartmx], genpartisLastCopyBeforeFSR[npartmx];
   
@@ -669,7 +611,7 @@ private:
   int ntrigobjs;
   float trigobjpt[njetmx], trigobjeta[njetmx],trigobjphi[njetmx], trigobje[njetmx];
   bool trigobjHLT[njetmx], trigobjL1[njetmx],  trigobjBoth[njetmx];
-  int  trigobjIhlt[njetmx];
+  int  trigobjIhlt[njetmx], trigobjpdgId[njetmx];
   
   unsigned int mypow_2[32];
   
@@ -905,6 +847,7 @@ Leptop::Leptop(const edm::ParameterSet& pset):
   T1->Branch("trigobjL1",trigobjL1,"trigobjL1[ntrigobjs]/O");
   T1->Branch("trigobjBoth",trigobjBoth,"trigobjBoth[ntrigobjs]/O");
   T1->Branch("trigobjIhlt",trigobjIhlt,"trigobjIhlt[ntrigobjs]/I");
+  T1->Branch("trigobjpdgId",trigobjpdgId,"trigobjpdgId[ntrigobjs]/I");
   
   // MET info //
   
@@ -1075,8 +1018,8 @@ Leptop::Leptop(const edm::ParameterSet& pset):
  
   T1->Branch("npfjetAK4",&npfjetAK4,"npfjetAK4/I"); 
 
-  T1->Branch("pfjetAK4ID",pfjetAK4ID,"pfjetAK4ID[npfjetAK4]/O");
-  T1->Branch("pfjetAK4ULID",pfjetAK4ULID,"pfjetAK4ULID[npfjetAK4]/O");
+  T1->Branch("pfjetAK4jetID",pfjetAK4jetID,"pfjetAK4jetID[npfjetAK4]/O");
+  T1->Branch("pfjetAK4jetID_tightlepveto",pfjetAK4jetID_tightlepveto,"pfjetAK4jetID_tightlepveto[npfjetAK4]/O");
   
   T1->Branch("pfjetAK4pt",pfjetAK4pt,"pfjetAK4pt[npfjetAK4]/F");
   T1->Branch("pfjetAK4eta",pfjetAK4eta,"pfjetAK4eta[npfjetAK4]/F");
@@ -1161,6 +1104,7 @@ Leptop::Leptop(const edm::ParameterSet& pset):
   T1->Branch("genpartstatus",genpartstatus,"genpartstatus[ngenparticles]/I");
   T1->Branch("genpartpdg",genpartpdg,"genpartpdg[ngenparticles]/I");
   T1->Branch("genpartmompdg",genpartmompdg,"genpartmompdg[ngenparticles]/I");
+  T1->Branch("genpartgrmompdg",genpartgrmompdg,"genpartgrmompdg[ngenparticles]/I");
   //  T1->Branch("genpartmomid",genpartmomid,"genpartmomid[ngenparticles]/I");
   T1->Branch("genpartdaugno",genpartdaugno,"genpartdaugno[ngenparticles]/I");
   T1->Branch("genpartfromhard",genpartfromhard,"genpartfromhard[ngenparticles]/O");
@@ -1495,6 +1439,7 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
 				tmpvec1.highl  = obj.hasPathName( pathNamesAll[ih], false, true );
 				tmpvec1.level1 = obj.hasPathName( pathNamesAll[ih], true, false );
 				tmpvec1.trg4v = HepLorentzVector(obj.px(), obj.py(), obj.pz(), obj.energy());
+				tmpvec1.pdgId = obj.pdgId();
 				tmpvec1.prescl = 1;    //triggerPrescales->getPrescaleForIndex(ij);
 				tmpvec1.ihlt = jk;
 				alltrgobj.push_back(tmpvec1);
@@ -1517,6 +1462,7 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
       trigobjL1[iht] = alltrgobj[iht].level1;
       trigobjBoth[iht] = alltrgobj[iht].both;
       trigobjIhlt[iht] = alltrgobj[iht].ihlt;
+      trigobjpdgId[iht] = alltrgobj[iht].pdgId;
       if(iht == (njetmx-1)) break;
     }
   }
@@ -1723,17 +1669,17 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
       
       JetIDVars idvars; 
       idvars.NHF = pfjetAK8NHF[npfjetAK8];
-	  idvars.NEMF = pfjetAK8NEMF[npfjetAK8];
-	  idvars.MUF = pfjetAK8MUF[npfjetAK8];
-	  idvars.CHF = pfjetAK8CHF[npfjetAK8];
-	  idvars.CEMF = pfjetAK8CEMF[npfjetAK8];
-	  idvars.NumConst = (pfjetAK8Chcons[npfjetAK8]+pfjetAK8Neucons[npfjetAK8]);
-	  idvars.NumNeutralParticle = pfjetAK8Neucons[npfjetAK8];
-	  idvars.CHM = pfjetAK8CHM[npfjetAK8];
-	
+      idvars.NEMF = pfjetAK8NEMF[npfjetAK8];
+      idvars.MUF = pfjetAK8MUF[npfjetAK8];
+      idvars.CHF = pfjetAK8CHF[npfjetAK8];
+      idvars.CEMF = pfjetAK8CEMF[npfjetAK8];
+      idvars.NumConst = (pfjetAK8Chcons[npfjetAK8]+pfjetAK8Neucons[npfjetAK8]);
+      idvars.NumNeutralParticle = pfjetAK8Neucons[npfjetAK8];
+      idvars.CHM = pfjetAK8CHM[npfjetAK8];
+      
       pfjetAK8jetID[npfjetAK8] = getJetID(idvars,"PUPPI",year,pfjetAK8eta[npfjetAK8],isUltraLegacy);
       pfjetAK8jetID_tightlepveto[npfjetAK8] = getJetID(idvars,"PUPPI",2018,pfjetAK8eta[npfjetAK8],false);
-      
+    
       float sumpt = 0, sumpt2 = 0;
       float leadjtrackpt = -100; //int leadjtrackid = -1;
       
@@ -2226,7 +2172,7 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
       
     }
   }
-  
+
   npfjetAK4 = 0;
   iEvent.getByToken(tok_pfjetAK4s_, pfjetAK4s);
   if(isMC){
@@ -2370,38 +2316,39 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
     pfjetAK4CEMF[npfjetAK4] = (*pfjetAK4s)[jet].chargedEmEnergyFraction();
     pfjetAK4NEMF[npfjetAK4] = (*pfjetAK4s)[jet].neutralEmEnergyFraction();
     pfjetAK4MUF[npfjetAK4] = (*pfjetAK4s)[jet].muonEnergyFraction();
+    
     pfjetAK4PHF[npfjetAK4] = (*pfjetAK4s)[jet].photonEnergyFraction();
     pfjetAK4EEF[npfjetAK4] = (*pfjetAK4s)[jet].electronEnergyFraction();
     pfjetAK4HFHF[npfjetAK4] = (*pfjetAK4s)[jet].HFHadronEnergyFraction();
     pfjetAK4HFEMF[npfjetAK4] = (*pfjetAK4s)[jet].HFEMEnergyFraction();
     pfjetAK4HOF[npfjetAK4] = (*pfjetAK4s)[jet].hoEnergyFraction();
+    
     pfjetAK4CHM[npfjetAK4] = (*pfjetAK4s)[jet].chargedHadronMultiplicity();
     pfjetAK4NHM[npfjetAK4] = (*pfjetAK4s)[jet].neutralHadronMultiplicity();
+    
     pfjetAK4MUM[npfjetAK4] = (*pfjetAK4s)[jet].muonMultiplicity();
     pfjetAK4PHM[npfjetAK4] = (*pfjetAK4s)[jet].photonMultiplicity();
     pfjetAK4EEM[npfjetAK4] = (*pfjetAK4s)[jet].electronMultiplicity();
     pfjetAK4HFHM[npfjetAK4] = (*pfjetAK4s)[jet].HFHadronMultiplicity();
     pfjetAK4HFEMM[npfjetAK4] = (*pfjetAK4s)[jet].HFEMMultiplicity();
+    
     pfjetAK4Chcons[npfjetAK4] = (*pfjetAK4s)[jet].chargedMultiplicity();
     pfjetAK4Neucons[npfjetAK4] = (*pfjetAK4s)[jet].neutralMultiplicity();
-
-    pfjetAK4ID[npfjetAK4] = false;
-    pfjetAK4ULID[npfjetAK4] = false;
-
-    int NumConst = pfjetAK4Chcons[npfjetAK4] + pfjetAK4Neucons[npfjetAK4];
-    double eta = pfjetAK44v.rapidity();
     
-    //taken from https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVRun2018 : Debarati 
-    if (fabs(eta)<=2.6 && pfjetAK4CHM[npfjetAK4]>0 && pfjetAK4CHF[npfjetAK4]>0 && NumConst>1 && pfjetAK4NEMF[npfjetAK4]<0.9 && pfjetAK4NHF[npfjetAK4]<0.9) pfjetAK4ID[npfjetAK4] = true;
-    else if (fabs(eta)>2.6 && fabs(eta)<=2.7 && pfjetAK4CHM[npfjetAK4]>0 && pfjetAK4NEMF[npfjetAK4]<0.99 && pfjetAK4NHF[npfjetAK4]<0.9) pfjetAK4ID[npfjetAK4] = true;
-    else if (pfjetAK4NEMF[npfjetAK4]>0.02 && pfjetAK4NHF[npfjetAK4]<0.99 && pfjetAK4Neucons[npfjetAK4]>2 && abs(eta)>2.7 && abs(eta)<=3.0) pfjetAK4ID[npfjetAK4] = true;
-    else if (pfjetAK4NEMF[npfjetAK4]<0.90 && pfjetAK4NHF[npfjetAK4]>0.2 && pfjetAK4Neucons[npfjetAK4]>10 && abs(eta)>3.0) pfjetAK4ID[npfjetAK4] = true;
-
-    //taken from https:https://twiki.cern.ch/twiki/bin/view/CMS/JetID13TeVUL : Debarati
-    if (fabs(eta)<=2.6 && pfjetAK4CHM[npfjetAK4]>0 && pfjetAK4CHF[npfjetAK4]>0 && NumConst>1 && pfjetAK4NEMF[npfjetAK4]<0.9 && pfjetAK4NHF[npfjetAK4]<0.9) pfjetAK4ULID[npfjetAK4] = true;
-    else if (fabs(eta)>2.6 && fabs(eta)<=2.7 && pfjetAK4CHM[npfjetAK4]>0 && pfjetAK4NEMF[npfjetAK4]<0.99&& pfjetAK4NHF[npfjetAK4]<0.9) pfjetAK4ULID[npfjetAK4] = true;
-    else if (pfjetAK4NEMF[npfjetAK4]>0.01 && pfjetAK4NHF[npfjetAK4]<0.99 && pfjetAK4Neucons[npfjetAK4]>1&& abs(eta)>2.7 && abs(eta)<=3.0) pfjetAK4ULID[npfjetAK4] = true;
-    else if (pfjetAK4NEMF[npfjetAK4]<0.90 && pfjetAK4NHF[npfjetAK4]>0.2 && pfjetAK4Neucons[npfjetAK4]>10 &&abs(eta)>3.0) pfjetAK4ULID[npfjetAK4] = true;
+    JetIDVars AK4idvars;
+    
+    AK4idvars.NHF = pfjetAK4NHF[npfjetAK4];
+    AK4idvars.NEMF = pfjetAK4NEMF[npfjetAK4];
+    AK4idvars.MUF = pfjetAK4MUF[npfjetAK4];
+    AK4idvars.CHF = pfjetAK4CHF[npfjetAK4];
+    AK4idvars.CEMF = pfjetAK4CEMF[npfjetAK4];
+    AK4idvars.NumConst = (pfjetAK4Chcons[npfjetAK4]+pfjetAK4Neucons[npfjetAK4]);
+    AK4idvars.NumNeutralParticle = pfjetAK4Neucons[npfjetAK4];
+    AK4idvars.CHM = pfjetAK4CHM[npfjetAK4];
+    
+    pfjetAK4jetID[npfjetAK4] = getJetID(AK4idvars,"CHS",year,pfjetAK4eta[npfjetAK4],isUltraLegacy);
+    pfjetAK4jetID_tightlepveto[npfjetAK4] = getJetID(AK4idvars,"CHS",2018,pfjetAK4eta[npfjetAK4],false);
+    
     
     pfjetAK4chrad[npfjetAK4] = 0;
     
@@ -2613,6 +2560,14 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
 	genpartphi[ngenparticles] = (*genparticles)[ig].phi();
 	genpartm[ngenparticles] = (*genparticles)[ig].mass();
 	genpartq[ngenparticles] = (*genparticles)[ig].charge();
+	
+	if(mom->numberOfMothers()>0){
+		const Candidate * grmom  = mom->mother();
+		genpartgrmompdg[ngenparticles]  = grmom->pdgId();
+    }
+    else{
+		genpartgrmompdg[ngenparticles]  = -10000000;
+		}
 	
 	ngenparticles++;
 	if(ngenparticles>=npartmx) break;
