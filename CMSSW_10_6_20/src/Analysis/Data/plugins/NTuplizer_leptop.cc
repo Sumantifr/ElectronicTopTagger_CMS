@@ -1677,8 +1677,8 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
       idvars.NumNeutralParticle = pfjetAK8Neucons[npfjetAK8];
       idvars.CHM = pfjetAK8CHM[npfjetAK8];
       
-      pfjetAK8jetID[npfjetAK8] = getJetID(idvars,"PUPPI",year,pfjetAK8eta[npfjetAK8],isUltraLegacy);
-      pfjetAK8jetID_tightlepveto[npfjetAK8] = getJetID(idvars,"PUPPI",2018,pfjetAK8eta[npfjetAK8],false);
+	  pfjetAK8jetID[npfjetAK8] = getJetID(idvars,"PUPPI",year,pfjetAK8eta[npfjetAK8],false,isUltraLegacy);
+	  pfjetAK8jetID_tightlepveto[npfjetAK8] = getJetID(idvars,"PUPPI",year,pfjetAK8eta[npfjetAK8],true,isUltraLegacy);
     
       float sumpt = 0, sumpt2 = 0;
       float leadjtrackpt = -100; //int leadjtrackid = -1;
@@ -2346,9 +2346,8 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
     AK4idvars.NumNeutralParticle = pfjetAK4Neucons[npfjetAK4];
     AK4idvars.CHM = pfjetAK4CHM[npfjetAK4];
     
-    pfjetAK4jetID[npfjetAK4] = getJetID(AK4idvars,"CHS",year,pfjetAK4eta[npfjetAK4],isUltraLegacy);
-    pfjetAK4jetID_tightlepveto[npfjetAK4] = getJetID(AK4idvars,"CHS",2018,pfjetAK4eta[npfjetAK4],false);
-    
+    pfjetAK4jetID[npfjetAK4] = getJetID(idvars,"CHS",year,pfjetAK8eta[npfjetAK8],false,isUltraLegacy);
+    pfjetAK4jetID_tightlepveto[npfjetAK4] = getJetID(idvars,"CHS",year,pfjetAK8eta[npfjetAK8],true,isUltraLegacy);
     
     pfjetAK4chrad[npfjetAK4] = 0;
     
