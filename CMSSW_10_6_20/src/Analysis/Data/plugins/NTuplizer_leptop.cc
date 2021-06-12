@@ -2346,8 +2346,8 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
     AK4idvars.NumNeutralParticle = pfjetAK4Neucons[npfjetAK4];
     AK4idvars.CHM = pfjetAK4CHM[npfjetAK4];
     
-    pfjetAK4jetID[npfjetAK4] = getJetID(idvars,"CHS",year,pfjetAK8eta[npfjetAK8],false,isUltraLegacy);
-    pfjetAK4jetID_tightlepveto[npfjetAK4] = getJetID(idvars,"CHS",year,pfjetAK8eta[npfjetAK8],true,isUltraLegacy);
+    pfjetAK4jetID[npfjetAK4] = getJetID(AK4idvars,"CHS",year,pfjetAK8eta[npfjetAK8],false,isUltraLegacy);
+    pfjetAK4jetID_tightlepveto[npfjetAK4] = getJetID(AK4idvars,"CHS",year,pfjetAK8eta[npfjetAK8],true,isUltraLegacy);
     
     pfjetAK4chrad[npfjetAK4] = 0;
     
