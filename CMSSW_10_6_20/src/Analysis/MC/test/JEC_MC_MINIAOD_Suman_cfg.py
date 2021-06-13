@@ -286,10 +286,6 @@ process.p = cms.Path(process.egmPhotonIDSequence*
  		     process.HBHENoiseFilterResultProducer*process.HBHENoiseFilterResultProducerNoMinZ*
 		     process.allMetFilterPaths*
 #		     process.egmGsfElectronIDSequence*
-#		     process.patJetCorrFactorsSlimmedJetsAK8 *
-#		     process.updatedPatJetsSlimmedJetsAK8 *
-#		     process.patJetCorrFactorsTransientCorrectedSlimmedJetsAK8 * 
-#		     process.updatedPatJetsTransientCorrectedSlimmedJetsAK8 *
 		     process.jetSeq *
 		     process.mcjets)
 
