@@ -115,9 +115,6 @@ for iModule in pho_id_modules:
 
 	setupAllVIDIdsInModule(process, iModule, setupVIDPhotonSelection)
 
-#from RecoJets.JetProducers.ak4GenJets_cfi import ak4GenJets
-#process.load("RecoJets.Configuration.GenJetParticles_cff")
-#process.load("RecoJets.Configuration.RecoGenJets_cff")
 
 from PhysicsTools.PatAlgos.tools.jetTools import updateJetCollection
 deep_discriminators = ["pfMassDecorrelatedDeepBoostedDiscriminatorsJetTags:TvsQCD",
