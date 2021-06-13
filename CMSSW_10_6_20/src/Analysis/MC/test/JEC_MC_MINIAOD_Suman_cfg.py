@@ -115,9 +115,9 @@ for iModule in pho_id_modules:
 
 	setupAllVIDIdsInModule(process, iModule, setupVIDPhotonSelection)
 
-from RecoJets.JetProducers.ak4GenJets_cfi import ak4GenJets
-process.load("RecoJets.Configuration.GenJetParticles_cff")
-process.load("RecoJets.Configuration.RecoGenJets_cff")
+#from RecoJets.JetProducers.ak4GenJets_cfi import ak4GenJets
+#process.load("RecoJets.Configuration.GenJetParticles_cff")
+#process.load("RecoJets.Configuration.RecoGenJets_cff")
 
 from PhysicsTools.PatAlgos.tools.jetTools import updateJetCollection
 deep_discriminators = ["pfMassDecorrelatedDeepBoostedDiscriminatorsJetTags:TvsQCD",
@@ -174,7 +174,6 @@ process.mcjets =  cms.EDAnalyzer('Leptop',
         SecondaryVertices = cms.InputTag("slimmedSecondaryVertices"),
 	slimmedAddPileupInfo = cms.InputTag("slimmedAddPileupInfo"),
 	PFMet = cms.InputTag("slimmedMETs"),
-	PFChMet  = cms.InputTag("slimmedMETs"),
     	GENMet  = cms.InputTag("genMetTrue","","SIM"),
         Generator = cms.InputTag("generator"),
   	HistWeight = cms.untracked.double(1.0),#0.53273),
@@ -198,7 +197,7 @@ process.mcjets =  cms.EDAnalyzer('Leptop',
 	 PFSubJetsAK8 = cms.InputTag("slimmedJetsAK8PFPuppiSoftDropPacked","SubJets","PAT"),
         #PFSubJetsAK8 = cms.InputTag("slimmedJetsAK8PFCHSSoftDropPacked","SubJets","PAT"), 
 	 Muons = cms.InputTag("slimmedMuons"),#,"","PAT"),
-         src = cms.InputTag("slimmedMuons"),                        
+         src = cms.InputTag("slimmedMuons"),#,"","PAT"),
          EAFile_MiniIso = cms.FileInPath("PhysicsTools/NanoAOD/data/effAreaMuons_cone03_pfNeuHadronsAndPhotons_94X.txt"),
          relative = cms.bool(True),
          #run2_miniAOD_80XLegacy.toModify(isoForMu, EAFile_MiniIso = "PhysicsTools/NanoAOD/data/effAreaMuons_cone03_pfNeuHadronsAndPhotons_80X.txt")
@@ -244,23 +243,6 @@ process.mcjets =  cms.EDAnalyzer('Leptop',
          prescales = cms.InputTag("patTrigger","","RECO"),
          objects = cms.InputTag("slimmedPatTrigger")
 )
-
-#QGTagger
-updateJetCollection(
-    process,
-    labelName = 'AK4PFCHS',
-    jetSource = cms.InputTag('slimmedJets'),
-    algo = 'ak4',
-    rParam = 0.4
-)
-
-patJetsAK4 = process.updatedPatJetsAK4PFCHS
-process.load('RecoJets.JetProducers.QGTagger_cfi')
-patAlgosToolsTask.add(process.QGTagger)
-process.QGTagger.srcJets=cms.InputTag("slimmedJets")
-process.QGTagger.srcVertexCollection=cms.InputTag("offlineSlimmedPrimaryVertices")
-patJetsAK4.userData.userFloats.src += ['QGTagger:qgLikelihood']
-#process.out.outputCommands += ['keep *_QGTagger_*_*']
 
 #===== MET Filters ==
 
