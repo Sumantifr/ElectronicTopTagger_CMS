@@ -597,7 +597,7 @@ private:
   int  trigobjIhlt[njetmx], trigobjpdgId[njetmx];
   
   float qscale;
-  float wtfact , weight2 = 1.0;
+  float wtfact;
   int npu_vert;
   
   //int nchict;
@@ -671,7 +671,6 @@ Leptop::Leptop(const edm::ParameterSet& pset):
   year		= pset.getUntrackedParameter<int>("YEAR", 2018);
   isUltraLegacy = pset.getUntrackedParameter<bool>("UltraLegacy", false);
   isSoftDrop      = pset.getUntrackedParameter<bool>("SoftDrop_ON",false);
-  weight2 = pset.getUntrackedParameter<double>("HistWeight", 1.0);
   theRootFileName = pset.getUntrackedParameter<string>("RootFileName");
   theHLTTag = pset.getUntrackedParameter<string>("HLTTag", "HLT");
   
