@@ -427,7 +427,6 @@ private:
   edm::EDGetTokenT<pat::PackedCandidateCollection>tok_pfcands_;
   edm::EDGetTokenT<reco::GenMETCollection>tok_genmets_;
   edm::EDGetTokenT<edm::View<pat::Jet>>tok_pfjetAK8s_;
-  edm::EDGetTokenT<edm::View<pat::Jet>>tok_pfsubjetAK8s_;
   bool relative_;
   std::unique_ptr<EffectiveAreas> ea_miniiso_;
   edm::EDGetTokenT<reco::GenJetCollection>tok_genjetAK8s_;
@@ -721,7 +720,6 @@ Leptop::Leptop(const edm::ParameterSet& pset):
   //tok_photons_ = consumes<edm::View<pat::Photon>>  ( pset.getParameter<edm::InputTag>("Photons"));
   
   tok_pfjetAK8s_= consumes<edm::View<pat::Jet>>( pset.getParameter<edm::InputTag>("PFJetsAK8"));
-  tok_pfsubjetAK8s_= consumes<edm::View<pat::Jet>>( pset.getParameter<edm::InputTag>("PFSubJetsAK8"));
   tok_pfjetAK4s_= consumes<edm::View<pat::Jet>>( pset.getParameter<edm::InputTag>("PFJetsAK4"));
   if(isMC){
     tok_genjetAK8s_= consumes<reco::GenJetCollection>( pset.getParameter<edm::InputTag>("GENJetAK8"));
@@ -1537,6 +1535,7 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
 	pfjetAK8elinpt[npfjetAK8] =  elInjet.Pt();
 	pfjetAK8elineta[npfjetAK8] =  elInjet.Eta();
 	pfjetAK8elinphi[npfjetAK8] =  elInjet.Phi();
+	//if (elInjet.M() < 0.) std::cout << " negative mass value for el " << elInjet.M() << " negative mass value for el pT " << elInjet.Pt() << " negative mass value for el Eta() " << elInjet.Eta() << " " << " negative energy value for el " << elInjet.E() << " raw electron mass " << (*daught[el_indx]).mass() << std::endl;
 	pfjetAK8elinmass[npfjetAK8] = elInjet.M();
       }
       else {
@@ -1561,6 +1560,7 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
 	pfjetAK8muinpt[npfjetAK8] =  muInjet.Pt();
 	pfjetAK8muineta[npfjetAK8] =  muInjet.Eta();
         pfjetAK8muinphi[npfjetAK8] =  muInjet.Phi();
+	if (muInjet.M() < 0.) std::cout << " negative mass value for mu " << muInjet.M() << " negative mass value for mu pT " << muInjet.Pt() << " negative mass value for mu Eta() " << muInjet.Eta() << " " << std::endl;
 	pfjetAK8muinmass[npfjetAK8] =  muInjet.M();
       }
       else {
