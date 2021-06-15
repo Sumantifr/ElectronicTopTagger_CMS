@@ -427,7 +427,6 @@ private:
   edm::EDGetTokenT<pat::PackedCandidateCollection>tok_pfcands_;
   edm::EDGetTokenT<reco::GenMETCollection>tok_genmets_;
   edm::EDGetTokenT<edm::View<pat::Jet>>tok_pfjetAK8s_;
-  edm::EDGetTokenT<edm::View<pat::Jet>>tok_pfsubjetAK8s_;
   bool relative_;
   std::unique_ptr<EffectiveAreas> ea_miniiso_;
   edm::EDGetTokenT<reco::GenJetCollection>tok_genjetAK8s_;
@@ -526,10 +525,10 @@ private:
   static const int ngenjetAK8mx =10;
   
   int ngenjetAK8;
-  float genjetAK8pt[njetmxAK8], genjetAK8y[njetmxAK8], genjetAK8phi[njetmxAK8], genjetAK8mass[njetmxAK8], genjetAK8sdmass[njetmxAK8]; 
+  float genjetAK8pt[njetmxAK8], genjetAK8eta[njetmxAK8], genjetAK8phi[njetmxAK8], genjetAK8mass[njetmxAK8], genjetAK8sdmass[njetmxAK8]; 
   
   int ngenjetAK4;
-  float genjetAK4pt[njetmx], genjetAK4y[njetmx], genjetAK4phi[njetmx], genjetAK4mass[njetmx];
+  float genjetAK4pt[njetmx], genjetAK4eta[njetmx], genjetAK4phi[njetmx], genjetAK4mass[njetmx];
   
   int ngenparticles;
   int genpartstatus[npartmx], genpartpdg[npartmx], genpartmompdg[npartmx], genpartgrmompdg[npartmx], genpartmomid[npartmx], genpartdaugno[npartmx];
@@ -721,7 +720,6 @@ Leptop::Leptop(const edm::ParameterSet& pset):
   //tok_photons_ = consumes<edm::View<pat::Photon>>  ( pset.getParameter<edm::InputTag>("Photons"));
   
   tok_pfjetAK8s_= consumes<edm::View<pat::Jet>>( pset.getParameter<edm::InputTag>("PFJetsAK8"));
-  tok_pfsubjetAK8s_= consumes<edm::View<pat::Jet>>( pset.getParameter<edm::InputTag>("PFSubJetsAK8"));
   tok_pfjetAK4s_= consumes<edm::View<pat::Jet>>( pset.getParameter<edm::InputTag>("PFJetsAK4"));
   if(isMC){
     tok_genjetAK8s_= consumes<reco::GenJetCollection>( pset.getParameter<edm::InputTag>("GENJetAK8"));
@@ -979,7 +977,7 @@ Leptop::Leptop(const edm::ParameterSet& pset):
   // GEN AK8 jet info //  
   T1->Branch("ngenjetAK8",&ngenjetAK8, "ngenjetAK8/I");
   T1->Branch("genjetAK8pt",genjetAK8pt,"genjetAK8pt[ngenjetAK8]/F");
-  T1->Branch("genjetAK8y",genjetAK8y,"genjetAK8y[ngenjetAK8]/F");
+  T1->Branch("genjetAK8eta",genjetAK8eta,"genjetAK8eta[ngenjetAK8]/F");
   T1->Branch("genjetAK8phi",genjetAK8phi,"genjetAK8phi[ngenjetAK8]/F");
   T1->Branch("genjetAK8mass",genjetAK8mass,"genjetAK8mass[ngenjetAK8]/F"); 
   T1->Branch("genjetAK8sdmass",genjetAK8sdmass,"genjetAK8sdmass[ngenjetAK8]/F");
@@ -988,7 +986,7 @@ Leptop::Leptop(const edm::ParameterSet& pset):
  
   T1->Branch("ngenjetAK4",&ngenjetAK4, "ngenjetAK4/I");
   T1->Branch("genjetAK4pt",genjetAK4pt,"genjetAK4pt[ngenjetAK4]/F");
-  T1->Branch("genjetAK4y",genjetAK4y,"genjetAK4y[ngenjetAK4]/F");
+  T1->Branch("genjetAK4eta",genjetAK4eta,"genjetAK4eta[ngenjetAK4]/F");
   T1->Branch("genjetAK4phi",genjetAK4phi,"genjetAK4phi[ngenjetAK4]/F");
   T1->Branch("genjetAK4mass",genjetAK4mass,"genjetAK4mass[ngenjetAK4]/F");
   
@@ -1537,6 +1535,7 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
 	pfjetAK8elinpt[npfjetAK8] =  elInjet.Pt();
 	pfjetAK8elineta[npfjetAK8] =  elInjet.Eta();
 	pfjetAK8elinphi[npfjetAK8] =  elInjet.Phi();
+	//if (elInjet.M() < 0.) std::cout << " negative mass value for el " << elInjet.M() << " negative mass value for el pT " << elInjet.Pt() << " negative mass value for el Eta() " << elInjet.Eta() << " " << " negative energy value for el " << elInjet.E() << " raw electron mass " << (*daught[el_indx]).mass() << std::endl;
 	pfjetAK8elinmass[npfjetAK8] = elInjet.M();
       }
       else {
@@ -1561,6 +1560,7 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
 	pfjetAK8muinpt[npfjetAK8] =  muInjet.Pt();
 	pfjetAK8muineta[npfjetAK8] =  muInjet.Eta();
         pfjetAK8muinphi[npfjetAK8] =  muInjet.Phi();
+	if (muInjet.M() < 0.) std::cout << " negative mass value for mu " << muInjet.M() << " negative mass value for mu pT " << muInjet.Pt() << " negative mass value for mu Eta() " << muInjet.Eta() << " " << std::endl;
 	pfjetAK8muinmass[npfjetAK8] =  muInjet.M();
       }
       else {
@@ -1617,6 +1617,14 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
       pfjetAK8muinsubjmass[npfjetAK8] = -100;
 
     
+      pfjetAK8muinsubIfar[npfjetAK8] = -100;
+      pfjetAK8muinsubI0[npfjetAK8] = -100;
+      pfjetAK8muinsubInear[npfjetAK8] = -100;
+
+      pfjetAK8elinsubIfar[npfjetAK8] = -100;
+      pfjetAK8elinsubI0[npfjetAK8] = -100;
+      pfjetAK8elinsubInear[npfjetAK8] = -100;
+
       if(isSoftDrop){
 	
 	pfjetAK8tau1[npfjetAK8] = ak8jet.userFloat(tau1);
@@ -2005,10 +2013,10 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
       
       HepLorentzVector genjetAK84v((*genjetAK8s)[gjet].px(),(*genjetAK8s)[gjet].py(),(*genjetAK8s)[gjet].pz(), (*genjetAK8s)[gjet].energy());
       if(genjetAK84v.perp()<AK8GenPtCut) continue;
-      if(abs(genjetAK84v.rapidity())>maxgenEta) continue;
+      if(abs(genjetAK84v.eta())>maxgenEta) continue;
       
       genjetAK8pt[ngenjetAK8] = genjetAK84v.perp();
-      genjetAK8y[ngenjetAK8] = genjetAK84v.rapidity();
+      genjetAK8eta[ngenjetAK8] = genjetAK84v.eta();
       genjetAK8phi[ngenjetAK8] = genjetAK84v.phi();
       genjetAK8mass[ngenjetAK8] = (*genjetAK8s)[gjet].mass();
       
@@ -2045,10 +2053,10 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
       
       HepLorentzVector genjetAK44v((*genjetAK4s)[gjet].px(),(*genjetAK4s)[gjet].py(),(*genjetAK4s)[gjet].pz(), (*genjetAK4s)[gjet].energy());
       if(genjetAK44v.perp()<minGenPt) continue;
-      if(abs(genjetAK44v.rapidity())>maxgenEta) continue;
+      if(abs(genjetAK44v.eta())>maxgenEta) continue;
       
       genjetAK4pt[ngenjetAK4] = genjetAK44v.perp();
-      genjetAK4y[ngenjetAK4] = genjetAK44v.rapidity();
+      genjetAK4eta[ngenjetAK4] = genjetAK44v.eta();
       genjetAK4phi[ngenjetAK4] = genjetAK44v.phi();
       genjetAK4mass[ngenjetAK4] = (*genjetAK4s)[gjet].mass();
       
