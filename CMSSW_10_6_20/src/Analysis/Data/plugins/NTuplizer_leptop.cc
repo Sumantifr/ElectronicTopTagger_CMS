@@ -498,6 +498,8 @@ private:
   
   float pfjetAK8elinsubIfar[njetmxAK8], pfjetAK8elinsubI0[njetmxAK8], pfjetAK8elinsubInear[njetmxAK8];
   
+  float pfjetAK8subhaddiff[njetmxAK8], pfjetAK8subemdiff[njetmxAK8], pfjetAK8subptdiff[njetmxAK8];
+  
   float pfjetAK8JEC[njetmxAK8];
   float pfjetAK8reso[njetmxAK8], pfjetAK8resoup[njetmxAK8], pfjetAK8resodn[njetmxAK8];
   float pfjetAK8jesup_pu[njetmx], pfjetAK8jesup_rel[njetmx], pfjetAK8jesup_scale[njetmx], pfjetAK8jesup_total[njetmx], pfjetAK8jesdn_pu[njetmx], pfjetAK8jesdn_rel[njetmx], pfjetAK8jesdn_scale[njetmx], pfjetAK8jesdn_total[njetmx];
@@ -591,7 +593,7 @@ private:
   */
   
   int ntrigobjs;
-  float trigobjpt[njetmx], trigobjeta[njetmx],trigobjphi[njetmx], trigobje[njetmx];
+  float trigobjpt[njetmx], trigobjeta[njetmx],trigobjphi[njetmx], trigobjmass[njetmx];
   bool trigobjHLT[njetmx], trigobjL1[njetmx],  trigobjBoth[njetmx];
   int  trigobjIhlt[njetmx], trigobjpdgId[njetmx];
   
@@ -808,7 +810,7 @@ Leptop::Leptop(const edm::ParameterSet& pset):
   T1->Branch("trigobjpt",trigobjpt,"trigobjpt[ntrigobjs]/F");
   T1->Branch("trigobjeta",trigobjeta,"trigobjeta[ntrigobjs]/F");
   T1->Branch("trigobjphi",trigobjphi,"trigobjphi[ntrigobjs]/F");
-  T1->Branch("trigobje",trigobje,"trigobje[ntrigobjs]/F");
+  T1->Branch("trigobjmass",trigobjmass,"trigobjmass[ntrigobjs]/F");
   T1->Branch("trigobjHLT",trigobjHLT,"trigobjHLT[ntrigobjs]/O");
   T1->Branch("trigobjL1",trigobjL1,"trigobjL1[ntrigobjs]/O");
   T1->Branch("trigobjBoth",trigobjBoth,"trigobjBoth[ntrigobjs]/O");
@@ -933,6 +935,10 @@ Leptop::Leptop(const edm::ParameterSet& pset):
   T1->Branch("pfjetAK8elinsubjeta", pfjetAK8elinsubjeta, "pfjetAK8elinsubjeta[npfjetAK8]/F");
   T1->Branch("pfjetAK8elinsubjphi", pfjetAK8elinsubjphi, "pfjetAK8elinsubjphi[npfjetAK8]/F");
   T1->Branch("pfjetAK8elinsubjmass", pfjetAK8elinsubjmass, "pfjetAK8elinsubjmass[npfjetAK8]/F");
+  
+  T1->Branch("pfjetAK8subhaddiff",pfjetAK8subhaddiff,"pfjetAK8subhaddiff[npfjetAK8]/F");
+  T1->Branch("pfjetAK8subemdiff",pfjetAK8subemdiff,"pfjetAK8subemdiff[npfjetAK8]/F");
+  T1->Branch("pfjetAK8subptdiff",pfjetAK8subptdiff,"pfjetAK8subptdiff[npfjetAK8]/F");
 
   // AK4 jet info //
  
@@ -1306,7 +1312,7 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
       trigobjpt[iht] = alltrgobj[iht].trg4v.perp();
       trigobjeta[iht] = alltrgobj[iht].trg4v.eta();
       trigobjphi[iht] = alltrgobj[iht].trg4v.phi();
-      trigobje[iht] = alltrgobj[iht].trg4v.e();
+      trigobjmass[iht] = alltrgobj[iht].trg4v.m();
       trigobjHLT[iht] = alltrgobj[iht].highl;
       trigobjL1[iht] = alltrgobj[iht].level1;
       trigobjBoth[iht] = alltrgobj[iht].both;
@@ -1737,6 +1743,11 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
 	      pfjetAK8sub2hadfrac[npfjetAK8] = (chhad+neuhad)*1./ak8subjet->energy();
 	    }	  
 	  }
+	  
+	  pfjetAK8subhaddiff[npfjetAK8] = diff_func(pfjetAK8sub1hadfrac[npfjetAK8],pfjetAK8sub2hadfrac[npfjetAK8]);
+      pfjetAK8subemdiff[npfjetAK8] = diff_func(pfjetAK8sub1emfrac[npfjetAK8],pfjetAK8sub2emfrac[npfjetAK8]);
+      pfjetAK8subptdiff[npfjetAK8] = diff_func(pfjetAK8sub1pt[npfjetAK8],pfjetAK8sub2pt[npfjetAK8]);
+	  
 	  if (pfjetAK8sub1hadfrac[npfjetAK8] >= 0 && pfjetAK8sub2hadfrac[npfjetAK8] >= 0) {
 	    if (pfjetAK8sub1hadfrac[npfjetAK8] < pfjetAK8sub2hadfrac[npfjetAK8]) {
 	      if (elInsubjet1vec.size() > 0) {
@@ -2177,7 +2188,7 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
 	float R = 10.0 / std::min(std::max(muon1->pt(), 50.0), 200.0);
 	ea *= std::pow(R / 0.3, 2);
 	//float scale = relative_ ? 1.0 / muon1->pt() : 1;
-	muonminisoall[nmuons] = (chg + std::max(0.0, neu + pho - (*Rho_PF) * ea)); 
+	muonminisoall[nmuons] = (chg + std::max(0., neu + pho - (*Rho_PF) * ea)); 
 	//std::cout << " miniIsoChg " << scale * chg << " " << " miniIsoAll " << scale * (chg + std::max(0.0, neu + pho - (*Rho_PF) * ea)) << " " << std::endl;
       	//*****************************************//
       
