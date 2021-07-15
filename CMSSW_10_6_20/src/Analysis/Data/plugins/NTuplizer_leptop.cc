@@ -130,6 +130,8 @@
 #include "DataFormats/Candidate/interface/Candidate.h"
 #include "DataFormats/PatCandidates/interface/PackedGenParticle.h"
 #include "DataFormats/HepMCCandidate/interface/GenParticle.h"
+#include "SimDataFormats/JetMatching/interface/JetFlavourInfo.h"
+#include "SimDataFormats/JetMatching/interface/JetFlavourInfoMatching.h"
 #include "fastjet/Selector.hh"
 #include "fastjet/PseudoJet.hh"
 #include "fastjet/JetDefinition.hh"
@@ -433,6 +435,7 @@ private:
   edm::EDGetTokenT<edm::View<pat::Jet>>tok_pfjetAK4s_;
   edm::EDGetTokenT<reco::GenJetCollection>tok_genjetAK4s_;
   edm::EDGetTokenT<std::vector<reco::GenParticle>>tok_genparticles_;
+  edm::EDGetTokenT<reco::JetFlavourInfoMatchingCollection> jetFlavourInfosToken_;
   edm::EDGetTokenT<HepMCProduct> tok_HepMC ;
   edm::EDGetTokenT<GenEventInfoProduct> tok_wt_;
   edm::EDGetTokenT<LHEEventProduct> lheEventProductToken_;
@@ -528,9 +531,11 @@ private:
   
   int ngenjetAK8;
   float genjetAK8pt[njetmxAK8], genjetAK8eta[njetmxAK8], genjetAK8phi[njetmxAK8], genjetAK8mass[njetmxAK8], genjetAK8sdmass[njetmxAK8]; 
+  int genjetAK8hadronflav[njetmxAK8], genjetAK8partonflav[njetmxAK8];
   
   int ngenjetAK4;
   float genjetAK4pt[njetmx], genjetAK4eta[njetmx], genjetAK4phi[njetmx], genjetAK4mass[njetmx];
+  int genjetAK4hadronflav[njetmx], genjetAK4partonflav[njetmx];
   
   int ngenparticles;
   int genpartstatus[npartmx], genpartpdg[npartmx], genpartmompdg[npartmx], genpartgrmompdg[npartmx], genpartmomid[npartmx], genpartdaugno[npartmx];
@@ -679,7 +684,7 @@ Leptop::Leptop(const edm::ParameterSet& pset):
   minGenPt = pset.getUntrackedParameter<double>("minGenPt",15.);
   maxEta = pset.getUntrackedParameter<double>("maxEta",3.);
   maxgenEta = pset.getUntrackedParameter<double>("maxgenEta",3.);
-  AK8PtCut = pset.getUntrackedParameter<double>("AK8PtCut",200.);
+  AK8PtCut = pset.getUntrackedParameter<double>("AK8PtCut",180.);
   AK8GenPtCut = pset.getUntrackedParameter<double>("AK8GenPtCut",150.);
   beta = pset.getUntrackedParameter<double>("beta",0);
   
@@ -727,6 +732,7 @@ Leptop::Leptop(const edm::ParameterSet& pset):
     tok_genjetAK8s_= consumes<reco::GenJetCollection>( pset.getParameter<edm::InputTag>("GENJetAK8"));
     tok_genjetAK4s_= consumes<reco::GenJetCollection>( pset.getParameter<edm::InputTag>("GENJetAK4"));
     tok_genparticles_ = consumes<std::vector<reco::GenParticle>>( pset.getParameter<edm::InputTag>("GenParticles"));
+    jetFlavourInfosToken_ = consumes<reco::JetFlavourInfoMatchingCollection>(pset.getParameter<edm::InputTag>("jetFlavourInfos"));
   }
   
   melectronID_isowp90       = pset.getParameter<std::string>("electronID_isowp90");
@@ -987,6 +993,8 @@ Leptop::Leptop(const edm::ParameterSet& pset):
   T1->Branch("genjetAK8phi",genjetAK8phi,"genjetAK8phi[ngenjetAK8]/F");
   T1->Branch("genjetAK8mass",genjetAK8mass,"genjetAK8mass[ngenjetAK8]/F"); 
   T1->Branch("genjetAK8sdmass",genjetAK8sdmass,"genjetAK8sdmass[ngenjetAK8]/F");
+  T1->Branch("genjetAK8hadronflav",genjetAK8hadronflav,"genjetAK8hadronflav[ngenjetAK8]/I");
+  T1->Branch("genjetAK8partonflav",genjetAK8partonflav,"genjetAK8partonflav[ngenjetAK8]/I");
  
   // GEN AK4 jet info //  
  
@@ -995,7 +1003,8 @@ Leptop::Leptop(const edm::ParameterSet& pset):
   T1->Branch("genjetAK4eta",genjetAK4eta,"genjetAK4eta[ngenjetAK4]/F");
   T1->Branch("genjetAK4phi",genjetAK4phi,"genjetAK4phi[ngenjetAK4]/F");
   T1->Branch("genjetAK4mass",genjetAK4mass,"genjetAK4mass[ngenjetAK4]/F");
-  
+  T1->Branch("genjetAK4hadronflav",genjetAK4hadronflav,"genjetAK4hadronflav[ngenjetAK4]/I");
+  T1->Branch("genjetAK4partonflav",genjetAK4partonflav,"genjetAK4partonflav[ngenjetAK4]/I");
   
   // GEN particles info //  
   
@@ -1839,38 +1848,39 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
       
     }
   }
-  
-  npfjetAK4 = 0;
-  iEvent.getByToken(tok_pfjetAK4s_, pfjetAK4s);
-  if(isMC){
+
+  if(npfjetAK8>0){
+    npfjetAK4 = 0;
+    iEvent.getByToken(tok_pfjetAK4s_, pfjetAK4s);
+    if(isMC){
     iEvent.getByToken(tok_genjetAK4s_, genjetAK4s);
-  }
-  
-  for (unsigned jet = 0; jet< pfjetAK4s->size(); jet++) {
+    }
     
-    const auto &ak4jet = (*pfjetAK4s)[jet];
-    
-    HepLorentzVector pfjetAK44v(ak4jet.correctedP4("Uncorrected").px(),ak4jet.correctedP4("Uncorrected").py(),ak4jet.correctedP4("Uncorrected").pz(), ak4jet.correctedP4("Uncorrected").energy());
-    double tmprecpt = pfjetAK44v.perp();
-    
-    if(tmprecpt<minPt) continue;
-    if(abs(pfjetAK44v.rapidity())>maxEta) continue;
-    
-    pfjetAK4pt[npfjetAK4] = 	tmprecpt;
-    pfjetAK4eta[npfjetAK4] = 	pfjetAK44v.eta();
-    pfjetAK4y[npfjetAK4] = pfjetAK44v.rapidity();
-    pfjetAK4phi[npfjetAK4] = pfjetAK44v.phi();
-    pfjetAK4mass[npfjetAK4] = ak4jet.correctedP4("Uncorrected").mass();
-    
-    pfjetAK4btag_DeepCSV[npfjetAK4] = ak4jet.bDiscriminator("pfDeepCSVJetTags:probb")+ak4jet.bDiscriminator("pfDeepCSVJetTags:probbb");
-    pfjetAK4btag_DeepFlav[npfjetAK4] = ak4jet.bDiscriminator("pfDeepFlavourJetTags:probb") + ak4jet.bDiscriminator("pfDeepFlavourJetTags:probbb")+ak4jet.bDiscriminator("pfDeepFlavourJetTags:problepb");
-    
-    double total_cor =1;
-    
-    jecL1FastAK4->setJetPt(tmprecpt); jecL1FastAK4->setJetA(ak4jet.jetArea()); jecL1FastAK4->setRho(*Rho_PF);jecL1FastAK4->setJetEta(pfjetAK44v.eta());
-    double corFactorL1Fast = jecL1FastAK4->getCorrection();
-    total_cor*= corFactorL1Fast;
-    tmprecpt = tmprecpt * corFactorL1Fast;
+    for (unsigned jet = 0; jet< pfjetAK4s->size(); jet++) {
+      
+      const auto &ak4jet = (*pfjetAK4s)[jet];
+      
+      HepLorentzVector pfjetAK44v(ak4jet.correctedP4("Uncorrected").px(),ak4jet.correctedP4("Uncorrected").py(),ak4jet.correctedP4("Uncorrected").pz(), ak4jet.correctedP4("Uncorrected").energy());
+      double tmprecpt = pfjetAK44v.perp();
+      
+      if(tmprecpt<minPt) continue;
+      if(abs(pfjetAK44v.rapidity())>maxEta) continue;
+      
+      pfjetAK4pt[npfjetAK4] = 	tmprecpt;
+      pfjetAK4eta[npfjetAK4] = 	pfjetAK44v.eta();
+      pfjetAK4y[npfjetAK4] = pfjetAK44v.rapidity();
+      pfjetAK4phi[npfjetAK4] = pfjetAK44v.phi();
+      pfjetAK4mass[npfjetAK4] = ak4jet.correctedP4("Uncorrected").mass();
+      
+      pfjetAK4btag_DeepCSV[npfjetAK4] = ak4jet.bDiscriminator("pfDeepCSVJetTags:probb")+ak4jet.bDiscriminator("pfDeepCSVJetTags:probbb");
+      pfjetAK4btag_DeepFlav[npfjetAK4] = ak4jet.bDiscriminator("pfDeepFlavourJetTags:probb") + ak4jet.bDiscriminator("pfDeepFlavourJetTags:probbb")+ak4jet.bDiscriminator("pfDeepFlavourJetTags:problepb");
+      
+      double total_cor =1;
+      
+      jecL1FastAK4->setJetPt(tmprecpt); jecL1FastAK4->setJetA(ak4jet.jetArea()); jecL1FastAK4->setRho(*Rho_PF);jecL1FastAK4->setJetEta(pfjetAK44v.eta());
+      double corFactorL1Fast = jecL1FastAK4->getCorrection();
+      total_cor*= corFactorL1Fast;
+      tmprecpt = tmprecpt * corFactorL1Fast;
     
     jecL2RelativeAK4->setJetPt(tmprecpt); jecL2RelativeAK4->setJetEta(pfjetAK44v.eta());
     double corFactorL2Relative = jecL2RelativeAK4->getCorrection();
@@ -2017,6 +2027,51 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
   
   
   if(isMC){
+	
+	// Flavor tagging of GEN jets using ghost-matching //
+	  
+	edm::Handle<reco::JetFlavourInfoMatchingCollection> jetFlavourInfos;
+    iEvent.getByToken(jetFlavourInfosToken_, jetFlavourInfos);
+
+    std::vector<int> partonFlavour_AK4;
+    std::vector<uint8_t> hadronFlavour_AK4;
+
+    for (const reco::GenJet & jet : *genjetAK4s) {
+      bool matched = false;
+      for (const reco::JetFlavourInfoMatching & jetFlavourInfoMatching : *jetFlavourInfos) {
+        if (deltaR(jet.p4(), jetFlavourInfoMatching.first->p4()) < 0.1) {
+          partonFlavour_AK4.push_back(jetFlavourInfoMatching.second.getPartonFlavour());
+          hadronFlavour_AK4.push_back(jetFlavourInfoMatching.second.getHadronFlavour());
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) {
+        partonFlavour_AK4.push_back(0);
+        hadronFlavour_AK4.push_back(0);
+      }
+    }  
+    
+    std::vector<int> partonFlavour_AK8;
+    std::vector<uint8_t> hadronFlavour_AK8;
+
+    for (const reco::GenJet & jet : *genjetAK8s) {
+      bool matched = false;
+      for (const reco::JetFlavourInfoMatching & jetFlavourInfoMatching : *jetFlavourInfos) {
+        if (deltaR(jet.p4(), jetFlavourInfoMatching.first->p4()) < 0.1) {
+          partonFlavour_AK8.push_back(jetFlavourInfoMatching.second.getPartonFlavour());
+          hadronFlavour_AK8.push_back(jetFlavourInfoMatching.second.getHadronFlavour());
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) {
+        partonFlavour_AK8.push_back(0);
+        hadronFlavour_AK8.push_back(0);
+      }
+    }  
+       
+    // end of flavor tagging //   
        
     ngenjetAK8 = 0;
     
@@ -2030,6 +2085,8 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
       genjetAK8eta[ngenjetAK8] = genjetAK84v.eta();
       genjetAK8phi[ngenjetAK8] = genjetAK84v.phi();
       genjetAK8mass[ngenjetAK8] = (*genjetAK8s)[gjet].mass();
+      genjetAK8hadronflav[ngenjetAK8] = (int)hadronFlavour_AK8[gjet];
+      genjetAK8partonflav[ngenjetAK8] = partonFlavour_AK8[gjet];
       
       std::vector<reco::CandidatePtr> daught((*genjetAK8s)[gjet].daughterPtrVector());
       
@@ -2057,7 +2114,7 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
       if (++ngenjetAK8>=njetmx) break;
       
     }
-    
+        
     ngenjetAK4 = 0;
     
     for(unsigned gjet = 0; gjet<genjetAK4s->size(); gjet++)	{
@@ -2070,6 +2127,8 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
       genjetAK4eta[ngenjetAK4] = genjetAK44v.eta();
       genjetAK4phi[ngenjetAK4] = genjetAK44v.phi();
       genjetAK4mass[ngenjetAK4] = (*genjetAK4s)[gjet].mass();
+      genjetAK4hadronflav[ngenjetAK4] = (int)hadronFlavour_AK4[gjet];
+      genjetAK4partonflav[ngenjetAK4] = partonFlavour_AK4[gjet];
       
       if (++ngenjetAK4>=njetmx) break;
     }
@@ -2197,16 +2256,13 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
 	muonisTRK[nmuons] = muon1->isTrackerMuon();
 	muonisLoose[nmuons] = (muon::isLooseMuon(*muon1));
 	muonisMed[nmuons] = (muon::isMediumMuon(*muon1));
-	
+	muonisMedPr[nmuons] = false;
 	if(muon::isMediumMuon(*muon1)) {
 	  if ((std::abs(muon1->muonBestTrack()->dz(vertex.position())) < 0.1) && (std::abs(muon1->muonBestTrack()->dxy(vertex.position())) < 0.02)){
 	    muonisMedPr[nmuons] = true;
 	  }
-	  else {
-	    muonisMedPr[nmuons] = false;
-	  }
 	}
-	muonisGoodGL[nmuons] = (muon1->isGlobalMuon() && muon1->globalTrack()->normalizedChi2() < 3 && muon1->combinedQuality().chi2LocalPosition < 12 && muon1->combinedQuality().trkKink < 20 && (muon::segmentCompatibility(*muon1)) > 0.303);
+      	muonisGoodGL[nmuons] = (muon1->isGlobalMuon() && muon1->globalTrack()->normalizedChi2() < 3 && muon1->combinedQuality().chi2LocalPosition < 12 && muon1->combinedQuality().trkKink < 20 && (muon::segmentCompatibility(*muon1)) > 0.303);
 	muonisTight[nmuons] = (muon::isTightMuon(*muon1,vertex));
 	muonisHighPt[nmuons] = (muon::isHighPtMuon(*muon1,vertex));
 	muonisHighPttrk[nmuons] = (muon::isTrackerHighPtMuon(*muon1,vertex));
@@ -2449,7 +2505,9 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
     }
   }	  
   //  cout<<"done!"<<endl;
-  T1->Fill();
+  //std::cout << " npfjetAK8 " << npfjetAK8 << std::endl;
+   T1->Fill();
+  }
 }
 
 
