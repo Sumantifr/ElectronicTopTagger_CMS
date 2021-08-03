@@ -27,7 +27,7 @@ Lepton tagging
 #include <string>
 #include <TProofServ.h>
 
-//#define E_MU_TTBar
+#define E_MU_TTBar
 //#define E_E_TTBar
 //#define MU_MU_TTBar
 
@@ -261,7 +261,7 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   reader1->AddVariable("selpfjetAK8matchedeleoverp", &in_pfjetAK8matchedeleoverp);
   reader1->AddVariable("selpfjetAK8matchedelhovere", &in_pfjetAK8matchedelhovere);
   reader1->AddVariable("selpfjetAK8matchedelRho", &in_pfjetAK8matchedelRho);
-//  reader1->BookMVA("BDTG method", weightfile1);
+  reader1->BookMVA("BDTG method", weightfile1);
   
   /*
     reader3 = new TMVA::Reader( "BDTG_Rt" );
@@ -299,7 +299,7 @@ void Anal_Leptop_PROOF::SlaveBegin(TTree * /*tree*/)
   reader4->AddVariable("selpfjetAK8muinsubinvmass", &in_pfjetAK8muinsubinvmass);
   reader4->AddVariable("selpfjetAK8muinsubIfarbyI0", &in_pfjetAK8muinsubIfarbyI0);
   reader4->AddVariable("selpfjetAK8muinsubInearbyI0", &in_pfjetAK8muinsubInearbyI0);
-//  reader4->BookMVA("BDTG method", weightfile4);
+  reader4->BookMVA("BDTG method", weightfile4);
 }
 
 Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
@@ -335,30 +335,31 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   Tout->Fill();
   
   // event selection starts
-
-  //if (npfjetAK8==0) {
-  /*	
+ 
   hist_prvar[1]->Fill(nprimi,weight);
+  //Require that the event should have at least one primary vertex
   if (nprimi<1)  return kFALSE;
   hist_count->Fill(1,weight);
+  
   hist_npv_nopuwt->Fill(nprimi,weight);
-   */
-  ////event should at least fire a trigger in order to further event processing// (
+  
+  // First demand that the event should at least one of the triggers considered in various topologies 
+  // !CAUTION: Change/Remove this while deriving trigger efficiency
     
   bool itrig_pass = false;
   bool itrig_onlysinglee = false;
-//  hist_prvar[2]->Fill(int(hlt_Mu37Ele27)*32+int(hlt_Mu27Ele37)*16+int(hlt_Mu37TkMu27)*8+ int(hlt_DoubleEle25)*4+int(hlt_Mu50)*2+int(hlt_Ele50_PFJet165), weight);
+  hist_prvar[2]->Fill(int(hlt_Mu37Ele27)*32+int(hlt_Mu27Ele37)*16+int(hlt_Mu37TkMu27)*8+ int(hlt_DoubleEle25)*4+int(hlt_Mu50)*2+int(hlt_Ele50_PFJet165), weight);
 
-  itrig_pass = ((hlt_Mu37Ele27==1)||(hlt_Mu27Ele37==1)||(hlt_Mu37TkMu27==1)||(hlt_DoubleEle25==1)||(hlt_Mu50==1)||(hlt_Ele50_PFJet165==1));
-  itrig_onlysinglee = ((hlt_Mu37Ele27==0)&&(hlt_Mu27Ele37==0)&&(hlt_Mu37TkMu27==0)&&(hlt_DoubleEle25==0)&&(hlt_Mu50==0)&&(hlt_Ele50_PFJet165==1));
-		
-  if(!itrig_pass) return kFALSE; //event should at least fire a dileptonic/single lepton trigger            
-/*
+  itrig_pass = (hlt_Mu37Ele27||hlt_Mu27Ele37||hlt_Mu37TkMu27||hlt_DoubleEle25||hlt_Mu50||hlt_Ele50_PFJet165);
+  itrig_onlysinglee = (!hlt_Mu37Ele27 && !hlt_Mu27Ele37 && !hlt_Mu37TkMu27 && !hlt_DoubleEle25 && !hlt_Mu50 && hlt_Ele50_PFJet165);
+
+  if(!itrig_pass) return kFALSE;          
+  
   // end of basic trigger criterion //
 
   hist_count->Fill(2,weight);
- */
-  // Genparticle selection 
+ 
+  // Get generator-level particles 
 
   vector<GenParton> genpartons;
   vector<GenParton> LHEtops;
@@ -368,20 +369,12 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 	  getPartons(genpartons);
 	  }
 
-  //str = TString::Format("genpartons %zu",genpartons.size());          
-  //if(gProofServ) gProofServ->SendAsynMessage(str);
-
   if(isMC && isTT){
+    // Get GEN-level top quarks
+    getLHETops(LHEtops,genpartons); // before shower (get original top quarks which have decayed) --> will be used to derive top pt reweighting
+    getGENTops(gentops,genpartons); // after shower (get top quarks from its daughters) --> will tell details about the signature of ttbar events at GEN level
    
-    getLHETops(LHEtops,genpartons); // before shower (get original top quarks which have decayed)
-    getGENTops(gentops,genpartons);  // after shower (get top quarks from its daughters)
-    
-    for(unsigned itop=0; itop<gentops.size(); itop++){
-		str = TString::Format("gentop %zu daughters %i %i %i",itop+1,gentops[itop].daughter[0].pdgId,gentops[itop].daughter[1].pdgId,gentops[itop].daughter[2].pdgId);          
-		if(gProofServ) gProofServ->SendAsynMessage(str);
-    }
-    nleptop = 0;
-	nhadtop = 0;
+    nleptop = nhadtop = 0;
 	int leptop_id_daught[2];
 	
 	for(auto & top: gentops){
@@ -394,89 +387,107 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 		}
 	}
 	
-///    DiLeptt = SemiLeptt = Hadtt = EE = MUMU = EMU = EJets = MUJets = TauTau = ETau = MuTau = false;
+	// tagging top structure of events //
+	
+    DiLeptt = SemiLeptt = Hadtt = EE = MUMU = EMU = EJets = MUJets = TauTau = ETau = MuTau = false;
   
-///    if(nleptop==2 && nhadtop==0) { DiLeptt = true; }
-///    if(nleptop==1 && nhadtop==1) { SemiLeptt = true; }
-///    if(nleptop==0 && nhadtop==2) { Hadtt = true; }
+    if(nleptop==2 && nhadtop==0) { DiLeptt = true; }
+    if(nleptop==1 && nhadtop==1) { SemiLeptt = true; }
+    if(nleptop==0 && nhadtop==2) { Hadtt = true; }
     
-///    if(DiLeptt && abs(leptop_id_daught[0])==11 && abs(leptop_id_daught[1])==11) { EE = true; }
-///    if(DiLeptt && abs(leptop_id_daught[0])==13 && abs(leptop_id_daught[1])==13) { MUMU = true; }
-///    if(DiLeptt && abs(leptop_id_daught[0])==15 && abs(leptop_id_daught[1])==15) { TauTau = true; }
-///    if(DiLeptt && ((abs(leptop_id_daught[0])==11 && abs(leptop_id_daught[1])==13) || (abs(leptop_id_daught[0])==13 && abs(leptop_id_daught[1])==11)) ) { EMU = true; }
-///    if(DiLeptt && ((abs(leptop_id_daught[0])==11 && abs(leptop_id_daught[1])==15) || (abs(leptop_id_daught[0])==15 && abs(leptop_id_daught[1])==11)) ) { ETau = true; }
-///    if(DiLeptt && ((abs(leptop_id_daught[0])==13 && abs(leptop_id_daught[1])==15) || (abs(leptop_id_daught[0])==15 && abs(leptop_id_daught[1])==13)) ) { MuTau = true; }
+    if(DiLeptt && abs(leptop_id_daught[0])==11 && abs(leptop_id_daught[1])==11) { EE = true; }
+    if(DiLeptt && abs(leptop_id_daught[0])==13 && abs(leptop_id_daught[1])==13) { MUMU = true; }
+    if(DiLeptt && abs(leptop_id_daught[0])==15 && abs(leptop_id_daught[1])==15) { TauTau = true; }
+    if(DiLeptt && ((abs(leptop_id_daught[0])==11 && abs(leptop_id_daught[1])==13) || (abs(leptop_id_daught[0])==13 && abs(leptop_id_daught[1])==11)) ) { EMU = true; }
+    if(DiLeptt && ((abs(leptop_id_daught[0])==11 && abs(leptop_id_daught[1])==15) || (abs(leptop_id_daught[0])==15 && abs(leptop_id_daught[1])==11)) ) { ETau = true; }
+    if(DiLeptt && ((abs(leptop_id_daught[0])==13 && abs(leptop_id_daught[1])==15) || (abs(leptop_id_daught[0])==15 && abs(leptop_id_daught[1])==13)) ) { MuTau = true; }
     
-///    if(SemiLeptt && abs(leptop_id_daught[0])==11) { EJets = true; }
-///    if(SemiLeptt && abs(leptop_id_daught[0])==13) { MUJets = true; }
-///    if(SemiLeptt && abs(leptop_id_daught[0])==15) { TAUJets = true; }
+    if(SemiLeptt && abs(leptop_id_daught[0])==11) { EJets = true; }
+    if(SemiLeptt && abs(leptop_id_daught[0])==13) { MUJets = true; }
+    if(SemiLeptt && abs(leptop_id_daught[0])==15) { TAUJets = true; }
     
-    //bool boosted = ((SemiLeptt && (leptop4v[0].Pt()>400)) || (DiLeptt && ((abs(leptop_id_daught[0])==11 && (leptop4v[0].Pt()>400)) || (abs(leptop_id_daught[1])==11 && (leptop4v[1].Pt()>400))))) ; 
 #ifdef E_MU_TTBar
-///    if(!(DiLeptt && EMU)) return kFALSE; //for signal EMU
+    if(!(DiLeptt && EMU)) return kFALSE; //for signal EMU
     //if((DiLeptt && EMU)) return kFALSE; //for non-signal EMU TTbar
 #elif defined(E_E_TTBar)
-///    if(!(DiLeptt && EE)) return kFALSE; //for signal EE
+    if(!(DiLeptt && EE)) return kFALSE; //for signal EE
     //if((DiLeptt && EE)) return kFALSE; //for non-signal EE TTbar
 #elif defined(MU_MU_TTBar) 
-///    if(!(DiLeptt && MUMU)) return kFALSE; //for signal MUMU
+    if(!(DiLeptt && MUMU)) return kFALSE; //for signal MUMU
     //if((DiLeptt && MUMU)) return kFALSE; //for non-signal MUMU TTbar
 #endif
+
+	bool boosted = false;
+	boosted = (LHEtops.size()>0 && LHEtops[0].pt>250. && LHEtops[1].pt>250);
+	//if(!boosted) return kFALSE; // Use for boosted signal
+	
+	// end //
 	 
-  }
+  } // if(isMC && isTT)
 
   // Get RECO-level objects //
 
   //Here you get electrons with your criteria
   vector <Electron> velectrons;
-  getelectrons(velectrons,electron_pt_cut);
+  getelectrons(velectrons,electron_pt_cut,absetacut);
   
+	//Here you get muons with your criteria
+	vector <Muon> vmuons;
+	getmuons(vmuons,muon_pt_cut,absetacut);
   
-  //Here you get muons with your criteria
-  vector <Muon> vmuons;
-  getmuons(vmuons,muon_pt_cut);
- 
-  //Here you get AK4 jets with your criteria
-  vector <AK4Jet> Jets;
-  getAK4jets(Jets,AK4jet_pt_cut);
-  LeptonJet_cleaning(Jets,vmuons,AK4jet_pt_cut);
-  LeptonJet_cleaning(Jets,velectrons,AK4jet_pt_cut);
+	//Make lepton collection from electrons & muons (using only common variables)
+	vector <Lepton> vleptons;
+	getLeptons(vleptons,vmuons,velectrons,lepton_pt_cut);
+	vector <Lepton> vleptons_pt25;
+	getLeptons(vleptons_pt25,vmuons,velectrons,muon_pt_cut);
   
-  vector <AK4Jet> BJets;
-  for(auto & jet: Jets){
-	if(isBJet(jet,deep_btag_cut)){
-		BJets.push_back(jet);			
-		}
-	}
+	//Here you get AK4 jets with your criteria
+	vector <AK4Jet> Jets;
+	getAK4jets(Jets,AK4jet_pt_cut,absetacut,isMC);
+	//Perform lepton-jet cleaning
+	LeptonJet_cleaning(Jets,vleptons,AK4jet_pt_cut,absetacut);
   
-  //Here you get AK4 jets with your criteria
-
-  vector <AK8Jet> LJets;
-  getAK8jets(LJets);
-  AssignGen(LJets,genpartons);
-  
-  vector <Lepton> vleptons;
-  getLeptons(vleptons,vmuons,velectrons);
-  
-  if (LJets.size()>0) {   
-
-	for(auto & jet: LJets){
-		//Match lepton with AK8 jets 
-		jet.match_lepton_index = get_nearest_lepton(vleptons,jet.p4,2);
-		// Match AK4 jets with AK8 jets //
-		jet.match_AK4_index  = get_nearest_AK4(Jets,jet.p4);
-		if(jet.match_AK4_index>=0 && jet.match_AK4_index<int(Jets.size())){
-			jet.matchAK4deepb = Jets[jet.match_AK4_index].btag_DeepFlav;
+	//Get b-tagged jets from AK4 jets
+	vector <AK4Jet> BJets;
+	for(auto & jet: Jets){
+		if(isBJet(jet,deep_btag_cut)){
+			BJets.push_back(jet);			
 			}
 		}
+  
+	//Here you get AK8 jets with your criteria
+	vector <AK8Jet> LJets;
+	getAK8jets(LJets,AK8jet_pt_cut,absetacut,isMC);
+	// assign information from GEN-matching 
+	AssignGen(LJets,genpartons); 
+	if(isMC && isTT){
+		TopAssignment_toJet(LJets,LHEtops,gentops);
+		}
+		
+	if (LJets.size()>0) {   
+	//Get indices of nearest lepton, AK4 jet for each AK8 jet
+		for(auto & jet: LJets){
+			//Match lepton with AK8 jets 
+			jet.match_lepton_index = get_nearest_lepton(vleptons,jet.p4);
+			// Match AK4 jets with AK8 jets //
+			jet.match_AK4_index  = get_nearest_AK4(Jets,jet.p4);
+			if(jet.match_AK4_index>=0 && jet.match_AK4_index<int(Jets.size())){
+				jet.matchAK4deepb = Jets[jet.match_AK4_index].btag_DeepFlav;
+				}
+			}
 
 	// Assign electronic top tagger score //
-
-//	ReadTagger(LJets,vleptons,vmuons,velectrons,reader1,reader4);
-	
+	  ReadTagger(LJets,vleptons_pt25,vmuons,velectrons,reader1,reader4);	
 	}
 
- ////trigger object along with pdgid////
+  //Get index of AK8 jet nearest to each lepton
+	if(vleptons.size()>0){
+		for(auto & lep: vleptons){
+			lep.AK8_neighbor_index = get_nearest_AK8Jet(LJets,lep.p4);
+			}
+	  }
+
+  ////trigger object along with pdgid////
 	std::vector<std::pair<int,TLorentzVector> > TrigRefObj;
   
 	for (int tr=0; tr<ntrigobjs; tr++) {
@@ -485,13 +496,214 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 		TrigRefObj.push_back(std::make_pair(trigobjpdgId[tr],trigobj));
 	}
     
-	
+ // end of object selection //
+   
+ //// Event selection //// 
+
 	hist_prvar[3]->Fill(vleptons.size(), weight);
-	if (vleptons.size()<2)  return kFALSE; //at least two leptons with pT > 30 GeV at this stage
+	//at least two leptons with pT > 30 GeV at this stage
+	if (vleptons.size()<2)  return kFALSE; 
+	// Condition on number of leptons is put here only. We will need at least two leptons for trigger matching
 	
-	hist_count->Fill(3,weight);
+	bool emu_ch = false;
+	bool mumu_ch = false;
+	bool ee_ch = false;
 	
-	// fill basic distributions here:
+	if ((vleptons[0].pdgId==11 && vleptons[1].pdgId==13) || (vleptons[0].pdgId==13 && vleptons[1].pdgId==11)) emu_ch = true;
+	else if (vleptons[0].pdgId == 13 && vleptons[1].pdgId == 13) mumu_ch = true;
+	else if (vleptons[0].pdgId == 11 && vleptons[1].pdgId == 11) ee_ch =true;
+	
+	hist_prvar[4]->Fill(int(emu_ch)*4+int(mumu_ch)*2+int(ee_ch));
+	
+	// Composition of two leading leptons should be correct in respective event categories //
+	bool correct_lepton_combo = false;
+#ifdef E_MU_TTBar
+	if(emu_ch) {correct_lepton_combo = true;}
+#elif defined(E_E_TTBar)
+	if(ee_ch) {correct_lepton_combo = true;}
+#elif defined(MU_MU_TTBar)
+	if(mumu_ch) {correct_lepton_combo = true;}
+#endif
+	
+  //Now comes individual channel the triggers consideration//
+  
+	Lepton lepcand_1, lepcand_2;
+	lepcand_1 = vleptons[0];
+	lepcand_2 = vleptons[1];
+  	
+  	vector<bool> double_hlts; vector<vector<float>> double_pt_cuts; vector<vector<int>> double_pids;
+  	vector<bool> single_hlts; vector<float> single_pt_cuts; vector<int> single_pids; vector<float> single_other_pt_cuts; vector<int> single_other_pids;
+  	
+#ifdef E_MU_TTBar
+
+	double_hlts.push_back(hlt_Mu37Ele27);
+	double_pt_cuts.push_back({37,27});
+	double_pids.push_back({13,11});
+	double_hlts.push_back(hlt_Mu27Ele37);
+	double_pt_cuts.push_back({37,27});
+	double_pids.push_back({11,13});
+	
+	single_hlts.push_back(hlt_Mu50);
+	single_pt_cuts.push_back(50);
+	single_pids.push_back(13);
+	single_other_pt_cuts.push_back(-100);
+	single_other_pids.push_back(0);
+	single_hlts.push_back(hlt_Ele50_PFJet165);
+	single_pt_cuts.push_back(50);
+	single_pids.push_back(11);
+	single_other_pt_cuts.push_back(165);
+	single_other_pids.push_back(0);
+
+#elif defined(E_E_TTBar)
+
+	double_hlts.push_back(hlt_DoubleEle25);
+	double_pt_cuts.push_back({25,25});
+	double_pids.push_back({11,11});
+	
+	single_hlts.push_back(hlt_Ele50_PFJet165);
+	single_pt_cuts.push_back(50);
+	single_pids.push_back(11);
+	single_other_pt_cuts.push_back(165);
+	single_other_pids.push_back(0);
+	
+#elif defined(MU_MU_TTBar)
+
+	double_hlts.push_back(hlt_Mu37TkMu27);
+	double_pt_cuts.push_back({37,27});
+	double_pids.push_back({13,13});
+	
+	single_hlts.push_back(hlt_Mu50);
+	single_pt_cuts.push_back(50);
+	single_pids.push_back(13);
+	single_other_pt_cuts.push_back(-100);
+	single_other_pids.push_back(0);
+
+#endif
+
+	// remember that the other object in single lepton triggers is jet by default
+	
+    bool anytrig_pass(false);
+    if(double_hlts.size()>0){
+		for(unsigned ihlt=0; ihlt<double_hlts.size(); ihlt++){
+			if(double_hlts[ihlt]){ anytrig_pass = true; break; }
+			}
+		}
+    if(single_hlts.size()>0){
+		for(unsigned ihlt=0; ihlt<single_hlts.size(); ihlt++){
+			if(single_hlts[ihlt]){ anytrig_pass = true; break; }
+			}
+		}
+    
+	bool trig_threshold_pass(false), trig_matching_pass(false);
+	
+	vector<TH1D*> hists;
+	hists.push_back(hist_init[0]);
+	hists.push_back(hist_init[1]);
+
+	Match_trigger(double_hlts, single_hlts, 
+				  double_pt_cuts, single_pt_cuts, 
+			      double_pids, single_pids, 
+			      single_other_pt_cuts, single_other_pids,
+			      TrigRefObj,
+			      lepcand_1,lepcand_2,Jets,
+				  trig_threshold_pass,
+				  trig_matching_pass,
+				  hists
+				 );
+  
+  // end of trigger stuffs //
+    
+  hist_prvar[7]->Fill(lepcand_1.charge*lepcand_2.charge, weight);
+  
+  //// no other 3rd lepton other than the selected lepton set ////
+  hist_prvar[8]->Fill(velectrons.size());
+  hist_prvar[9]->Fill(vmuons.size());
+  
+  bool is_additional_muons = false;
+  bool is_additional_elecs = false;
+	
+#ifdef E_MU_TTBar  
+  is_additional_muons = (int(vmuons.size())>1);
+  is_additional_elecs = (int(velectrons.size())>1);
+#elif defined(E_E_TTBar)
+  is_additional_muons = (int(vmuons.size())>=1);
+  is_additional_elecs = (int(velectrons.size())>2);
+#elif defined(MU_MU_TTBar)
+  is_additional_muons = (int(vmuons.size())>2);
+  is_additional_elecs = (int(velectrons.size())>=1);
+#endif
+  
+  vector<bool> event_cuts;
+  //Event should have at least two leptons with pt>30 GeV   \1.
+  event_cuts.push_back(vleptons.size()>=2);
+  //Event should have at least one AK8 jet					\2.
+  event_cuts.push_back(LJets.size()>=1);
+  // require that at least one of two leading leptons should be within two leading AK8 jets \3.
+  event_cuts.push_back((vleptons.size()>=2 && ((vleptons[0].AK8_neighbor_index>=0 && vleptons[0].AK8_neighbor_index<=1) || (vleptons[1].AK8_neighbor_index>=0 || vleptons[1].AK8_neighbor_index<=1)) && (vleptons[0].AK8_neighbor_index!=vleptons[1].AK8_neighbor_index)));
+  // Composition of two leading leptons should be correct in respective event categories // \4.
+  event_cuts.push_back(correct_lepton_combo);
+  // Did the event fire any trigger in the topology considered?	\5.
+  event_cuts.push_back(anytrig_pass);
+  // offline objects should pass kinematic thresholds in triggers	\6.
+  event_cuts.push_back(trig_threshold_pass);
+  // offline objects should be matched to trigger objects	\7.
+  event_cuts.push_back(trig_matching_pass);
+  // leptons should be oppositely charged ////				\8.
+  event_cuts.push_back(vleptons.size()>=2 && (lepcand_1.charge*lepcand_2.charge)<0); 	
+  // Inv mass of leading two leptons should be > 20 GeV		\9.
+  event_cuts.push_back(vleptons.size()>=2 && (((lepcand_1.p4+lepcand_2.p4).M())>=20.));
+  // MET > 50 GeV	\10.
+  event_cuts.push_back(PFMET>=50);
+  //cut on AK4 jets 
+  //There should be at least two AK4 jets in the event \11.
+  event_cuts.push_back(Jets.size()>=2);   
+  //There should be at least one b-tagged AK4 jets in the event (being less stringent here since b tagging efficiency drops at high pt) \12.
+  event_cuts.push_back(BJets.size()>=1);
+  //At least one of the two leading AK8 jets should have a matched b-tagged AK4 jet inside (can be applied to both the jets also)  \13.
+  event_cuts.push_back((LJets.size()>=1 && LJets[0].matchAK4deepb>=deep_btag_cut)||(LJets.size()>1 && (LJets[0].matchAK4deepb>=deep_btag_cut||LJets[1].matchAK4deepb>=deep_btag_cut)));
+  //Cut on the number of additional muons (pt>25 GeV) //   \14.
+  event_cuts.push_back(!is_additional_muons);
+  //Cut on the number of additional electrons (pt>25 GeV) // \15.
+  event_cuts.push_back(!is_additional_elecs);
+  
+  //event_cuts array should be useful to derive (n-1) cut efficiency
+  
+  bool event_pass = true;
+  for(unsigned icut=0; icut<event_cuts.size(); icut++){
+	  event_pass *= event_cuts[icut];
+	//  str = TString::Format("cut %u pass %o",icut+1,bool(event_cuts[icut]));
+	//  if(gProofServ) gProofServ->SendAsynMessage(str);
+	  if(!event_pass) break;
+	  if(event_pass){
+		  hist_count->Fill(3+icut,weight);
+		  }
+	  }
+
+  if(!event_pass) return kFALSE;
+ 
+  // end of event selection //
+  
+  //Computation of lepton related Suman's variables//                                         
+  TLorentzVector l1(0,0,0,0), l2(0,0,0,0);
+  l1 = lepcand_1.p4; 
+  l2 = lepcand_2.p4; 
+  
+  // Calculate all extra weights you need to apply (PU reweighting, b tag SF, lepton SF, top pt reweighting, ...)
+
+  // top pt reweighting //
+  if(isTT){
+  
+    float toppt_wt = 1;
+    if(LHEtops.size()==2){
+      toppt_wt = SF_TOP(0.0615,0.0005,TMath::Min(float(500),float(LHEtops[0].pt)),TMath::Min(float(500),float(LHEtops[1].pt))); 
+    }
+   
+  }
+  // top pt reweighting ends //
+
+  // end of extra weights
+
+  // fill basic distributions here:
 	
 	for(unsigned ijet=0; ijet<LJets.size(); ijet++){
 		hist_2D_msd_deepak8->Fill(LJets[ijet].sdmass,LJets[ijet].DeepTag_TvsQCD,weight);
@@ -512,315 +724,25 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 		
 	}
 
-	for (int ij = 0; ij<BJets.size(); ij++) {
-		//hist_prptvar[2][min(ntcount-1,ij)]->Fill(min(2.99, max(-2.99, BJets[ij].y())), min(ybins[nybin]-1.0, max(ybins[0]+0.1, BJets[ij].pt)),weight);
-	}
 	
-// Calculate all extra weights you need to apply (PU reweighting, b tag SF, lepton SF, top pt reweighting, ...)
-
-  // top pt reweighting //
-  if(isTT){
-  
-    float toppt_wt = 1;
-    if(LHEtops.size()==2){
-      toppt_wt = SF_TOP(0.0615,0.0005,TMath::Min(float(500),float(LHEtops[0].pt)),TMath::Min(float(500),float(LHEtops[1].pt))); 
-    }
-   
-  }
-  // top pt reweighting ends //
-
-// end of extra weights
-/*	
-	//// Event selection //// 
+	// end of basic histograms 
 	
-	bool emu_ch = false;
-	bool mumu_ch = false;
-	bool ee_ch = false;
-	
-	if ((vleptons[0].lepton_id == 1 && vleptons[1].lepton_id == 2) || (vleptons[0].lepton_id == 2 && vleptons[1].lepton_id == 1)) emu_ch = true;
-	else if (vleptons[0].lepton_id == 1 && vleptons[1].lepton_id == 1) mumu_ch = true;
-	else if (vleptons[0].lepton_id == 2 && vleptons[1].lepton_id == 2) ee_ch =true;
-	
-	hist_prvar[4]->Fill(int(emu_ch)*4+int(mumu_ch)*2+int(ee_ch));
-	
-#ifdef E_MU_TTBar
-	if(!emu_ch) return kFALSE;
-#elif defined(E_E_TTBar)
-	if(!ee_ch) return kFALSE;
-#elif defined(MU_MU_TTBar)
-	if(!mumu_ch) return kFALSE;
-#endif
-	
-  hist_count->Fill(4,weight);
-  
-  //Now comes individual channel the triggers consideration//   
-  bool itrigll_pass = false;
-	//  bool itrigmumu_pass = false;
-	//  bool itrigee_pass = false;
-
-#ifdef E_MU_TTBar
-  itrigll_pass = ((hlt_Mu37Ele27==1)||(hlt_Mu27Ele37==1)||(hlt_Mu50==1)||(hlt_Ele50_PFJet165==1));
-	//  if(!itrigemu_pass) return kFALSE;
-  bool slep_pass = false;
-  bool dlep_pass = false;
-  dlep_pass = ((hlt_Mu37Ele27==1)||(hlt_Mu27Ele37==1));
-  slep_pass = ((hlt_Mu50==1)||(hlt_Ele50_PFJet165==1));
-#elif defined(E_E_TTBar)
-  itrigll_pass = ((hlt_DoubleEle25==1)||(hlt_Ele50_PFJet165==1));
-	//  if(!itrigee_pass) return kFALSE;
-#elif defined(MU_MU_TTBar)
-  itrigll_pass = ((hlt_Mu37TkMu27==1)||(hlt_Mu50==1));
-	//  if(!itrigmumu_pass) return kFALSE;
-#endif
-
-	hist_prvar[5]->Fill(int(itrigll_pass), weight);
-	if(!itrigll_pass) return kFALSE;
-	hist_count->Fill(5,weight);
-
-	if (vleptons.size()>0) { hist_prvar[6]->Fill(min(float(359.0),vleptons[0].pt), weight);}
-	
-#ifdef E_MU_TTBar
-  
-  
-  TLorentzVector fmucand, felcand;
-
-  if (vleptons[0].lepton_id == 1 && vleptons[1].lepton_id == 2) {
-    fmucand.SetPtEtaPhiM(vleptons[0].pt,vleptons[0].eta,vleptons[0].phi,0.105658);
-    felcand.SetPtEtaPhiM(vleptons[1].pt,vleptons[1].eta,vleptons[1].phi,0.000511);
-  }
-  else if (vleptons[0].lepton_id == 2 && vleptons[1].lepton_id == 1) {
-    fmucand.SetPtEtaPhiM(vleptons[1].pt,vleptons[1].eta,vleptons[1].phi,0.105658);
-    felcand.SetPtEtaPhiM(vleptons[0].pt,vleptons[0].eta,vleptons[0].phi,0.000511);
-  }
-  
-  //perform trigger object matching for EMu final state//
-  bool fmuMatch = false; 
-  bool felMatch = false;
-  float matchN_mu(0.3), matchN_el(0.3);
-  
-  for (uint trv=0; trv<TrigRefObj.size(); trv++) {
-    bool eltrobj(false), mutrobj(false), jettrobj(false);
-    if (abs(TrigRefObj[trv].first)==13) mutrobj=true;
-    else if (abs(TrigRefObj[trv].first)==0 && TrigRefObj[trv].second.M() > 1.) jettrobj=true;
-    else if (abs(TrigRefObj[trv].first)==0) eltrobj=true;
-    
-    if (mutrobj==true) {
-			
-      TVector3 Trvmu = TrigRefObj[trv].second.Vect();
-      TVector3 fmuv = fmucand.Vect();
-			double tmprat = (fmuv-Trvmu).Mag()/max(1.e-6,fmuv.Mag());
-			hist_prptangle[9]->Fill(fmuv.Mag(), tmprat);
-      hist_init[0]->Fill(tmprat, weight);
-      
-      if (tmprat < matchN_mu) {
-				fmuMatch = true;
-				matchN_mu = tmprat;
-      }
-    }
-    if (eltrobj==true) {
-      TVector3 Trvel = TrigRefObj[trv].second.Vect();
-      TVector3 felv = felcand.Vect();
-			
-			double tmprat = (felv-Trvel).Mag()/max(1.e-6, felv.Mag());
-			hist_prptangle[8]->Fill(felv.Mag(), tmprat);
-      hist_init[1]->Fill(tmprat, weight);
-      if (tmprat < matchN_el) {
-				felMatch = true;
-				matchN_el = tmprat;
-      } 
-    }
-  }  
-  if (dlep_pass==true) {
-    if (!(fmuMatch==true && felMatch==true)) return kFALSE;
-  } else if (slep_pass==true && hlt_Mu50==1) {
-    if (!(fmuMatch==true)) return kFALSE;
-  } else if (slep_pass==true && hlt_Ele50_PFJet165==1) {
-    if (!(felMatch==true)) return kFALSE;
-  }
-  //TString str;                                                                 
-  //str = TString::Format("fmuMatch %u felMatch %u ievt %u",fmuMatch,felMatch,ievt);
-  //if(gProofServ) gProofServ->SendAsynMessage(str);
-  
-  float mulpt(0.), ellpt(0.);
-  if (dlep_pass==true) {
-    bool fsttrig = false; 
-    bool sndtrig = false;
-    bool bothtrig = false;
-    
-    if (hlt_Mu37Ele27==1 && hlt_Mu27Ele37==0) {
-      mulpt=40.0; ellpt=30.0;
-      fsttrig=true;
-    }
-    else if (hlt_Mu37Ele27==0 && hlt_Mu27Ele37==1) {
-      mulpt=30.0; ellpt=40.0;
-      sndtrig=true;
-    }
-    else if (hlt_Mu37Ele27==1 && hlt_Mu27Ele37==1) {
-      mulpt=30.0; ellpt=30.0;
-      bothtrig=true;
-    }
-    if (fsttrig==1 || sndtrig==1 || bothtrig==1) {if (!(fmucand.Pt()>mulpt && felcand.Pt()>ellpt)) return kFALSE;}
-  } else if (slep_pass==true && hlt_Mu50==1) {
-    mulpt = 53.0; ellpt = 30.0; {if (!(fmucand.Pt()>mulpt && felcand.Pt()>ellpt)) return kFALSE;}
-  } else if (slep_pass==true && hlt_Ele50_PFJet165==1) {
-    mulpt = 30.0; ellpt = 53.0; {if (!(fmucand.Pt()>mulpt && felcand.Pt()>ellpt)) return kFALSE;}
-  }
-  //trigger checks for EE final state//
-#elif defined(E_E_TTBar)
-  float el1pt(0.), el2pt(0.);
-  if (hlt_DoubleEle25==1) {el1pt = 40.0; el2pt = 30.0;}
-  else if (hlt_Ele50_PFJet165==1) {el1pt = 53.0; el2pt = 30.0;}
-  
-  TLorentzVector fe1cand, fe2cand;
-  if (vleptons[0].lepton_id == 2 && vleptons[1].lepton_id == 2) {
-    fe1cand.SetPtEtaPhiM(vleptons[0].pt,vleptons[0].eta,vleptons[0].phi,0.000511);
-    fe2cand.SetPtEtaPhiM(vleptons[1].pt,vleptons[1].eta,vleptons[1].phi,0.000511);
-  }
-  
-  //perform trigger object matching for EE final state//
-  bool fe1Match = false;
-  bool fe2Match = false;
-  float matchN_e1(0.3), matchN_e2(0.3);
-  
-  for (uint trv=0; trv<TrigRefObj.size(); trv++) {
-    bool eltrobj(false), jettrobj(false);
-    if (abs(TrigRefObj[trv].first)==0 && TrigRefObj[trv].second.M() > 1.) jettrobj=true;
-    else if (abs(TrigRefObj[trv].first)==0) eltrobj=true;
-		
-    if (eltrobj==true) {
-      TVector3 Trvel = TrigRefObj[trv].second.Vect();
-      TVector3 fe1v = fe1cand.Vect();
-      TVector3 fe2v = fe2cand.Vect();
-			
-			double tmprat1 = (fe1v-Trvel).Mag()/max(1.e-6, fe1v.Mag());
-			double tmprat2 = (fe2v-Trvel).Mag()/max(1.e-6, fe2v.Mag());
-      hist_init[0]->Fill(tmprat1, weight);
-      hist_init[1]->Fill(tmprat2, weight);
-			
-      if (tmprat1 < matchN_e1) {
-				fe1Match = true;
-        matchN_e1 = tmprat1;
-      }
-      if (tmprat2 < matchN_e2) {
-				fe2Match = true;
-        matchN_e2 = tmprat2;
-      }
-    }
-  }
-	
-  if (hlt_DoubleEle25==1) {
-    if (!(fe1Match==true && fe2Match==true)) return kFALSE;
-  }
-  else if (hlt_Ele50_PFJet165==1) {
-    if (!(fe1Match==true)) return kFALSE;
-  }
-  if(!(fe1cand.Pt()>el1pt && fe2cand.Pt()>el2pt)) return kFALSE;
-  
-  //trigger checks for MuMu final state//
-#elif defined(MU_MU_TTBar)
-  float mu1pt(0.), mu2pt(0.);
-  if (hlt_Mu37TkMu27==1) {mu1pt = 40.0; mu2pt = 30.0;}
-  else if (hlt_Mu50==1) {mu1pt = 53.0; mu2pt = 30.0;}
-	
-  TLorentzVector fmu1cand, fmu2cand;
-  if (vleptons[0].lepton_id == 1 && vleptons[1].lepton_id == 1) {
-    fmu1cand.SetPtEtaPhiM(vleptons[0].pt,vleptons[0].eta,vleptons[0].phi,0.105658);
-    fmu2cand.SetPtEtaPhiM(vleptons[1].pt,vleptons[1].eta,vleptons[1].phi,0.105658);
-  }
-  //perform trigger object matching for MuMu final state//
-  bool fmu1Match = false;
-  bool fmu2Match = false;
-  float matchN_mu1(0.3), matchN_mu2(0.3);
-	
-  for (uint trv=0; trv<TrigRefObj.size(); trv++) {
-    bool mutrobj(false);
-    if (abs(TrigRefObj[trv].first)==13) mutrobj=true;
-    if (mutrobj==true) {
-      TVector3 Trvmu = TrigRefObj[trv].second.Vect();
-      TVector3 fmu1v = fmu1cand.Vect();
-      TVector3 fmu2v = fmu2cand.Vect();
-
-			double tmprat1 = (fmu1v-Trvmu).Mag()/max(1.e-6,fmu1v.Mag());
-			double tmprat2 = (fmu2v-Trvmu).Mag()/max(1.e-6,fmu2v.Mag());
-			 
-      hist_init[0]->Fill(tmprat1, weight);
-      hist_init[1]->Fill(tmprat2, weight);
-      
-      if (tmprat1 < matchN_mu1) {
-				fmu1Match = true;
-        matchN_mu1 = tmprat1;
-      }
-      if (tmprat2 < matchN_mu2) {
-				fmu2Match = true;
-        matchN_mu2 = tmprat2;
-      }
-    }
-  }
-
-	if ( !((hlt_Mu37TkMu27==1 && fmu1Match==true && fmu2Match==true) || (hlt_Mu50==1 && fmu1Match==true))) return kFALSE;
-	//GMA  if (hlt_Mu37TkMu27==1) {
-	//    if (!(fmu1Match==true && fmu2Match==true)) return kFALSE;
-	//  } else if (hlt_Mu50==1) {
-	//    if (!(fmu1Match==true)) return kFALSE;
-	//  }
-	
-  if (!(fmu1cand.Pt()>mu1pt && fmu2cand.Pt()>mu2pt)) return kFALSE;
-#endif
-  
-  hist_count->Fill(6,weight);
-    
-  //// leptons should be oppositely charged ////
-  hist_prvar[7]->Fill(vleptons[0].charge*vleptons[1].charge, weight);
-  if ((vleptons[0].charge*vleptons[1].charge)>0) return kFALSE;
-  hist_count->Fill(7,weight);
-  
-  //// no other 3rd lepton other than the selected lepton set ////
-
-	hist_prvar[8]->Fill(nelecs);
-	hist_prvar[9]->Fill(nmuons);
-#ifdef E_MU_TTBar  
-  if (nmuons>1) return kFALSE;
-  hist_count->Fill(8,weight);
-  if (nelecs>1) return kFALSE;
-  hist_count->Fill(9,weight);
-#elif defined(E_E_TTBar)
-  if (nmuons>=1) return kFALSE;
-  hist_count->Fill(8,weight);
-  if (nelecs>2) return kFALSE;
-  hist_count->Fill(9,weight);
-#elif defined(MU_MU_TTBar)
-  if (nmuons>2) return kFALSE;
-  hist_count->Fill(8,weight);
-  if (nelecs>=1) return kFALSE;
-  hist_count->Fill(9,weight);
-#endif
-  //Computation of lepton related Suman's variables//                                         
-  TLorentzVector l1(0,0,0,0), l2(0,0,0,0);
-#ifdef E_MU_TTBar
-  l1 = (fmucand.Pt()>felcand.Pt()) ? fmucand : felcand;
-  l2 = (fmucand.Pt()>felcand.Pt()) ? felcand : fmucand;
-#elif defined(E_E_TTBar)
-  l1 = fe1cand;
-  l2 = fe2cand;
-#elif defined(MU_MU_TTBar)
-  l1 = fmu1cand;
-  l2 = fmu2cand;
-#endif
+  // things below are mostly untouched by Suman (except changing variables/object names & commenting event selection cuts (since those are now already applied before))
 	
   hist_prvar[10]->Fill(LJets.size(), weight);
-  if (LJets.size()<1) return kFALSE;
-  hist_count->Fill(10,weight);
+  //if (LJets.size()<1) return kFALSE;
+  //hist_count->Fill(10,weight);
   
   hist_prvar[11]->Fill(Jets.size(), weight);
-  if (Jets.size()<2) return kFALSE;
-  hist_count->Fill(11,weight);
+  //if (Jets.size()<2) return kFALSE;
+  //hist_count->Fill(11,weight);
   
   //GMA
   double lepakmatch =delta2R(LJets[0].y,LJets[0].phi,Jets[0].y,Jets[0].phi);
   hist_prvar[12]->Fill(lepakmatch);
   //  if (!(delta2R(LJets[0].y,LJets[0].phi,Jets[0].y,Jets[0].phi) < 0.6 || delta2R(LJets[1].y,LJets[1].phi,Jets[0].y,Jets[0].phi) < 0.6)) return kFALSE;
-  if (lepakmatch >0.8)  return kFALSE;  // updated after seeing plots
-  hist_count->Fill(12,weight);
+  //if (lepakmatch >0.8)  return kFALSE;  // updated after seeing plots
+  //hist_count->Fill(12,weight);
 
 
   if(LJets.size()>1)
@@ -830,14 +752,12 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
       //if (lepakmatch >0.8)  return kFALSE;   // updated after seeing plots 
   //  if (!(delta2R(LJets[0].y,LJets[0].phi,Jets[1].y,Jets[1].phi) < 0.6 || delta2R(LJets[1].y,LJets[1].phi,Jets[1].y,Jets[1].phi) < 0.6)) return kFALSE;
     }
-  hist_count->Fill(13,weight);
+  //hist_count->Fill(13,weight);
 
-
-
-  hist_prvar[14]->Fill(bjv.size(), weight);
+  hist_prvar[14]->Fill(BJets.size(), weight);
   //GMA   if (nbjetAK4<1) return kFALSE; 	if (bjv.size()<1) return kFALSE;
-  if (Jets[0].btag_DeepFlav <0 && Jets[1].btag_DeepFlav <0) return kFALSE; //  deep_btag_cut
-  hist_count->Fill(14,weight);
+ // if (Jets[0].btag_DeepFlav <0 && Jets[1].btag_DeepFlav <0) return kFALSE; //  deep_btag_cut
+  //hist_count->Fill(14,weight);
 
 
   //GMA did we check that there are already two jets and also two bjets ?
@@ -852,9 +772,6 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   //  if (Jets[0].pt<180.) return kFALSE;
 
 
-  if (Jets[0].pt<180. && itrig_onlysinglee ==1) return kFALSE;
-  hist_count->Fill(15,weight);
-
   M_l1l2= rat_l2pt_l1pt= deltaPhi_l1l2= l1pt_nearjet= l2pt_nearjet= met_pt= met_phi= delta_phil1_met= delta_phil2_met= delta_phibl1_met= delta_phibl2_met= rat_metpt_ak4pt= rat_metpt_ak8pt= rat_metpt_eventHT= mt_of_l1met= mt_of_l2met= no_ak4jets= no_ak4bjets= no_ak8jets= EventHT= extra_ak4j= ptsum_extra_ak4= extra_ak4jqgl= extra_ak4jdeepb= rat_extra_ak4jpt_lpt= ak81pt= ak81y= ak81mass= ak81sdmass= ak81deep_tvsqcd= ak81deep_wvsqcd= ak82pt= ak82y= ak82mass= ak82sdmass= ak82deep_tvsqcd= ak82deep_wvsqcd= M_bl1= M_bl2= M_jl1= M_jl2= delta_phibl1bl2= delta_phijl1jl2= deltaR_l1l2= deltaR_l1j1= deltaR_l2j1= deltaR_l1j2= deltaR_l2j2= j1_btag_sc= j2_btag_sc = -100; 
   
   int ixtyp=-1;
@@ -868,8 +785,8 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   //hist_new_var[0]->Fill(M_l1l2,weight);
 
   //// invariant mass of lepton at least more than 20 GeV as resolved analysis cut ///
-  if (M_l1l2 < 20.) return kFALSE;
-  hist_count->Fill(16,weight);
+  //if (M_l1l2 < 20.) return kFALSE;
+  //hist_count->Fill(16,weight);
   
   //Computation of selected lepton related variables (Suman's proposal)
   rat_l2pt_l1pt = l2.Pt()/max(1.0,l1.Pt());
@@ -944,14 +861,14 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   }
   
   no_ak4jets = Jets.size();
-  no_ak4bjets = bjv.size();
+  no_ak4bjets = BJets.size();
   no_ak8jets = LJets.size();
 
   int nAK4inAK8=0;
   float ptsum(0.);
-  bool found=false;  /// whether we have found the leading extra ak4 jet or not
+  bool found=false;  //// whether we have found the leading extra ak4 jet or not
   int extra_leadak4_index=-1;
-  for(int ijet=0;ijet<Jets.size();ijet++)
+  for(unsigned ijet=0;ijet<Jets.size();ijet++)
     {
       for(int fjet=0; fjet<min(2,(int)LJets.size()); fjet++)
 	{
@@ -969,7 +886,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
     }
   extra_ak4j = Jets.size() - nAK4inAK8;
   ptsum_extra_ak4 = 0;
-    for(int ijet=0;ijet<Jets.size();ijet++)
+    for(unsigned ijet=0;ijet<Jets.size();ijet++)
     {
       ptsum_extra_ak4 = ptsum_extra_ak4 + Jets[ijet].pt;
     }
@@ -1067,15 +984,15 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 
   Tnewvar->Fill();
   
-  if (PFMET<50.) return kFALSE; //before it was 70 GeV. 100 GeV on 17th April, 50GeV on June  
-  hist_count->Fill(17,weight);
+  //if (PFMET<50.) return kFALSE; //before it was 70 GeV. 100 GeV on 17th April, 50GeV on June  
+  //hist_count->Fill(17,weight);
   
   hist_init[2]->Fill(nmuons,weight);
   hist_init[3]->Fill(nelecs,weight);
   hist_init[4]->Fill(PFMET,weight);
   hist_init[5]->Fill(nprimi,weight);
   hist_init[6]->Fill(Jets.size(),weight);
-  hist_init[7]->Fill(nbjetAK4,weight);
+  hist_init[7]->Fill(BJets.size(),weight);
   hist_init[8]->Fill(LJets.size(),weight);
 
   hist_obs[0]->Fill(LJets[0].pt,weight);
@@ -1087,10 +1004,6 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   hist_obs[6]->Fill(LJets[0].chrad,weight);
   hist_obs[7]->Fill(LJets[0].subhaddiff,weight);
   
-  //TString str;                                                                 
-  //  str = TString::Format("NHadF %f neunhadfrac %f subhaddiff %f subhaddiff %f",LJets[0].NHadF,LJets[0].neunhadfrac,LJets[0].subhaddiff,diff_func(LJets[0].sub1hadfrac,LJets[0].sub2hadfrac));
-  //if(gProofServ) gProofServ->SendAsynMessage(str);
-
   hist_obs[8]->Fill(LJets[0].tau21,weight);
   hist_obs[9]->Fill(LJets[0].DeepTag_TvsQCD,weight);
   hist_obs[10]->Fill(LJets[0].DeepTag_WvsQCD,weight);
@@ -1131,7 +1044,14 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
     if (Jets.size()>0) hist_obs[43]->Fill(delta2R(LJets[1].eta, LJets[1].phi, Jets[0].eta, Jets[0].phi), weight);
     if (Jets.size()>1) hist_obs[44]->Fill(delta2R(LJets[1].eta, LJets[1].phi, Jets[1].eta, Jets[1].phi), weight);
   }
+  
+  TLorentzVector fmucand, felcand;
+  
 #ifdef E_MU_TTBar
+
+  if(lepcand_1.pdgId==13 && lepcand_2.pdgId==11) { fmucand = lepcand_1.p4; felcand = lepcand_2.p4;   }
+  else if(lepcand_1.pdgId==11 && lepcand_2.pdgId==13) { fmucand = lepcand_2.p4; felcand = lepcand_1.p4;   }
+
   hist_init[9]->Fill((fmucand + felcand).M(),weight);
   hist_init[10]->Fill(fmucand.Pt(),weight);
   hist_init[11]->Fill(fmucand.Eta(),weight);
@@ -1140,24 +1060,28 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   hist_init[13]->Fill(felcand.Pt(),weight);
   hist_init[14]->Fill(felcand.Eta(),weight);
   hist_init[15]->Fill(felcand.Phi(),weight);
+  
 #elif defined(E_E_TTBar)
-  hist_init[9]->Fill((fe1cand + fe2cand).M(),weight);
-  hist_init[10]->Fill(fe1cand.Pt(),weight);
-  hist_init[11]->Fill(fe1cand.Eta(),weight);
-  hist_init[12]->Fill(fe1cand.Phi(),weight);
 
-  hist_init[13]->Fill(fe2cand.Pt(),weight);
-  hist_init[14]->Fill(fe2cand.Eta(),weight);
-  hist_init[15]->Fill(fe2cand.Phi(),weight);
+  hist_init[9]->Fill((l1 + l2).M(),weight);
+  hist_init[10]->Fill(l1.Pt(),weight);
+  hist_init[11]->Fill(l1.Eta(),weight);
+  hist_init[12]->Fill(l1.Phi(),weight);
+
+  hist_init[13]->Fill(l2.Pt(),weight);
+  hist_init[14]->Fill(l2.Eta(),weight);
+  hist_init[15]->Fill(l2.Phi(),weight);
+  
 #elif defined(MU_MU_TTBar)
-  hist_init[9]->Fill((fmu1cand + fmu2cand).M(),weight);
-  hist_init[10]->Fill(fmu1cand.Pt(),weight);
-  hist_init[11]->Fill(fmu1cand.Eta(),weight);
-  hist_init[12]->Fill(fmu1cand.Phi(),weight);
 
-  hist_init[13]->Fill(fmu2cand.Pt(),weight);
-  hist_init[14]->Fill(fmu2cand.Eta(),weight);
-  hist_init[15]->Fill(fmu2cand.Phi(),weight);
+  hist_init[9]->Fill((l1 + l1).M(),weight);
+  hist_init[10]->Fill(l1.Pt(),weight);
+  hist_init[11]->Fill(l1.Eta(),weight);
+  hist_init[12]->Fill(l1.Phi(),weight);
+
+  hist_init[13]->Fill(l2.Pt(),weight);
+  hist_init[14]->Fill(l2.Eta(),weight);
+  hist_init[15]->Fill(l2.Phi(),weight);
 #endif
   if (Jets.size()>0 && Jets[0].btag_DeepFlav>deep_btag_cut) {
     hist_init[16]->Fill(Jets[0].pt, weight);
@@ -1171,7 +1095,7 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
 	
   // end //                                                                            
   //if(gProofServ) {  str = TString::Format("check end evt %d ]]]",ievt);gProofServ->SendAsynMessage(str);	}
- */
+  
 	return kTRUE;                                                                       
 }
 void Anal_Leptop_PROOF::SlaveTerminate()

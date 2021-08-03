@@ -1782,15 +1782,18 @@ class Anal_Leptop_PROOF : public TSelector {
   
   float muon_pt_cut = 25;
   float electron_pt_cut = 25;
+  float lepton_pt_cut = 30;
   float AK4jet_pt_cut = 30;
   float AK8jet_pt_cut = 200;
+  
+  float absetacut = 2.5;
   
   static const int nre = 100;
   
   TProofOutputFile *OutFile;
   TFile *fileOut;
  
-    TTree *Tout ;
+  TTree *Tout ;
   TTree *Tnewvar;
     
   //TH1D *hist_new_var[15];
@@ -1911,15 +1914,14 @@ class Anal_Leptop_PROOF : public TSelector {
     TMVA::Reader *reader3;
     TMVA::Reader *reader4;
     
-    TString dir = "/home/ritik/Desktop/code2/";
+    TString dir = "/home/chatterj/TT_EMu/CMSSW_10_2_9/src/Histogram_producer/Weight_Files/";
+   // TString dir = "/grid_mnt/t3storage3/public/rsaxena";
     
     TString weightfile1 = dir + TString("TMVAClassification_BDTG_elIDvar_Jan2021Corr_TTbarUL18.weights.xml");
     TString weightfile2 = dir + TString("TMVAClassification_BDTG_rnu.weights.xml");
   //TString weightfile2 = dir + TString("TMVAClassification_BDTG_muIDvar_Jan2021Corr_TTbarUL18.weights.xml");
     TString weightfile3 = dir + TString("TMVAClassification_only7varsnomatchel_BDTG.weights.xml");
     TString weightfile4 = dir + TString("TMVAClassification_BDTG_muIDvar_Jan2021Corr_TTbarUL18.weights.xml");
-
-  float ptcut = 200;
   
   Anal_Leptop_PROOF(TTree * /*tree*/ =0) : fChain(0) { }
   virtual ~Anal_Leptop_PROOF() { }
@@ -1932,11 +1934,10 @@ class Anal_Leptop_PROOF : public TSelector {
   // declare object selection functions //
   virtual void    getmuons(std::vector<Muon> &vmuons, float ptcut, float etacut, int maxsize, float dxy_cut, float dz_cut);
   virtual void    getelectrons(std::vector<Electron> &velectrons, float ptcut, float etacut, int maxsize, float dxy_cut, float dz_cut);
-  virtual void    getLeptons(std::vector<Lepton> &vleptons, std::vector<Muon> vmuons, std::vector<Electron> velectrons);
-  virtual void    getAK4jets(std::vector<AK4Jet> &Jets, float ptcut, float etacut, int maxsize);
-  virtual void    getAK8jets(std::vector<AK8Jet> &LJets, float ptcut, float etacut, int maxsize);
-  virtual void    LeptonJet_cleaning(std::vector<AK4Jet> &Jets, std::vector<Muon> Muons, float dR_cut, float ptcut);
-  virtual void    LeptonJet_cleaning(std::vector<AK4Jet> &Jets, std::vector<Electron> Electrons, float dR_cut, float ptcut);
+  virtual void    getLeptons(std::vector<Lepton> &vleptons, std::vector<Muon> vmuons, std::vector<Electron> velectrons, float pt_cut);
+  virtual void    getAK4jets(std::vector<AK4Jet> &Jets, float ptcut, float etacut, bool isMC, int maxsize);
+  virtual void    getAK8jets(std::vector<AK8Jet> &LJets, float ptcut, float etacut, bool isMC, int maxsize);
+  virtual void    LeptonJet_cleaning(std::vector<AK4Jet> &Jets, std::vector<Lepton> Leptons, float dR_cut, float ptcut, float etacut);
   virtual void    getPartons(std::vector<GenParton> &GenPartons, int maxsize);
   virtual void    getLHETops(std::vector<GenParton> &LHETops, std::vector<GenParton> GenPartons);
   virtual void    getGENTops(vector<TopQuark> &gentops, vector<GenParton> genpartons);
@@ -1944,6 +1945,16 @@ class Anal_Leptop_PROOF : public TSelector {
   virtual void    AssignGen(std::vector<AK8Jet> &LJets, std::vector<GenParton> GenPartons);
   virtual bool	  isBJet(AK4Jet jet, float btag_cut);    
   virtual void    ReadTagger(std::vector<AK8Jet> &LJets, std::vector<Lepton> vleptons, std::vector<Muon> vmuons, std::vector<Electron> velectrons, TMVA::Reader *reader_electron, TMVA::Reader *reader_muon);
+  virtual void    Match_trigger(vector<bool> double_hlts, vector<bool> single_hlts, 
+									  vector<vector<float>> double_pt_cuts, vector<float> single_pt_cuts, 
+									  vector<vector<int>> double_pids, vector<int> single_pids, 
+									  vector<float> single_other_pt_cuts, vector<int> single_other_pids,
+									  vector<std::pair<int,TLorentzVector> > TrigRefObj,
+									  Lepton lepcand_1, Lepton lepcand_2, vector<AK4Jet> Jets,
+									  bool &trig_threshold_pass,
+									  bool &trig_matching_pass,
+									  vector<TH1D*> &hist_init
+									  );
   //end of it //
   
   virtual Bool_t  Process(Long64_t entry);
