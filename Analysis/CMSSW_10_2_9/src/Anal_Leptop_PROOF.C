@@ -533,47 +533,49 @@ Bool_t Anal_Leptop_PROOF::Process(Long64_t entry)
   	
   	vector<bool> double_hlts; vector<vector<float>> double_pt_cuts; vector<vector<int>> double_pids;
   	vector<bool> single_hlts; vector<float> single_pt_cuts; vector<int> single_pids; vector<float> single_other_pt_cuts; vector<int> single_other_pids;
+  	// _pt_cuts <-- offline pt thresholds (should be finalized from the trigger efficiency curves 
+  	// _pids <-- corresponding pdgId of the objects used in triggering
   	
 #ifdef E_MU_TTBar
 
 	double_hlts.push_back(hlt_Mu37Ele27);
-	double_pt_cuts.push_back({37,27});
+	double_pt_cuts.push_back({37+3,27+3}); 
 	double_pids.push_back({13,11});
 	double_hlts.push_back(hlt_Mu27Ele37);
-	double_pt_cuts.push_back({37,27});
+	double_pt_cuts.push_back({37+3,27+3});
 	double_pids.push_back({11,13});
 	
 	single_hlts.push_back(hlt_Mu50);
-	single_pt_cuts.push_back(50);
+	single_pt_cuts.push_back(50+3);
 	single_pids.push_back(13);
 	single_other_pt_cuts.push_back(-100);
 	single_other_pids.push_back(0);
 	single_hlts.push_back(hlt_Ele50_PFJet165);
-	single_pt_cuts.push_back(50);
+	single_pt_cuts.push_back(50+3);
 	single_pids.push_back(11);
-	single_other_pt_cuts.push_back(165);
+	single_other_pt_cuts.push_back(165+15);
 	single_other_pids.push_back(0);
 
 #elif defined(E_E_TTBar)
 
 	double_hlts.push_back(hlt_DoubleEle25);
-	double_pt_cuts.push_back({25,25});
+	double_pt_cuts.push_back({25+15,25+5});
 	double_pids.push_back({11,11});
 	
 	single_hlts.push_back(hlt_Ele50_PFJet165);
-	single_pt_cuts.push_back(50);
+	single_pt_cuts.push_back(50+3);
 	single_pids.push_back(11);
-	single_other_pt_cuts.push_back(165);
+	single_other_pt_cuts.push_back(165+15);
 	single_other_pids.push_back(0);
 	
 #elif defined(MU_MU_TTBar)
 
 	double_hlts.push_back(hlt_Mu37TkMu27);
-	double_pt_cuts.push_back({37,27});
+	double_pt_cuts.push_back({37+3,27+3});
 	double_pids.push_back({13,13});
 	
 	single_hlts.push_back(hlt_Mu50);
-	single_pt_cuts.push_back(50);
+	single_pt_cuts.push_back(50+3);
 	single_pids.push_back(13);
 	single_other_pt_cuts.push_back(-100);
 	single_other_pids.push_back(0);
