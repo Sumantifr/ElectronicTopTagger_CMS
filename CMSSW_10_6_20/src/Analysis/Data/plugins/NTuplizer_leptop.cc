@@ -542,6 +542,11 @@ private:
   float genpartpt[npartmx], genparteta[npartmx], genpartphi[npartmx], genpartm[npartmx]; //genpartq[npartmx];
   bool genpartfromhard[npartmx], genpartfromhardbFSR[npartmx], genpartisPromptFinalState[npartmx], genpartisLastCopyBeforeFSR[npartmx];
   
+  static const int nlhemax = 10;
+  int nLHEparticles;
+  float LHEpartpt[nlhemax], LHEparteta[nlhemax], LHEpartphi[nlhemax], LHEpartm[nlhemax];
+  int LHEpartpdg[nlhemax];
+  
   float miset , misphi , sumEt, misetsig;
   float genmiset, genmisphi, genmisetsig;
   
@@ -760,6 +765,7 @@ Leptop::Leptop(const edm::ParameterSet& pset):
   if(isMC){    
     tok_HepMC = consumes<HepMCProduct>(pset.getParameter<edm::InputTag>("Generator"));
     tok_wt_ = consumes<GenEventInfoProduct>(pset.getParameter<edm::InputTag>("Generator")) ;
+    lheEventProductToken_ = consumes<LHEEventProduct>(pset.getParameter<edm::InputTag>("LHEEventProductInputTag")) ;
     pileup_ = consumes<std::vector<PileupSummaryInfo> >(pset.getParameter<edm::InputTag>("slimmedAddPileupInfo"));
   } 
   
@@ -1023,6 +1029,13 @@ Leptop::Leptop(const edm::ParameterSet& pset):
   T1->Branch("genpartphi",genpartphi,"genpartphi[ngenparticles]/F");
   T1->Branch("genpartm",genpartm,"genpartm[ngenparticles]/F");
   
+  T1->Branch("nLHEparticles",&nLHEparticles, "nLHEparticles/I");
+  T1->Branch("LHEpartpdg",LHEpartpdg,"LHEpartpdg[nLHEparticles]/I");
+  T1->Branch("LHEpartpt",LHEpartpt,"LHEpartpt[nLHEparticles]/F");
+  T1->Branch("LHEparteta",LHEparteta,"LHEparteta[nLHEparticles]/F");
+  T1->Branch("LHEpartphi",LHEpartphi,"LHEpartphi[nLHEparticles]/F");
+  T1->Branch("LHEpartm",LHEpartm,"LHEpartm[nLHEparticles]/F");
+  
   
   } //isMC
   
@@ -1159,11 +1172,35 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
     edm::Handle<GenEventInfoProduct>eventinfo ;  
     iEvent.getByToken(tok_wt_,eventinfo) ;
     
-    if (eventinfo.isValid()){
+    if(eventinfo.isValid()){
        event_weight = eventinfo->weight();
        qscale = eventinfo->qScale();
        wtfact *= event_weight; //Debarati : Moved inside according to GMA
     }
+    
+    edm::Handle<LHEEventProduct>lheeventinfo ;
+    iEvent.getByToken(lheEventProductToken_,lheeventinfo) ;
+	
+	if(lheeventinfo.isValid()){
+		
+		const auto & hepeup = lheeventinfo->hepeup();
+		const auto & pup = hepeup.PUP;
+	
+		nLHEparticles = 0;
+		
+		for (unsigned int i = 0; i  < pup.size(); ++i) {
+			if(hepeup.ISTUP[i]==1){// status==1 --> particles stay up to final state
+				TLorentzVector p4(pup[i][0], pup[i][1], pup[i][2], pup[i][3]);
+				LHEpartpt[nLHEparticles] = p4.Pt();
+				LHEparteta[nLHEparticles] = p4.Eta();
+				LHEpartphi[nLHEparticles] = p4.Phi();
+				LHEpartm[nLHEparticles] = p4.M();
+				LHEpartpdg[nLHEparticles] = (hepeup.IDUP[i]);
+				nLHEparticles++;
+				if(nLHEparticles>=nlhemax) break;
+				}
+			}
+		}
   }
   
   Handle<VertexCollection> primaryVertices;
