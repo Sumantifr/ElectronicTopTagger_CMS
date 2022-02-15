@@ -1736,7 +1736,7 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
 	      }
 	    }
 	    float emsub=0, phosub=0, musub=0, chhad=0, neuhad=0;
-	    for(unsigned int i2=0; i2 < subdaught.size(); i2++){    
+	    for(unsigned int i2=0; i2 < subdaught.size(); i2++){   
 	      switch (abs((*subdaught[i2]).pdgId())){
 	      case 11 :
 		emsub += (*subdaught[i2]).energy();
@@ -1765,12 +1765,13 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
 	      pfjetAK8sub1phi[npfjetAK8] = ak8subjet->phi();
 	      pfjetAK8sub1mass[npfjetAK8] = ak8subjet->mass();	 
 	      pfjetAK8sub1btag[npfjetAK8] = ak8subjet->bDiscriminator("pfDeepCSVJetTags:probb")+ak8subjet->bDiscriminator("pfDeepCSVJetTags:probbb");
-	      pfjetAK8sub1emfrac[npfjetAK8] = emsub*1./ak8subjet->energy();
-	      pfjetAK8sub1mufrac[npfjetAK8] = musub*1./ak8subjet->energy();
-	      pfjetAK8sub1phofrac[npfjetAK8] = phosub*1./ak8subjet->energy();
-	      pfjetAK8sub1chhadfrac[npfjetAK8] = chhad*1./ak8subjet->energy();
-	      pfjetAK8sub1neuhadfrac[npfjetAK8] = neuhad*1./ak8subjet->energy();
-	      pfjetAK8sub1hadfrac[npfjetAK8] = (chhad+neuhad)*1./ak8subjet->energy();
+	      pfjetAK8sub1emfrac[npfjetAK8] = emsub*1./ak8subjet->correctedP4("Uncorrected").energy();
+	      pfjetAK8sub1mufrac[npfjetAK8] = musub*1./ak8subjet->correctedP4("Uncorrected").energy();
+	      pfjetAK8sub1phofrac[npfjetAK8] = phosub*1./ak8subjet->correctedP4("Uncorrected").energy();
+	      pfjetAK8sub1chhadfrac[npfjetAK8] = chhad*1./ak8subjet->correctedP4("Uncorrected").energy();
+	      pfjetAK8sub1neuhadfrac[npfjetAK8] = neuhad*1./ak8subjet->correctedP4("Uncorrected").energy();
+	      pfjetAK8sub1hadfrac[npfjetAK8] = (chhad+neuhad)*1./ak8subjet->correctedP4("Uncorrected").energy();
+
 	    }
 	    else if(isub==1){
 
@@ -1781,12 +1782,12 @@ Leptop::analyze(const edm::Event& iEvent, const edm::EventSetup& pset) {
 	      pfjetAK8sub2phi[npfjetAK8] = ak8subjet->phi();
 	      pfjetAK8sub2mass[npfjetAK8] = ak8subjet->mass();	 
 	      pfjetAK8sub2btag[npfjetAK8] = ak8subjet->bDiscriminator("pfDeepCSVJetTags:probb")+ak8subjet->bDiscriminator("pfDeepCSVJetTags:probbb");
-	      pfjetAK8sub2emfrac[npfjetAK8] = emsub*1./ak8subjet->energy();
-	      pfjetAK8sub2mufrac[npfjetAK8] = musub*1./ak8subjet->energy();
-	      pfjetAK8sub2phofrac[npfjetAK8] = phosub*1./ak8subjet->energy();
-	      pfjetAK8sub2chhadfrac[npfjetAK8] = chhad*1./ak8subjet->energy();
-	      pfjetAK8sub2neuhadfrac[npfjetAK8] = neuhad*1./ak8subjet->energy();
-	      pfjetAK8sub2hadfrac[npfjetAK8] = (chhad+neuhad)*1./ak8subjet->energy();
+	      pfjetAK8sub2emfrac[npfjetAK8] = emsub*1./ak8subjet->correctedP4("Uncorrected").energy();
+	      pfjetAK8sub2mufrac[npfjetAK8] = musub*1./ak8subjet->correctedP4("Uncorrected").energy();
+	      pfjetAK8sub2phofrac[npfjetAK8] = phosub*1./ak8subjet->correctedP4("Uncorrected").energy();
+	      pfjetAK8sub2chhadfrac[npfjetAK8] = chhad*1./ak8subjet->correctedP4("Uncorrected").energy();
+	      pfjetAK8sub2neuhadfrac[npfjetAK8] = neuhad*1./ak8subjet->correctedP4("Uncorrected").energy();
+	      pfjetAK8sub2hadfrac[npfjetAK8] = (chhad+neuhad)*1./ak8subjet->correctedP4("Uncorrected").energy();
 	    }	  
 	  }
 	  
