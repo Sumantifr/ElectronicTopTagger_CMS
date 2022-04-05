@@ -1,0 +1,2 @@
+ALL_PACKAGES += Analysis/NTuplizer
+subdirs_src_Analysis_NTuplizer := src_Analysis_NTuplizer_plugins src_Analysis_NTuplizer_python src_Analysis_NTuplizer_test

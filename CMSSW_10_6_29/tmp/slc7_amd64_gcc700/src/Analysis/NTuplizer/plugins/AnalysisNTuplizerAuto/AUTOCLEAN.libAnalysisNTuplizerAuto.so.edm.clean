@@ -1,0 +1,2 @@
+01:/usr/bin/rm -f lib/slc7_amd64_gcc700/pluginAnalysisNTuplizerAuto.so lib/slc7_amd64_gcc700/AnalysisNTuplizerAuto.edmplugin
+90:edmPluginRefresh lib/slc7_amd64_gcc700

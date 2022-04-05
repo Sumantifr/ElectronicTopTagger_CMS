@@ -1,0 +1,6 @@
+pluginAnalysisNTuplizerAuto.so LeptonLessPFProducer CMS%EDM%Framework%Module
+pluginAnalysisNTuplizerAuto.so LeptonLessPFProducer CMS%EDM%Framework%ParameterSet%Description
+pluginAnalysisNTuplizerAuto.so Leptop CMS%EDM%Framework%Module
+pluginAnalysisNTuplizerAuto.so Leptop CMS%EDM%Framework%ParameterSet%Description
+pluginAnalysisNTuplizerAuto.so NTuplizer CMS%EDM%Framework%Module
+pluginAnalysisNTuplizerAuto.so NTuplizer CMS%EDM%Framework%ParameterSet%Description
