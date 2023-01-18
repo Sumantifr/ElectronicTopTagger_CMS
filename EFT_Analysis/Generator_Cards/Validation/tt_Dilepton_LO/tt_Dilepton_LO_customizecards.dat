@@ -1,0 +1,19 @@
+set param_card mass 6 172.5
+set param_card yukawa 6 172.5
+set param_card DIM6 1 1.000000e+03
+set param_card DIM62F 24 50.e-10
+set param_card DIM64F 1 1.5e+00
+set param_card DIM64F 2 1.5e+00
+set param_card DIM64F 3 53.e-10
+set param_card DIM64F 4 54.e-10
+set param_card DIM64F 6 56.e-10
+set param_card DIM64F 7 57.e-10
+set param_card DIM64F 8 58.e-10
+set param_card DIM64F 12 62.e-10
+set param_card DIM64F 13 63.e-10
+set param_card DIM64F 14 64.e-10
+set param_card DIM64F 16 66.e-10
+set param_card DIM64F 17 67.e-10
+set param_card DIM64F 21 71.e-10
+set param_card DIM64F 25 75.e-10
+set param_card mueft 91.188	

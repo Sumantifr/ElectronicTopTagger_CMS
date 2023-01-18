@@ -1,0 +1,6 @@
+import model SMEFTatNLO-LO_TT
+define p = g u c d s u~ c~ d~ s~ b b~
+define j = p
+set acknowledged_v3.1_syntax True --global
+generate  p p > t t~ NP=2 QCD=2 QED=0 @0
+output tt_Dilepton_LO -f -nojpeg
