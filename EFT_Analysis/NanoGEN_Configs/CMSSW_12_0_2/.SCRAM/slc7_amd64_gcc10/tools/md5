@@ -1,0 +1,19 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/md5/1.0.0-llifpc/include"
+  ],
+  "LIB": [
+    "cms-md5"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/md5/1.0.0-llifpc/lib"
+  ],
+  "MD5_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/md5/1.0.0-llifpc",
+  "TOOLNAME": "md5",
+  "TOOLVERSION": "1.0.0-llifpc",
+  "VARIABLES": [
+    "MD5_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

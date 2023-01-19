@@ -1,0 +1,32 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/xrootd/4.12.3-llifpc2/include/xrootd",
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/xrootd/4.12.3-llifpc2/include/xrootd/private"
+  ],
+  "LIB": [
+    "XrdUtils",
+    "XrdClient"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/xrootd/4.12.3-llifpc2/lib64"
+  ],
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/xrootd/4.12.3-llifpc2/bin"
+    ],
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/xrootd/4.12.3-llifpc2/include/xrootd/private"
+    ]
+  },
+  "TOOLNAME": "xrootd",
+  "TOOLVERSION": "4.12.3-llifpc2",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "XROOTD_BASE",
+    "INCLUDE",
+    "LIBDIR"
+  ],
+  "XROOTD_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/xrootd/4.12.3-llifpc2"
+}

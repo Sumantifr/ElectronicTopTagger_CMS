@@ -1,0 +1,13 @@
+{
+  "ALPGEN_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/alpgen/214-llifpc",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/alpgen/214-llifpc/bin"
+    ]
+  },
+  "TOOLNAME": "alpgen",
+  "TOOLVERSION": "214-llifpc",
+  "VARIABLES": [
+    "ALPGEN_BASE"
+  ]
+}

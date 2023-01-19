@@ -1,0 +1,6 @@
+<tool name="py3-isort" version="4.3.21-llifpc2">
+  <client>
+    <environment name="PY3_ISORT_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-isort/4.3.21-llifpc2"/>
+  </client>
+  <runtime name="PATH" value="$PY3_ISORT_BASE/bin" type="path"/>
+</tool>

@@ -1,0 +1,12 @@
+{
+  "LIB": [
+    "CGAL_ImageIO"
+  ],
+  "TOOLNAME": "cgalimageio",
+  "TOOLVERSION": "4.2-cae5cdbf9ece13c8a1c1661f855d95e2",
+  "USE": [
+    "zlib",
+    "boost_system",
+    "cgal"
+  ]
+}

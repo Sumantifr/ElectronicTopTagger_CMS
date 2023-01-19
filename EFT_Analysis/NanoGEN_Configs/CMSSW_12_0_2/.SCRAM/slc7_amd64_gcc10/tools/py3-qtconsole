@@ -1,0 +1,13 @@
+{
+  "PY3_QTCONSOLE_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-qtconsole/4.7.7-llifpc2",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-qtconsole/4.7.7-llifpc2/bin"
+    ]
+  },
+  "TOOLNAME": "py3-qtconsole",
+  "TOOLVERSION": "4.7.7-llifpc2",
+  "VARIABLES": [
+    "PY3_QTCONSOLE_BASE"
+  ]
+}

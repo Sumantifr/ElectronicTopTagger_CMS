@@ -1,0 +1,27 @@
+{
+  "DCAP_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dcap/2.47.12-llifpc",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dcap/2.47.12-llifpc/include"
+  ],
+  "LIB": [
+    "dcap"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dcap/2.47.12-llifpc/lib"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dcap/2.47.12-llifpc/include"
+    ]
+  },
+  "TOOLNAME": "dcap",
+  "TOOLVERSION": "2.47.12-llifpc",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "DCAP_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

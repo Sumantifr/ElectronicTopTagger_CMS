@@ -1,0 +1,19 @@
+{
+  "DABLOOMS_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dablooms/0.9.1-llifpc",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dablooms/0.9.1-llifpc/include"
+  ],
+  "LIB": [
+    "dablooms"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dablooms/0.9.1-llifpc/lib"
+  ],
+  "TOOLNAME": "dablooms",
+  "TOOLVERSION": "0.9.1-llifpc",
+  "VARIABLES": [
+    "DABLOOMS_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

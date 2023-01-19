@@ -1,0 +1,19 @@
+{
+  "GEANT4_PARFULLCMS": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4-parfullcms/2014.01.27-llifpc3",
+  "RUNTIME": {
+    "G4FORCENUMBEROFTHREADS": [
+      "max"
+    ],
+    "PATH:GEANT4_PARFULLCMS_CONFIG_DIR": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4-parfullcms/2014.01.27-llifpc3/share/ParFullCMS"
+    ],
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4-parfullcms/2014.01.27-llifpc3/bin"
+    ]
+  },
+  "TOOLNAME": "geant4-parfullcms",
+  "TOOLVERSION": "2014.01.27-llifpc3",
+  "VARIABLES": [
+    "GEANT4_PARFULLCMS"
+  ]
+}

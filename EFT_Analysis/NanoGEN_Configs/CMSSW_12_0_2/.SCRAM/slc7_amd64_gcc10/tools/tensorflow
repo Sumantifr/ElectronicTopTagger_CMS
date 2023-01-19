@@ -1,0 +1,26 @@
+{
+  "FLAGS": {
+    "SYSTEM_INCLUDE": [
+      "1"
+    ]
+  },
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/tensorflow/2.5.0-f8ea25d6c200270091b4ae2681b13b92/include"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/tensorflow/2.5.0-f8ea25d6c200270091b4ae2681b13b92/lib"
+  ],
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/tensorflow/2.5.0-f8ea25d6c200270091b4ae2681b13b92/bin"
+    ]
+  },
+  "TENSORFLOW_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/tensorflow/2.5.0-f8ea25d6c200270091b4ae2681b13b92",
+  "TOOLNAME": "tensorflow",
+  "TOOLVERSION": "2.5.0-f8ea25d6c200270091b4ae2681b13b92",
+  "VARIABLES": [
+    "TENSORFLOW_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

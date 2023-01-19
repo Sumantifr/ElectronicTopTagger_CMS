@@ -1,0 +1,12 @@
+<tool name="mkfit" version="3.1.0-28db0aefec960cdffa95775115cc00a7">
+  <lib name="MicCore"/>
+  <lib name="MkFit"/>
+  <client>
+    <environment name="MKFITBASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/mkfit/3.1.0-28db0aefec960cdffa95775115cc00a7"/>
+    <environment name="INCLUDE" default="$MKFITBASE/include"/>
+    <environment name="LIBDIR" default="$MKFITBASE/lib"/>
+  </client>
+  <use name="tbb"/>
+  <use name="json"/>
+  <runtime name="MKFIT_BASE" value="$MKFITBASE"/>
+</tool>

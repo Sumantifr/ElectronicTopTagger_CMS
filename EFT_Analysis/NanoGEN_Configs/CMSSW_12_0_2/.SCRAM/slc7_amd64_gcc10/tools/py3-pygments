@@ -1,0 +1,13 @@
+{
+  "PY3_PYGMENTS_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-Pygments/2.8.1-llifpc",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-Pygments/2.8.1-llifpc/bin"
+    ]
+  },
+  "TOOLNAME": "py3-pygments",
+  "TOOLVERSION": "2.8.1-llifpc",
+  "VARIABLES": [
+    "PY3_PYGMENTS_BASE"
+  ]
+}

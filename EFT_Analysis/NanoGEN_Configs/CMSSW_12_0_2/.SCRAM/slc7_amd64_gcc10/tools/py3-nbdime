@@ -1,0 +1,13 @@
+{
+  "PY3_NBDIME_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-nbdime/1.1.0-llifpc2",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-nbdime/1.1.0-llifpc2/bin"
+    ]
+  },
+  "TOOLNAME": "py3-nbdime",
+  "TOOLVERSION": "1.1.0-llifpc2",
+  "VARIABLES": [
+    "PY3_NBDIME_BASE"
+  ]
+}

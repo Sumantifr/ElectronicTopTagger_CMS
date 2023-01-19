@@ -1,0 +1,16 @@
+{
+  "FLAGS": {
+    "LDFLAGS": [
+      "$(PYDATA_BASE)/lib/pydata.o"
+    ],
+    "NO_RECURSIVE_EXPORT": [
+      "1"
+    ]
+  },
+  "PYDATA_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/pythia6/426-llifpc",
+  "TOOLNAME": "pydata",
+  "TOOLVERSION": "426-llifpc",
+  "VARIABLES": [
+    "PYDATA_BASE"
+  ]
+}

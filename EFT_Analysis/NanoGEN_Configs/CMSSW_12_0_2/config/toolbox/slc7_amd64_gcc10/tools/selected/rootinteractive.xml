@@ -1,0 +1,8 @@
+<tool name="rootinteractive" version="6.22.08-da4b3d21dc390295dea4798fe15ed1c7">
+  <info url="http://root.cern.ch/root/"/>
+  <lib name="Gui"/>
+  <use name="libjpeg-turbo"/>
+  <use name="libpng"/>
+  <use name="rootgpad"/>
+  <use name="rootrint"/>
+</tool>

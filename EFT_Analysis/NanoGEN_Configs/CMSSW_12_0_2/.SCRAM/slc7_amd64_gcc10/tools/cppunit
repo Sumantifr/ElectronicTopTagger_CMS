@@ -1,0 +1,28 @@
+{
+  "CPPUNIT_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cppunit/1.15.x-llifpc",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cppunit/1.15.x-llifpc/include"
+  ],
+  "LIB": [
+    "cppunit"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cppunit/1.15.x-llifpc/lib"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cppunit/1.15.x-llifpc/include"
+    ]
+  },
+  "TOOLNAME": "cppunit",
+  "TOOLVERSION": "1.15.x-llifpc",
+  "USE": [
+    "root_cxxdefaults",
+    "sockets"
+  ],
+  "VARIABLES": [
+    "CPPUNIT_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

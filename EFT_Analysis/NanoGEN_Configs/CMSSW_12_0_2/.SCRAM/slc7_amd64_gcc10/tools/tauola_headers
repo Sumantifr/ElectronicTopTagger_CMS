@@ -1,0 +1,20 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/tauola/27.121.5-llifpc/include"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/tauola/27.121.5-llifpc/include"
+    ]
+  },
+  "TAUOLA_HEADERS_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/tauola/27.121.5-llifpc",
+  "TOOLNAME": "tauola_headers",
+  "TOOLVERSION": "27.121.5-llifpc",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "TAUOLA_HEADERS_BASE",
+    "INCLUDE"
+  ]
+}

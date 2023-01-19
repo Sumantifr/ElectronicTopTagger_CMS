@@ -1,0 +1,13 @@
+{
+  "PY3_CHARDET_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-chardet/3.0.4-llifpc",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-chardet/3.0.4-llifpc/bin"
+    ]
+  },
+  "TOOLNAME": "py3-chardet",
+  "TOOLVERSION": "3.0.4-llifpc",
+  "VARIABLES": [
+    "PY3_CHARDET_BASE"
+  ]
+}

@@ -1,0 +1,6 @@
+<tool name="py3-nbdime" version="1.1.0-llifpc2">
+  <client>
+    <environment name="PY3_NBDIME_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-nbdime/1.1.0-llifpc2"/>
+  </client>
+  <runtime name="PATH" value="$PY3_NBDIME_BASE/bin" type="path"/>
+</tool>

@@ -1,0 +1,6 @@
+<tool name="py3-tensorflow" version="2.5.0-bd3200cc4f7f4459a06ccb9349341db9">
+  <client>
+    <environment name="PY3_TENSORFLOW_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-tensorflow/2.5.0-bd3200cc4f7f4459a06ccb9349341db9"/>
+  </client>
+  <runtime name="PATH" value="$PY3_TENSORFLOW_BASE/bin" type="path"/>
+</tool>

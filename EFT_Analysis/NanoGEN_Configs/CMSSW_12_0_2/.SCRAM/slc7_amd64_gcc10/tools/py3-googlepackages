@@ -1,0 +1,13 @@
+{
+  "PY3_GOOGLEPACKAGES_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-googlePackages/1.0-llifpc",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-googlePackages/1.0-llifpc/bin"
+    ]
+  },
+  "TOOLNAME": "py3-googlepackages",
+  "TOOLVERSION": "1.0-llifpc",
+  "VARIABLES": [
+    "PY3_GOOGLEPACKAGES_BASE"
+  ]
+}

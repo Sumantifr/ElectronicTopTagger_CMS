@@ -1,0 +1,28 @@
+{
+  "FLAGS": {
+    "CXXFLAGS": [
+      "-ftls-model=global-dynamic",
+      "-pthread"
+    ]
+  },
+  "GEANT4STATIC_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4/10.7.1-llifpc2",
+  "LIB": [
+    "geant4-static"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4/10.7.1-llifpc2/lib/archive"
+  ],
+  "TOOLNAME": "geant4static",
+  "TOOLVERSION": "10.7.1-llifpc2",
+  "USE": [
+    "clhep",
+    "vecgeom",
+    "zlib",
+    "expat",
+    "xerces-c"
+  ],
+  "VARIABLES": [
+    "GEANT4STATIC_BASE",
+    "LIBDIR"
+  ]
+}

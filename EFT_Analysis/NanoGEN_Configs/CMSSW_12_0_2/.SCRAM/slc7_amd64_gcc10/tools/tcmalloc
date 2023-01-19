@@ -1,0 +1,15 @@
+{
+  "LIB": [
+    "tcmalloc"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gperftools/2.9.1/lib"
+  ],
+  "TCMALLOC_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gperftools/2.9.1",
+  "TOOLNAME": "tcmalloc",
+  "TOOLVERSION": "2.9.1",
+  "VARIABLES": [
+    "TCMALLOC_BASE",
+    "LIBDIR"
+  ]
+}

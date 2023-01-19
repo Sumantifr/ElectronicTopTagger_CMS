@@ -1,0 +1,32 @@
+{
+  "CGAL_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cgal/4.2-cae5cdbf9ece13c8a1c1661f855d95e2",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cgal/4.2-cae5cdbf9ece13c8a1c1661f855d95e2/include"
+  ],
+  "LIB": [
+    "CGAL_Core",
+    "CGAL"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cgal/4.2-cae5cdbf9ece13c8a1c1661f855d95e2/lib"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cgal/4.2-cae5cdbf9ece13c8a1c1661f855d95e2/include"
+    ]
+  },
+  "TOOLNAME": "cgal",
+  "TOOLVERSION": "4.2-cae5cdbf9ece13c8a1c1661f855d95e2",
+  "USE": [
+    "root_cxxdefaults",
+    "zlib",
+    "boost_system",
+    "gmp",
+    "mpfr"
+  ],
+  "VARIABLES": [
+    "CGAL_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

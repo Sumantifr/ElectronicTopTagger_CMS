@@ -1,0 +1,16 @@
+{
+  "DIP_INTERFACE_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dip/8693f00cc422b4a15858fcd84249acaeb07b6316-llifpc2",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dip/8693f00cc422b4a15858fcd84249acaeb07b6316-llifpc2/include"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dip/8693f00cc422b4a15858fcd84249acaeb07b6316-llifpc2/lib"
+  ],
+  "TOOLNAME": "dip_interface",
+  "TOOLVERSION": "8693f00cc422b4a15858fcd84249acaeb07b6316-llifpc2",
+  "VARIABLES": [
+    "DIP_INTERFACE_BASE",
+    "INCLUDE",
+    "LIBDIR"
+  ]
+}

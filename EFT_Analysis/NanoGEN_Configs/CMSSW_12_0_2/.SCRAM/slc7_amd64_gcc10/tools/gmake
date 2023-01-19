@@ -1,0 +1,13 @@
+{
+  "MAKE_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gmake/4.3-llifpc",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gmake/4.3-llifpc/bin"
+    ]
+  },
+  "TOOLNAME": "gmake",
+  "TOOLVERSION": "4.3-llifpc",
+  "VARIABLES": [
+    "MAKE_BASE"
+  ]
+}

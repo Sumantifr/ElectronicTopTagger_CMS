@@ -1,0 +1,19 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/mpfr-static/4.0.2-llifpc/include"
+  ],
+  "LIB": [
+    "mpfr"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/mpfr-static/4.0.2-llifpc/lib"
+  ],
+  "MPFR_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/mpfr-static/4.0.2-llifpc",
+  "TOOLNAME": "mpfr",
+  "TOOLVERSION": "4.0.2-llifpc",
+  "VARIABLES": [
+    "MPFR_BASE",
+    "INCLUDE",
+    "LIBDIR"
+  ]
+}

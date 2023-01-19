@@ -1,0 +1,13 @@
+{
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/sloccount/2.26-llifpc/bin"
+    ]
+  },
+  "SLOCCOUNT_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/sloccount/2.26-llifpc",
+  "TOOLNAME": "sloccount",
+  "TOOLVERSION": "2.26-llifpc",
+  "VARIABLES": [
+    "SLOCCOUNT_BASE"
+  ]
+}

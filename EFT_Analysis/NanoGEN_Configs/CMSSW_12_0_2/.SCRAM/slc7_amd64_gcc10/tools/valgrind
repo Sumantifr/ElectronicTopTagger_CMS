@@ -1,0 +1,26 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/valgrind/3.15.0-llifpc/include"
+  ],
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/valgrind/3.15.0-llifpc/bin"
+    ],
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/valgrind/3.15.0-llifpc/include"
+    ],
+    "VALGRIND_LIB": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/valgrind/3.15.0-llifpc/lib/valgrind"
+    ]
+  },
+  "TOOLNAME": "valgrind",
+  "TOOLVERSION": "3.15.0-llifpc",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VALGRIND_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/valgrind/3.15.0-llifpc",
+  "VARIABLES": [
+    "VALGRIND_BASE",
+    "INCLUDE"
+  ]
+}

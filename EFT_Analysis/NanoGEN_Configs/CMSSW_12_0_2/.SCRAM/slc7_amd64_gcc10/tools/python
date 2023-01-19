@@ -1,0 +1,36 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/python/2.7.15-llifpc/include/python2.7"
+  ],
+  "LIB": [
+    "python2.7"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/python/2.7.15-llifpc/lib"
+  ],
+  "PYTHON_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/python/2.7.15-llifpc",
+  "PYTHON_COMPILE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/python/2.7.15-llifpc/lib/python2.7/compileall.py",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/python/2.7.15-llifpc/bin"
+    ],
+    "PATH:PYTHON_VALGRIND_SUPP": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/python/2.7.15-llifpc/share/valgrind/valgrind-python.supp"
+    ],
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/python/2.7.15-llifpc/include/python2.7"
+    ]
+  },
+  "TOOLNAME": "python",
+  "TOOLVERSION": "2.7.15-llifpc",
+  "USE": [
+    "root_cxxdefaults",
+    "sockets"
+  ],
+  "VARIABLES": [
+    "PYTHON_BASE",
+    "LIBDIR",
+    "INCLUDE",
+    "PYTHON_COMPILE"
+  ]
+}

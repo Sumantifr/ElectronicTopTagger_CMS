@@ -1,0 +1,27 @@
+{
+  "FFTW3_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/fftw3/3.3.8-llifpc",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/fftw3/3.3.8-llifpc/include"
+  ],
+  "LIB": [
+    "fftw3"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/fftw3/3.3.8-llifpc/lib"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/fftw3/3.3.8-llifpc/include"
+    ]
+  },
+  "TOOLNAME": "fftw3",
+  "TOOLVERSION": "3.3.8-llifpc",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "FFTW3_BASE",
+    "INCLUDE",
+    "LIBDIR"
+  ]
+}

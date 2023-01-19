@@ -1,0 +1,13 @@
+{
+  "PY3_NUMPY_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-numpy/1.17.5-llifpc3",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-numpy/1.17.5-llifpc3/bin"
+    ]
+  },
+  "TOOLNAME": "py3-numpy",
+  "TOOLVERSION": "1.17.5-llifpc3",
+  "VARIABLES": [
+    "PY3_NUMPY_BASE"
+  ]
+}

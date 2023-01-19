@@ -1,0 +1,13 @@
+{
+  "PY3_NBFORMAT_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-nbformat/5.1.2-llifpc2",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-nbformat/5.1.2-llifpc2/bin"
+    ]
+  },
+  "TOOLNAME": "py3-nbformat",
+  "TOOLVERSION": "5.1.2-llifpc2",
+  "VARIABLES": [
+    "PY3_NBFORMAT_BASE"
+  ]
+}

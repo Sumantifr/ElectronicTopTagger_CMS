@@ -1,0 +1,10 @@
+<tool name="boost" version="1.75.0-6489f2f9bf3e48a2076f2cf4f86b1c77">
+  <info url="http://www.boost.org"/>
+  <lib name="boost_thread"/>
+  <lib name="boost_date_time"/>
+  <client>
+    <environment name="BOOST_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/boost/1.75.0-6489f2f9bf3e48a2076f2cf4f86b1c77"/>
+    <environment name="LIBDIR" default="$BOOST_BASE/lib"/>
+  </client>
+  <use name="boost_header"/>
+</tool>

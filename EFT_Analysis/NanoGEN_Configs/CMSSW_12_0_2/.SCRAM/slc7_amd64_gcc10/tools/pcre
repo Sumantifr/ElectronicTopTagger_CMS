@@ -1,0 +1,29 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/pcre/8.43-llifpc/include"
+  ],
+  "LIB": [
+    "pcre"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/pcre/8.43-llifpc/lib"
+  ],
+  "PCRE_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/pcre/8.43-llifpc",
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/pcre/8.43-llifpc/include"
+    ]
+  },
+  "TOOLNAME": "pcre",
+  "TOOLVERSION": "8.43-llifpc",
+  "USE": [
+    "root_cxxdefaults",
+    "zlib",
+    "bz2lib"
+  ],
+  "VARIABLES": [
+    "PCRE_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "DMTCP_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dmtcp/3.0.0-dev-llifpc",
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dmtcp/3.0.0-dev-llifpc/lib",
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dmtcp/3.0.0-dev-llifpc/lib/dmtcp"
+  ],
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dmtcp/3.0.0-dev-llifpc/bin"
+    ]
+  },
+  "TOOLNAME": "dmtcp",
+  "TOOLVERSION": "3.0.0-dev-llifpc",
+  "VARIABLES": [
+    "DMTCP_BASE",
+    "LIBDIR"
+  ]
+}

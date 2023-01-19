@@ -1,0 +1,30 @@
+{
+  "CURL_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/curl/7.70.0-llifpc",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/curl/7.70.0-llifpc/include"
+  ],
+  "LIB": [
+    "curl"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/curl/7.70.0-llifpc/lib"
+  ],
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/curl/7.70.0-llifpc/bin"
+    ],
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/curl/7.70.0-llifpc/include"
+    ]
+  },
+  "TOOLNAME": "curl",
+  "TOOLVERSION": "7.70.0-llifpc",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "CURL_BASE",
+    "INCLUDE",
+    "LIBDIR"
+  ]
+}

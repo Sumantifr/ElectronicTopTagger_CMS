@@ -1,0 +1,30 @@
+{
+  "CHARYBDIS_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/charybdis/1.003-llifpc3",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/charybdis/1.003-llifpc3/include"
+  ],
+  "LIB": [
+    "charybdis"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/charybdis/1.003-llifpc3/lib"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/charybdis/1.003-llifpc3/include"
+    ]
+  },
+  "TOOLNAME": "charybdis",
+  "TOOLVERSION": "1.003-llifpc3",
+  "USE": [
+    "root_cxxdefaults",
+    "f77compiler",
+    "herwig",
+    "pythia6"
+  ],
+  "VARIABLES": [
+    "CHARYBDIS_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "PY3_JSONSCHEMA_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-jsonschema/3.2.0-llifpc2",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-jsonschema/3.2.0-llifpc2/bin"
+    ]
+  },
+  "TOOLNAME": "py3-jsonschema",
+  "TOOLVERSION": "3.2.0-llifpc2",
+  "VARIABLES": [
+    "PY3_JSONSCHEMA_BASE"
+  ]
+}

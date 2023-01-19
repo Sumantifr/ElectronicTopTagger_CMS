@@ -1,0 +1,13 @@
+{
+  "PY3_FUTURE_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-future/0.18.2-llifpc",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-future/0.18.2-llifpc/bin"
+    ]
+  },
+  "TOOLNAME": "py3-future",
+  "TOOLVERSION": "0.18.2-llifpc",
+  "VARIABLES": [
+    "PY3_FUTURE_BASE"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "PY3_HYPEROPT_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-hyperopt/0.2.5-llifpc2",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-hyperopt/0.2.5-llifpc2/bin"
+    ]
+  },
+  "TOOLNAME": "py3-hyperopt",
+  "TOOLVERSION": "0.2.5-llifpc2",
+  "VARIABLES": [
+    "PY3_HYPEROPT_BASE"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "PY3_PYTEST_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-pytest/6.2.2-llifpc2",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-pytest/6.2.2-llifpc2/bin"
+    ]
+  },
+  "TOOLNAME": "py3-pytest",
+  "TOOLVERSION": "6.2.2-llifpc2",
+  "VARIABLES": [
+    "PY3_PYTEST_BASE"
+  ]
+}

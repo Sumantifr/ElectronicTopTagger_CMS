@@ -1,0 +1,13 @@
+{
+  "PY3_AUTOPEP8_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-autopep8/1.5.5-llifpc2",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-autopep8/1.5.5-llifpc2/bin"
+    ]
+  },
+  "TOOLNAME": "py3-autopep8",
+  "TOOLVERSION": "1.5.5-llifpc2",
+  "VARIABLES": [
+    "PY3_AUTOPEP8_BASE"
+  ]
+}

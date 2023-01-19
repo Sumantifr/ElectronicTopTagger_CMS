@@ -1,0 +1,13 @@
+{
+  "PY3_JUPYTER_CLIENT_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-jupyter_client/6.1.11-llifpc2",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-jupyter_client/6.1.11-llifpc2/bin"
+    ]
+  },
+  "TOOLNAME": "py3-jupyter_client",
+  "TOOLVERSION": "6.1.11-llifpc2",
+  "VARIABLES": [
+    "PY3_JUPYTER_CLIENT_BASE"
+  ]
+}

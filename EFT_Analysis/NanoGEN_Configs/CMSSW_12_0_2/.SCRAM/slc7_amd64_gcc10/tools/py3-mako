@@ -1,0 +1,13 @@
+{
+  "PY3_MAKO_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-Mako/1.1.4-llifpc",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-Mako/1.1.4-llifpc/bin"
+    ]
+  },
+  "TOOLNAME": "py3-mako",
+  "TOOLVERSION": "1.1.4-llifpc",
+  "VARIABLES": [
+    "PY3_MAKO_BASE"
+  ]
+}

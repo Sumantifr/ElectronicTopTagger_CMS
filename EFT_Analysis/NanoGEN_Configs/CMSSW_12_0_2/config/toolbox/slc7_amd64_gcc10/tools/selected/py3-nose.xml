@@ -1,0 +1,6 @@
+<tool name="py3-nose" version="1.3.7-llifpc">
+  <client>
+    <environment name="PY3_NOSE_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-nose/1.3.7-llifpc"/>
+  </client>
+  <runtime name="PATH" value="$PY3_NOSE_BASE/bin" type="path"/>
+</tool>

@@ -1,0 +1,27 @@
+{
+  "GDBM_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gdbm/1.10-llifpc",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gdbm/1.10-llifpc/include"
+  ],
+  "LIB": [
+    "gdbm"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gdbm/1.10-llifpc/lib"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gdbm/1.10-llifpc/include"
+    ]
+  },
+  "TOOLNAME": "gdbm",
+  "TOOLVERSION": "1.10-llifpc",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "GDBM_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

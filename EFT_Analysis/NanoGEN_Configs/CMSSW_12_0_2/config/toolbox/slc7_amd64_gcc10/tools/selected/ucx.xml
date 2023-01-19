@@ -1,0 +1,12 @@
+<tool name="ucx" version="1.9.0-aaced95fba433d796383f2168e9e574e">
+  <lib name="ucp"/>
+  <lib name="uct"/>
+  <lib name="ucs"/>
+  <lib name="ucm"/>
+  <client>
+    <environment name="UCX_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/ucx/1.9.0-aaced95fba433d796383f2168e9e574e"/>
+    <environment name="INCLUDE"  default="$UCX_BASE/include"/>
+    <environment name="LIBDIR"   default="$UCX_BASE/lib"/>
+  </client>
+  <runtime name="PATH" value="$UCX_BASE/bin" type="path"/>
+</tool>

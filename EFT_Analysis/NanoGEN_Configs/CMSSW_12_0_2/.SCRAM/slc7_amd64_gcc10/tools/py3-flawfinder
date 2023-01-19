@@ -1,0 +1,13 @@
+{
+  "PY3_FLAWFINDER_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-flawfinder/2.0.15-llifpc",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-flawfinder/2.0.15-llifpc/bin"
+    ]
+  },
+  "TOOLNAME": "py3-flawfinder",
+  "TOOLVERSION": "2.0.15-llifpc",
+  "VARIABLES": [
+    "PY3_FLAWFINDER_BASE"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "PY3_LIZARD_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-lizard/1.17.7-llifpc",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-lizard/1.17.7-llifpc/bin"
+    ]
+  },
+  "TOOLNAME": "py3-lizard",
+  "TOOLVERSION": "1.17.7-llifpc",
+  "VARIABLES": [
+    "PY3_LIZARD_BASE"
+  ]
+}

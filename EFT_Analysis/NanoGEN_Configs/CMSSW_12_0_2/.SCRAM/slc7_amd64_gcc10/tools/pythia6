@@ -1,0 +1,21 @@
+{
+  "LIB": [
+    "pythia6",
+    "pythia6_dummy",
+    "pythia6_pdfdummy"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/pythia6/426-llifpc/lib"
+  ],
+  "PYTHIA6_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/pythia6/426-llifpc",
+  "TOOLNAME": "pythia6",
+  "TOOLVERSION": "426-llifpc",
+  "USE": [
+    "pythia6_headers",
+    "f77compiler"
+  ],
+  "VARIABLES": [
+    "PYTHIA6_BASE",
+    "LIBDIR"
+  ]
+}

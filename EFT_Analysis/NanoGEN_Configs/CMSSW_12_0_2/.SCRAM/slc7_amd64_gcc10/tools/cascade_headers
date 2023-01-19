@@ -1,0 +1,20 @@
+{
+  "CASCADE_HEADERS_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cascade/2.2.04-llifpc3",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cascade/2.2.04-llifpc3/include"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cascade/2.2.04-llifpc3/include"
+    ]
+  },
+  "TOOLNAME": "cascade_headers",
+  "TOOLVERSION": "2.2.04-llifpc3",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "CASCADE_HEADERS_BASE",
+    "INCLUDE"
+  ]
+}

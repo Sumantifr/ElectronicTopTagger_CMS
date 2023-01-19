@@ -1,0 +1,12 @@
+{
+  "RUNTIME": {
+    "PATH:PYTHON27PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw-tool-conf/51.0-461632850e18a180df864c0b1bd2860b/lib/python2.7/site-packages"
+    ],
+    "PATH:PYTHON3PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw-tool-conf/51.0-461632850e18a180df864c0b1bd2860b/lib/python3.9/site-packages"
+    ]
+  },
+  "TOOLNAME": "python-paths",
+  "TOOLVERSION": "1.0"
+}

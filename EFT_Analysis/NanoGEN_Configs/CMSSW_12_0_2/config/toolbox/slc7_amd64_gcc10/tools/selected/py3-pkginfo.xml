@@ -1,0 +1,6 @@
+<tool name="py3-pkginfo" version="1.7.0-llifpc">
+  <client>
+    <environment name="PY3_PKGINFO_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-pkginfo/1.7.0-llifpc"/>
+  </client>
+  <runtime name="PATH" value="$PY3_PKGINFO_BASE/bin" type="path"/>
+</tool>

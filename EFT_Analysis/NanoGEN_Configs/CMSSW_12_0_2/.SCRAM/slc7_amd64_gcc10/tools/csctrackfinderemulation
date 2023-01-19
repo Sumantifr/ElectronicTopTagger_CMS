@@ -1,0 +1,27 @@
+{
+  "CSCTRACKFINDEREMULATION_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/CSCTrackFinderEmulation/1.2-llifpc",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/CSCTrackFinderEmulation/1.2-llifpc/include"
+  ],
+  "LIB": [
+    "CSCTrackFinderEmulation"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/CSCTrackFinderEmulation/1.2-llifpc/lib64"
+  ],
+  "RUNTIME": {
+    "CSC_TRACK_FINDER_DATA_DIR": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/CSCTrackFinderEmulation/1.2-llifpc/data/"
+    ],
+    "PATH:CMSSW_SEARCH_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/CSCTrackFinderEmulation/1.2-llifpc/data"
+    ]
+  },
+  "TOOLNAME": "csctrackfinderemulation",
+  "TOOLVERSION": "1.2-llifpc",
+  "VARIABLES": [
+    "CSCTRACKFINDEREMULATION_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

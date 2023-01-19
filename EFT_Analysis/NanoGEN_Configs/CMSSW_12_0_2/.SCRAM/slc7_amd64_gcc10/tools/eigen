@@ -1,0 +1,26 @@
+{
+  "EIGEN_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/eigen/f612df273689a19d25b45ca4f8269463207c4fee",
+  "FLAGS": {
+    "CPPDEFINES": [
+      "EIGEN_DONT_PARALLELIZE"
+    ],
+    "CUDA_FLAGS": [
+      "--diag-suppress",
+      "20014"
+    ]
+  },
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/eigen/f612df273689a19d25b45ca4f8269463207c4fee/include/eigen3"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/eigen/f612df273689a19d25b45ca4f8269463207c4fee/include/eigen3"
+    ]
+  },
+  "TOOLNAME": "eigen",
+  "TOOLVERSION": "f612df273689a19d25b45ca4f8269463207c4fee",
+  "VARIABLES": [
+    "EIGEN_BASE",
+    "INCLUDE"
+  ]
+}

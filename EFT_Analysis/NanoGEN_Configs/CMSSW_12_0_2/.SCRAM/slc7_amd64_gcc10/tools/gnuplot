@@ -1,0 +1,13 @@
+{
+  "GNUPLOT_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gnuplot/4.6.5-llifpc",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gnuplot/4.6.5-llifpc/bin"
+    ]
+  },
+  "TOOLNAME": "gnuplot",
+  "TOOLVERSION": "4.6.5-llifpc",
+  "VARIABLES": [
+    "GNUPLOT_BASE"
+  ]
+}

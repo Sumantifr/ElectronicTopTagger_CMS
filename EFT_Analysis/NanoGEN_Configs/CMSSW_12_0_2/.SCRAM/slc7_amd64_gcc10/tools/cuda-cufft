@@ -1,0 +1,11 @@
+{
+  "LIB": [
+    "cufft",
+    "cufftw"
+  ],
+  "TOOLNAME": "cuda-cufft",
+  "TOOLVERSION": "11.2.2-1a7cdbf57b1baa3007f732f3e7a76d36",
+  "USE": [
+    "cuda"
+  ]
+}

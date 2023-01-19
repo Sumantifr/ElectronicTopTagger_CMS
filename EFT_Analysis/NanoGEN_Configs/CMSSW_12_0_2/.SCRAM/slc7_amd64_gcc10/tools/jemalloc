@@ -1,0 +1,27 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/jemalloc/5.2.1-llifpc/include"
+  ],
+  "JEMALLOC_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/jemalloc/5.2.1-llifpc",
+  "LIB": [
+    "jemalloc"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/jemalloc/5.2.1-llifpc/lib"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/jemalloc/5.2.1-llifpc/include"
+    ]
+  },
+  "TOOLNAME": "jemalloc",
+  "TOOLVERSION": "5.2.1-llifpc",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "JEMALLOC_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

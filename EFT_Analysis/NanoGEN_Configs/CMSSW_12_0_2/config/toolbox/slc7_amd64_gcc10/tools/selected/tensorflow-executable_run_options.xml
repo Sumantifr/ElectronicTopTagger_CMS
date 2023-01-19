@@ -1,0 +1,4 @@
+<tool name="tensorflow-executable_run_options" version="2.5.0-f8ea25d6c200270091b4ae2681b13b92">
+  <lib name="executable_run_options"/>
+  <use name="tensorflow"/>
+</tool>

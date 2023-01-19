@@ -1,0 +1,20 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/pythia6/426-llifpc/include"
+  ],
+  "PYTHIA6_HEADERS_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/pythia6/426-llifpc",
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/pythia6/426-llifpc/include"
+    ]
+  },
+  "TOOLNAME": "pythia6_headers",
+  "TOOLVERSION": "426-llifpc",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "PYTHIA6_HEADERS_BASE",
+    "INCLUDE"
+  ]
+}

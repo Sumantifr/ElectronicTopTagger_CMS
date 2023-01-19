@@ -1,0 +1,20 @@
+{
+  "JIMMY_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/jimmy/4.2-llifpc3",
+  "LIB": [
+    "jimmy"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/jimmy/4.2-llifpc3/lib"
+  ],
+  "TOOLNAME": "jimmy",
+  "TOOLVERSION": "4.2-llifpc3",
+  "USE": [
+    "f77compiler",
+    "herwig",
+    "jimmy_headers"
+  ],
+  "VARIABLES": [
+    "JIMMY_BASE",
+    "LIBDIR"
+  ]
+}

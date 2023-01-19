@@ -1,0 +1,20 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/qd/2.3.13-llifpc/include"
+  ],
+  "LIB": [
+    "qdmod",
+    "qd"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/qd/2.3.13-llifpc/lib"
+  ],
+  "QD_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/qd/2.3.13-llifpc",
+  "TOOLNAME": "qd",
+  "TOOLVERSION": "2.3.13-llifpc",
+  "VARIABLES": [
+    "QD_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

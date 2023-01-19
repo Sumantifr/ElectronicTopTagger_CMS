@@ -1,0 +1,13 @@
+{
+  "PY3_CYTHON_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-cython/0.29.23-llifpc",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-cython/0.29.23-llifpc/bin"
+    ]
+  },
+  "TOOLNAME": "py3-cython",
+  "TOOLVERSION": "0.29.23-llifpc",
+  "VARIABLES": [
+    "PY3_CYTHON_BASE"
+  ]
+}

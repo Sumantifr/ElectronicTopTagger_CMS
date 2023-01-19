@@ -1,0 +1,34 @@
+{
+  "BINDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/expat/2.1.0-llifpc/bin"
+  ],
+  "EXPAT_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/expat/2.1.0-llifpc",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/expat/2.1.0-llifpc/include"
+  ],
+  "LIB": [
+    "expat"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/expat/2.1.0-llifpc/lib"
+  ],
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/expat/2.1.0-llifpc/bin"
+    ],
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/expat/2.1.0-llifpc/include"
+    ]
+  },
+  "TOOLNAME": "expat",
+  "TOOLVERSION": "2.1.0-llifpc",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "EXPAT_BASE",
+    "LIBDIR",
+    "INCLUDE",
+    "BINDIR"
+  ]
+}

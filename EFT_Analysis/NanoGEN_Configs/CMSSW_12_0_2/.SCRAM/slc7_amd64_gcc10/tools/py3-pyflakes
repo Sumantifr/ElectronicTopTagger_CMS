@@ -1,0 +1,13 @@
+{
+  "PY3_PYFLAKES_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-pyflakes/2.2.0-llifpc",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-pyflakes/2.2.0-llifpc/bin"
+    ]
+  },
+  "TOOLNAME": "py3-pyflakes",
+  "TOOLVERSION": "2.2.0-llifpc",
+  "VARIABLES": [
+    "PY3_PYFLAKES_BASE"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "LIB": [
+    "photos"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/photos/215.5-llifpc/lib"
+  ],
+  "PHOTOS_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/photos/215.5-llifpc",
+  "TOOLNAME": "photos",
+  "TOOLVERSION": "215.5-llifpc",
+  "USE": [
+    "photos_headers",
+    "f77compiler"
+  ],
+  "VARIABLES": [
+    "PHOTOS_BASE",
+    "LIBDIR"
+  ]
+}

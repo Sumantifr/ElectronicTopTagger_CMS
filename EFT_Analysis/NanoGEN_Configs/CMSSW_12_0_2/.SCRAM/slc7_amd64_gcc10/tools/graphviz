@@ -1,0 +1,19 @@
+{
+  "GRAPHVIZ_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/graphviz/2.38.0-llifpc2",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/graphviz/2.38.0-llifpc2/bin"
+    ]
+  },
+  "TOOLNAME": "graphviz",
+  "TOOLVERSION": "2.38.0-llifpc2",
+  "USE": [
+    "expat",
+    "zlib",
+    "libjpeg-turbo",
+    "libpng"
+  ],
+  "VARIABLES": [
+    "GRAPHVIZ_BASE"
+  ]
+}

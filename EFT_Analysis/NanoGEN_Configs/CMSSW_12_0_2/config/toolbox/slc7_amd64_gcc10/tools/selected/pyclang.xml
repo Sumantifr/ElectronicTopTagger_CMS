@@ -1,0 +1,5 @@
+<tool name="pyclang" version="12.0.0-cd14b37dc21732eb4d24317880c00609">
+  <client>
+    <environment name="PYCLANG_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/llvm/12.0.0-cd14b37dc21732eb4d24317880c00609"/>
+  </client>
+</tool>

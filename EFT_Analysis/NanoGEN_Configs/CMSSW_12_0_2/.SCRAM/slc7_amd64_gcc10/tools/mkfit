@@ -1,0 +1,29 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/mkfit/3.1.0-28db0aefec960cdffa95775115cc00a7/include"
+  ],
+  "LIB": [
+    "MicCore",
+    "MkFit"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/mkfit/3.1.0-28db0aefec960cdffa95775115cc00a7/lib"
+  ],
+  "MKFITBASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/mkfit/3.1.0-28db0aefec960cdffa95775115cc00a7",
+  "RUNTIME": {
+    "MKFIT_BASE": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/mkfit/3.1.0-28db0aefec960cdffa95775115cc00a7"
+    ]
+  },
+  "TOOLNAME": "mkfit",
+  "TOOLVERSION": "3.1.0-28db0aefec960cdffa95775115cc00a7",
+  "USE": [
+    "tbb",
+    "json"
+  ],
+  "VARIABLES": [
+    "MKFITBASE",
+    "INCLUDE",
+    "LIBDIR"
+  ]
+}

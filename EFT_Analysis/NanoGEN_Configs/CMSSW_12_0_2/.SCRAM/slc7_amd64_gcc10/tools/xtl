@@ -1,0 +1,12 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/xtl/0.6.3-llifpc2/include"
+  ],
+  "TOOLNAME": "xtl",
+  "TOOLVERSION": "0.6.3-llifpc2",
+  "VARIABLES": [
+    "XTL_BASE",
+    "INCLUDE"
+  ],
+  "XTL_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/xtl/0.6.3-llifpc2"
+}

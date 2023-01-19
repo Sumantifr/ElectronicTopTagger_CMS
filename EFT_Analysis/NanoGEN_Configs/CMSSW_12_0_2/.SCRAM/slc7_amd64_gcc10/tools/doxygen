@@ -1,0 +1,13 @@
+{
+  "DOXYGEN_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/doxygen/1.8.16-llifpc3",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/doxygen/1.8.16-llifpc3/bin"
+    ]
+  },
+  "TOOLNAME": "doxygen",
+  "TOOLVERSION": "1.8.16-llifpc3",
+  "VARIABLES": [
+    "DOXYGEN_BASE"
+  ]
+}

@@ -1,0 +1,6 @@
+<tool name="py3-wheel" version="0.33.6-llifpc">
+  <client>
+    <environment name="PY3_WHEEL_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-wheel/0.33.6-llifpc"/>
+  </client>
+  <runtime name="PATH" value="$PY3_WHEEL_BASE/bin" type="path"/>
+</tool>

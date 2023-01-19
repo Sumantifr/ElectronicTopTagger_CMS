@@ -1,0 +1,8 @@
+{
+  "TOOLNAME": "geant4",
+  "TOOLVERSION": "10.7.1-llifpc2",
+  "USE": [
+    "geant4core",
+    "geant4vis"
+  ]
+}

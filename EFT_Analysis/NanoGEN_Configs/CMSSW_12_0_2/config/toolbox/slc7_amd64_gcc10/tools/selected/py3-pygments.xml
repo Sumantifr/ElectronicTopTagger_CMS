@@ -1,0 +1,6 @@
+<tool name="py3-pygments" version="2.8.1-llifpc">
+  <client>
+    <environment name="PY3_PYGMENTS_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-Pygments/2.8.1-llifpc"/>
+  </client>
+  <runtime name="PATH" value="$PY3_PYGMENTS_BASE/bin" type="path"/>
+</tool>

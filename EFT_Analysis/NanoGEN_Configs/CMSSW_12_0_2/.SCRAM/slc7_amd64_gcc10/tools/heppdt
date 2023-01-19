@@ -1,0 +1,31 @@
+{
+  "HEPPDT_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/heppdt/3.04.01-8636ee5ff85b1cff9f595516782f532d",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/heppdt/3.04.01-8636ee5ff85b1cff9f595516782f532d/include"
+  ],
+  "LIB": [
+    "HepPDT",
+    "HepPID"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/heppdt/3.04.01-8636ee5ff85b1cff9f595516782f532d/lib"
+  ],
+  "RUNTIME": {
+    "HEPPDT_PARAM_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/heppdt/3.04.01-8636ee5ff85b1cff9f595516782f532d"
+    ],
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/heppdt/3.04.01-8636ee5ff85b1cff9f595516782f532d/include"
+    ]
+  },
+  "TOOLNAME": "heppdt",
+  "TOOLVERSION": "3.04.01-8636ee5ff85b1cff9f595516782f532d",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "HEPPDT_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

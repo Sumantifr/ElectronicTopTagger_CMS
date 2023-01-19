@@ -1,0 +1,13 @@
+{
+  "GLIMPSE_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/glimpse/4.18.5-llifpc",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/glimpse/4.18.5-llifpc/bin"
+    ]
+  },
+  "TOOLNAME": "glimpse",
+  "TOOLVERSION": "4.18.5-llifpc",
+  "VARIABLES": [
+    "GLIMPSE_BASE"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "CLHEP_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/clhep/2.4.4.0-llifpc2",
+  "LIB": [
+    "CLHEP"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/clhep/2.4.4.0-llifpc2/lib"
+  ],
+  "TOOLNAME": "clhep",
+  "TOOLVERSION": "2.4.4.0-llifpc2",
+  "USE": [
+    "clhepheader"
+  ],
+  "VARIABLES": [
+    "CLHEP_BASE",
+    "LIBDIR"
+  ]
+}

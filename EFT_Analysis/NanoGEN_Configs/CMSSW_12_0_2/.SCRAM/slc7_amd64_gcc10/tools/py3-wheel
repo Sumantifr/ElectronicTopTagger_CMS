@@ -1,0 +1,13 @@
+{
+  "PY3_WHEEL_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-wheel/0.33.6-llifpc",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-wheel/0.33.6-llifpc/bin"
+    ]
+  },
+  "TOOLNAME": "py3-wheel",
+  "TOOLVERSION": "0.33.6-llifpc",
+  "VARIABLES": [
+    "PY3_WHEEL_BASE"
+  ]
+}

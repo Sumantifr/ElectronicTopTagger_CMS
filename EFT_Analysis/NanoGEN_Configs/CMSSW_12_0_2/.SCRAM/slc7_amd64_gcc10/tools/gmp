@@ -1,0 +1,22 @@
+{
+  "GMP_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gmp-static/6.2.0-llifpc",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gmp-static/6.2.0-llifpc/include"
+  ],
+  "LIB": [
+    "gmp"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gmp-static/6.2.0-llifpc/lib"
+  ],
+  "TOOLNAME": "gmp",
+  "TOOLVERSION": "6.2.0-llifpc",
+  "USE": [
+    "mpfr"
+  ],
+  "VARIABLES": [
+    "GMP_BASE",
+    "INCLUDE",
+    "LIBDIR"
+  ]
+}

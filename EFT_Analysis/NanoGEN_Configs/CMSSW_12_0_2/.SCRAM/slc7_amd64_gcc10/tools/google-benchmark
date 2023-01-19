@@ -1,0 +1,22 @@
+{
+  "GOOGLE_BENCHMARK_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/google-benchmark/1.4.x-llifpc3",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/google-benchmark/1.4.x-llifpc3/include"
+  ],
+  "LIB": [
+    "benchmark"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/google-benchmark/1.4.x-llifpc3/lib"
+  ],
+  "TOOLNAME": "google-benchmark",
+  "TOOLVERSION": "1.4.x-llifpc3",
+  "USE": [
+    "sockets"
+  ],
+  "VARIABLES": [
+    "GOOGLE_BENCHMARK_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

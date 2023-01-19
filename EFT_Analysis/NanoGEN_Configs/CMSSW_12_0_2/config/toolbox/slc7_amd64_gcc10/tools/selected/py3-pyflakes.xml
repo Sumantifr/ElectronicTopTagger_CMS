@@ -1,0 +1,6 @@
+<tool name="py3-pyflakes" version="2.2.0-llifpc">
+  <client>
+    <environment name="PY3_PYFLAKES_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-pyflakes/2.2.0-llifpc"/>
+  </client>
+  <runtime name="PATH" value="$PY3_PYFLAKES_BASE/bin" type="path"/>
+</tool>

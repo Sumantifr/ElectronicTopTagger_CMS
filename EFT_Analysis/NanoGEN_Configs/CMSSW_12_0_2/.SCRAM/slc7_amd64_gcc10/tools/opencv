@@ -1,0 +1,30 @@
+{
+  "BINDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/opencv/4.5.1-llifpc2/bin"
+  ],
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/opencv/4.5.1-llifpc2/include"
+  ],
+  "LIB": [
+    "opencv_core"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/opencv/4.5.1-llifpc2/lib"
+  ],
+  "OPENCV_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/opencv/4.5.1-llifpc2",
+  "TOOLNAME": "opencv",
+  "TOOLVERSION": "4.5.1-llifpc2",
+  "USE": [
+    "libpng",
+    "libjpeg-turbo",
+    "zlib",
+    "eigen",
+    "openblas"
+  ],
+  "VARIABLES": [
+    "OPENCV_BASE",
+    "INCLUDE",
+    "LIBDIR",
+    "BINDIR"
+  ]
+}
